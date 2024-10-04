@@ -112,8 +112,8 @@ export default function App() {
       <section className="poem" id="poem">
         <div className="container">
           <div className="title">
-            <h2>Recent Poems &amp; Storiess</h2>
-            <p>recent poems &amp; storiess on the blog</p>
+            <h2>Recent Poems &amp; Stories</h2>
+            <p>recent poems &amp; stories on the blog</p>
           </div>
           <div className="design-content">
             {/* Display filtered poems */}
