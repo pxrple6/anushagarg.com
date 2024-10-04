@@ -115,6 +115,19 @@ export default function App() {
             <h2>Recent Poems &amp; Stories</h2>
             <p>recent poems &amp; stories on the blog</p>
           </div>
+          <div className="container">
+    <div className="title">
+      <h2>Recent Poems &amp; Stories</h2>
+      <p>recent poems &amp; stories on the blog</p>
+      <a 
+        href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="book-link"
+      >
+        Check out "Best Friend Adventures: Diary 1" on Amazon
+      </a>
+    </div>
           <div className="design-content">
             {/* Display filtered poems */}
            {filteredPoems.map((poem, index) => (
