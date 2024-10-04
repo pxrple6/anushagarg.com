@@ -20,13 +20,15 @@ body {
 }
 .book-link {
   display: inline-block;
-  margin: 10px 0;
-  padding: 12px 16px; /* Slightly increased padding */
+  margin: 20px auto; /* Centering with auto margins */
+  padding: 16px 24px; /* Increased padding for larger size */
   background-color: #FFCCFF; /* Base background color */
   color: #111;
   text-decoration: none;
   border-radius: 5px;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Add transition for smoothness */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+  font-size: 1.5rem; /* Increase font size */
+  text-align: center; /* Center text */
 }
 
 .book-link:hover {
@@ -34,6 +36,7 @@ body {
   transform: scale(1.1); /* Slightly increase size on hover */
   color: #fff; /* Change text color on hover */
 }
+
 img {
   max-width: 100%;
   height: auto;
