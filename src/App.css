@@ -106,7 +106,7 @@ header {
 
 .banner-title {
   font-family: var(--Playfair); /* Ensure Playfair font is used */
-  font-size: 5rem; /* Adjust font size */
+  font-size: 15rem; /* Adjust font size */
   text-align: center; /* Center the text */
   color: var(black); /* Use defined color */
 }
