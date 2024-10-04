@@ -88,25 +88,25 @@ export default function App() {
             </div>
           </div>
         </nav>
-        <div className="banner">
-          <div className="container">
-            <h1 className="banner-title">
-              <span>Anusha</span> Garg
-            </h1>
-            <p>everything that i compose &amp; write</p>
-            <form onSubmit={handleSearch}>
-              <input 
-                type="text" 
-                className="search-input" 
-                placeholder="find your poem . . ." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button type="submit" className="search-btn">
-                <i className="fas fa-search" />
-              </button>
-            </form>
-          </div>
+      <div className="banner">
+    <div className="container">
+      <h1 className="typewriter">
+        <span>Anusha</span> Garg
+      </h1>
+      <p>everything that I compose &amp; write</p>
+      <form onSubmit={handleSearch}>
+        <input 
+          type="text" 
+          className="search-input" 
+          placeholder="find your poem . . ." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type="submit" className="search-btn">
+          <i className="fas fa-search" />
+        </button>
+      </form>
+    </div>
         </div>
       </header>
       
