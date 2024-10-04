@@ -110,52 +110,54 @@ export default function App() {
         </div>
       </header>
       
-      <section className="poem" id="poem">
-        <div className="container">
-          <div className="title">
-            <h2>Recent Poems &amp; Stories</h2>
-            <p>recent poems &amp; stories on the blog</p>
-            <a 
-              href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="book-link"
-            >
-              Check out "Best Friend Adventures: Diary 1" on Amazon
+     <section className="poem" id="poem">
+  <div className="container">
+    <div className="title">
+      <h2>Recent Poems &amp; Stories</h2>
+      <p>recent poems &amp; stories on the blog</p>
+    </div>
+    <div className="design-content">
+      {/* Display filtered poems */}
+      {filteredPoems.map((poem, index) => (
+        <div key={index} className="blog-item">
+          <div className="blog-text">
+            <h2>{poem.title}</h2>
+            <p>
+              {poem.showFull ? 
+                poem.content.split('<br>').map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))
+                :
+                poem.content.split('<br>').slice(0, 4).map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))
+              }
+            </p>
+            <a href="#" onClick={() => toggleReadMore(index)}>
+              {poem.showFull ? 'Show Less' : 'Read More'}
             </a>
           </div>
-          <div className="design-content">
-            {/* Display filtered poems */}
-            {filteredPoems.map((poem, index) => (
-              <div key={index} className="blog-item">
-                <div className="blog-text">
-                  <h2>{poem.title}</h2>
-                  <p>
-                    {poem.showFull ? 
-                      poem.content.split('<br>').map((line, index) => (
-                        <React.Fragment key={index}>
-                          {line}
-                          <br />
-                        </React.Fragment>
-                      ))
-                      :
-                      poem.content.split('<br>').slice(0, 4).map((line, index) => (
-                        <React.Fragment key={index}>
-                          {line}
-                          <br />
-                        </React.Fragment>
-                      ))
-                    }
-                  </p>
-                  <a href="#" onClick={() => toggleReadMore(index)}>
-                    {poem.showFull ? 'Show Less' : 'Read More'}
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div> 
         </div>
-      </section>
+      ))}
+    </div>
+    {/* Move the book link here */}
+    <a 
+      href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="book-link"
+    >
+      Check out "Best Friend Adventures: Diary 1" on Amazon
+    </a>
+  </div>
+</section>
+
       
       <section className="about" id="about">
         <div className="container">
