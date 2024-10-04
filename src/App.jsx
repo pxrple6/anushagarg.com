@@ -66,18 +66,26 @@ export default function App() {
     newPoems[index].showFull = !newPoems[index].showFull;
     setPoems(newPoems);
   };
- const [displayedText, setDisplayedText] = useState('');
+const [displayedText, setDisplayedText] = useState('');
   const fullText = "Anusha. Garg";
 
   useEffect(() => {
-    if (displayedText.length < fullText.length) {
-      const timer = setTimeout(() => {
-        setDisplayedText(fullText.slice(0, displayedText.length + 1));
-      }, 150); // Adjust the speed by changing this value
+    let index = 0;
+    
+    const typingEffect = () => {
+      if (index < fullText.length) {
+        setDisplayedText(prev => prev + fullText[index]);
+        index++;
+        setTimeout(typingEffect, 150); // Adjust typing speed here
+      }
+    };
 
-      return () => clearTimeout(timer);
-    }
-  }, [displayedText, fullText]);
+    typingEffect(); // Start the typing effect
+
+    return () => {
+      setDisplayedText(''); // Reset when unmounted
+    };
+  }, [fullText]);
   return (
     <div>
       <meta charSet="utf-8" />
