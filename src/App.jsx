@@ -66,26 +66,7 @@ export default function App() {
     newPoems[index].showFull = !newPoems[index].showFull;
     setPoems(newPoems);
   };
-const [displayedText, setDisplayedText] = useState('');
-  const fullText = "Anusha. Garg";
 
-  useEffect(() => {
-    let index = 0;
-    
-    const typingEffect = () => {
-      if (index < fullText.length) {
-        setDisplayedText(prev => prev + fullText[index]);
-        index++;
-        setTimeout(typingEffect, 150); // Adjust typing speed here
-      }
-    };
-
-    typingEffect(); // Start the typing effect
-
-    return () => {
-      setDisplayedText(''); // Reset when unmounted
-    };
-  }, [fullText]);
   return (
     <div>
       <meta charSet="utf-8" />
