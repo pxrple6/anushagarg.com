@@ -22,14 +22,14 @@ body {
   display: inline-block;
   margin: 10px 0;
   padding: 8px 12px;
-  background-color: #f0c14b; /* Example background color */
+  background-color:FFCCFF; /* Example background color */
   color: #111;
   text-decoration: none;
   border-radius: 5px;
 }
 
 .book-link:hover {
-  background-color: #ddb347; /* Darker shade on hover */
+  background-color:FFCCFF; /* Darker shade on hover */
 }
 img {
   max-width: 100%;
