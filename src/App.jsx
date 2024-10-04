@@ -76,6 +76,7 @@ export default function App() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossOrigin="anonymous" />
       <link rel="stylesheet" href="style.css" />
       
+         
       <header>
         <nav className="navbar">
           <div className="container">
@@ -88,25 +89,25 @@ export default function App() {
             </div>
           </div>
         </nav>
-      <div className="banner">
-    <div className="container">
-      <h1 className="typewriter">
-        <span>Anusha</span> Garg
-      </h1>
-      <p>everything that I compose &amp; write</p>
-      <form onSubmit={handleSearch}>
-        <input 
-          type="text" 
-          className="search-input" 
-          placeholder="find your poem . . ." 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button type="submit" className="search-btn">
-          <i className="fas fa-search" />
-        </button>
-      </form>
-    </div>
+        <div className="banner">
+          <div className="container">
+            <h1 className="banner-title">
+              <span>Anusha</span> Garg
+            </h1>
+            <p>everything that i compose &amp; write</p>
+            <form onSubmit={handleSearch}>
+              <input 
+                type="text" 
+                className="search-input" 
+                placeholder="find your poem . . ." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button type="submit" className="search-btn">
+                <i className="fas fa-search" />
+              </button>
+            </form>
+          </div>
         </div>
       </header>
       
