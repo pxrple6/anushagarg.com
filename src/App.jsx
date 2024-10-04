@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import me from './image.jpg';
-
+import me from './image.jpg'
 export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPoems, setFilteredPoems] = useState([]);
@@ -76,7 +75,6 @@ export default function App() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossOrigin="anonymous" />
       <link rel="stylesheet" href="style.css" />
       
-         
       <header>
         <nav className="navbar">
           <div className="container">
@@ -92,7 +90,7 @@ export default function App() {
         <div className="banner">
           <div className="container">
             <h1 className="banner-title">
-              <span>Anusha</span> Garg
+              <span>Anusha.</span> Garg
             </h1>
             <p>everything that i compose &amp; write</p>
             <form onSubmit={handleSearch}>
@@ -111,54 +109,61 @@ export default function App() {
         </div>
       </header>
       
-     <section className="poem" id="poem">
-  <div className="container">
+      <section className="poem" id="poem">
+        <div className="container">
+          <div className="title">
+            <h2>Recent Poems &amp; Stories</h2>
+            <p>recent poems &amp; stories on the blog</p>
+          </div>
+          <div className="container">
     <div className="title">
       <h2>Recent Poems &amp; Stories</h2>
       <p>recent poems &amp; stories on the blog</p>
+      <a 
+        href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="book-link"
+      >
+        Check out "Best Friend Adventures: Diary 1" on Amazon
+      </a>
     </div>
-    <div className="design-content">
-      {/* Display filtered poems */}
-      {filteredPoems.map((poem, index) => (
-        <div key={index} className="blog-item">
-          <div className="blog-text">
-            <h2>{poem.title}</h2>
-            <p>
-              {poem.showFull ? 
-                poem.content.split('<br>').map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))
-                :
-                poem.content.split('<br>').slice(0, 4).map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))
-              }
-            </p>
-            <a href="#" onClick={() => toggleReadMore(index)}>
-              {poem.showFull ? 'Show Less' : 'Read More'}
-            </a>
-          </div>
-        </div>
-      ))}
+          <div className="design-content">
+            {/* Display filtered poems */}
+           {filteredPoems.map((poem, index) => (
+  <div key={index} className="blog-item">
+    <div className="blog-text">
+      <h2>{poem.title}</h2>
+      <p>
+        {poem.showFull ? 
+          poem.content.split('<br>').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))
+          :
+          poem.content.split('<br>').slice(0, 4).map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))
+        }
+      </p>
+      <a href="#" onClick={() => toggleReadMore(index)}>
+        {poem.showFull ? 'Show Less' : 'Read More'}
+      </a>
     </div>
-    {/* Move the book link here */}
-    <a 
-      href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="book-link"
-    >
-      Check out "Best Friend Adventures: Diary 1" on Amazon
-    </a>
   </div>
-</section>
+))}
 
+
+          </div> 
+        </div>
+      </section>
+      
+    
       
       <section className="about" id="about">
         <div className="container">
