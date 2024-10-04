@@ -66,7 +66,18 @@ export default function App() {
     newPoems[index].showFull = !newPoems[index].showFull;
     setPoems(newPoems);
   };
+ const [displayedText, setDisplayedText] = useState('');
+  const fullText = "Anusha. Garg";
 
+  useEffect(() => {
+    if (displayedText.length < fullText.length) {
+      const timer = setTimeout(() => {
+        setDisplayedText(fullText.slice(0, displayedText.length + 1));
+      }, 150); // Adjust the speed by changing this value
+
+      return () => clearTimeout(timer);
+    }
+  }, [displayedText, fullText]);
   return (
     <div>
       <meta charSet="utf-8" />
@@ -91,7 +102,7 @@ export default function App() {
         <div className="banner">
           <div className="container">
             <h1 className="banner-title">
-              <span>Anusha.</span> Garg
+              <span>Anusha</span> Garg
             </h1>
             <p>everything that i compose &amp; write</p>
             <form onSubmit={handleSearch}>
