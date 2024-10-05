@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import me from './image.jpg';
+import Hero from './components/Hero';
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,6 +84,9 @@ export default function App() {
     return null; // FloatingButton does not render anything
   };
 
+function App() {
+  return <Hero />;
+}
   return (
     <div>
       <meta charSet="utf-8" />
