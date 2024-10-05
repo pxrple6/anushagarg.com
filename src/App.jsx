@@ -60,6 +60,24 @@ export default function App() {
     newPoems[index].showFull = !newPoems[index].showFull;
     setPoems(newPoems);
   };
+const FloatingButton = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://embed.ycb.me';
+    script.async = true;
+    script.setAttribute('data-domain', 'anushagarg');
+    script.setAttribute('data-type', 'button-floating');
+    script.setAttribute('data-buttonicon', 'time');
+    script.setAttribute('data-buttonposition', 'topRight');
+    script.setAttribute('data-buttoncolor', '#FFE7F9');
+
+    document.body.appendChild(script);
+
+    // Cleanup function to remove the script when component unmounts
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div>
