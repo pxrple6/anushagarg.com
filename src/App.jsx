@@ -6,7 +6,7 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPoems, setFilteredPoems] = useState([]);
   const [poems, setPoems] = useState([
-       { 
+    { 
       title: 'Turn Back Time', 
       content: 'I wish I could turn back time<br> when I used to shine<br> shine as a daughter, sister, and a friend<br> oh my lord! when did this end<br><br> I used to be a prodigy<br> But now I feel my life is a tragedy<br><br> With every passing day<br> I think my parents made a mistake<br> the mistake of bringing me to this world<br> how much of a disappointment can they take<br><br> I know I am not perfect<br> I know I am not a star<br> But one day for sure<br> I will take myself far<br><br> Far in success and as of for now<br> I wish my future self all the best', 
       showFull: false 
@@ -37,6 +37,7 @@ export default function App() {
       showFull: false 
     },
   ]);
+
   useEffect(() => {
     if (searchTerm === '') {
       setFilteredPoems(poems);
@@ -60,24 +61,27 @@ export default function App() {
     newPoems[index].showFull = !newPoems[index].showFull;
     setPoems(newPoems);
   };
-const FloatingButton = () => {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://embed.ycb.me';
-    script.async = true;
-    script.setAttribute('data-domain', 'anushagarg');
-    script.setAttribute('data-type', 'button-floating');
-    script.setAttribute('data-buttonicon', 'time');
-    script.setAttribute('data-buttonposition', 'topRight');
-    script.setAttribute('data-buttoncolor', '#FFE7F9');
 
-    document.body.appendChild(script);
+  const FloatingButton = () => {
+    useEffect(() => {
+      const script = document.createElement('script');
+      script.src = 'https://embed.ycb.me';
+      script.async = true;
+      script.setAttribute('data-domain', 'anushagarg');
+      script.setAttribute('data-type', 'button-floating');
+      script.setAttribute('data-buttonicon', 'time');
+      script.setAttribute('data-buttonposition', 'topRight');
+      script.setAttribute('data-buttoncolor', '#FFE7F9');
 
-    // Cleanup function to remove the script when component unmounts
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+      document.body.appendChild(script);
+
+      return () => {
+        document.body.removeChild(script);
+      };
+    }, []);
+
+    return null; // FloatingButton does not render anything
+  };
 
   return (
     <div>
@@ -85,8 +89,7 @@ const FloatingButton = () => {
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <title>ANUSHAGARG.COM</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossOrigin="anonymous" />
-      <link rel="stylesheet" href="style.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossOrigin="anonymous" />
       
       <header>
         <nav className="navbar">
@@ -144,15 +147,15 @@ const FloatingButton = () => {
                   <h2>{poem.title}</h2>
                   <p>
                     {poem.showFull ? 
-                      poem.content.split('<br>').map((line, index) => (
-                        <React.Fragment key={index}>
+                      poem.content.split('<br>').map((line, idx) => (
+                        <React.Fragment key={idx}>
                           {line}
                           <br />
                         </React.Fragment>
                       ))
                       :
-                      poem.content.split('<br>').slice(0, 4).map((line, index) => (
-                        <React.Fragment key={index}>
+                      poem.content.split('<br>').slice(0, 4).map((line, idx) => (
+                        <React.Fragment key={idx}>
                           {line}
                           <br />
                         </React.Fragment>
@@ -196,6 +199,8 @@ const FloatingButton = () => {
         </div>
         <span>anushagarg.com</span>
       </footer>
+
+      <FloatingButton /> {/* Include the floating button here */}
     </div>
   );
 }
