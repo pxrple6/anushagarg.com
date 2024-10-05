@@ -156,15 +156,9 @@ export default function App() {
       </a>
     </div>
   </div>
-))}
-
-
-          </div> 
+))}   </div> 
         </div>
       </section>
-      
-    
-      
       <section className="about" id="about">
         <div className="container">
           <div className="about-content">
