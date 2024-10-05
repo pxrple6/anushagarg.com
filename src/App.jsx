@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import me from './image.jpg';
-import Hero from './components/Hero';
+import Hero from 'Hero.js';
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
