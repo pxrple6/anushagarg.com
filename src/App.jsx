@@ -139,32 +139,35 @@ export default function App() {
               Check out "Best Friend Adventures: Diary 1" on Amazon
             </a>
           </div>
-          <div className="design-content">
-            {/* Display filtered poems */}
-            {filteredPoems.map((poem, index) => (
-              <div key={index} className="blog-item">
-                <div className="blog-text">
-                  <h2>{poem.title}</h2>
-                  <p>
-                    {poem.showFull ? 
-                      poem.content.split('<br>').map((line, idx) => (
-                        <React.Fragment key={idx}>
-                          {line}
-                          <br />
-                        </React.Fragment>
-                      ))
-                      :
-                      poem.content.split('<br>').slice(0, 4).map((line, idx) => (
-                        <React.Fragment key={idx}>
-                          {line}
-                          <br />
-                        </React.Fragment>
-                      ))
-                    }
-                  </p>
-                  <a href="#poems" onClick={() => toggleReadMore(index)}>
-                    {poem.showFull ? 'Show Less' : 'Read More'}
-                  </a>
+          <div className="design-content"
+                 {filteredPoems.map((poem, index) => (
+  <div key={index} className="blog-item">
+    <div className="blog-text">
+      <h2>{poem.title}</h2>
+      <p>
+        {poem.showFull ? 
+          poem.content.split('<br>').map((line, idx) => (
+            <React.Fragment key={idx}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))
+          :
+          poem.content.split('<br>').slice(0, 4).map((line, idx) => (
+            <React.Fragment key={idx}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))
+        }
+      </p>
+      <button onClick={() => toggleReadMore(index)}>
+        {poem.showFull ? 'Show Less' : 'Read More'}
+      </button>
+    </div>
+  </div>
+))}
+
                 </div>
               </div>
             ))}
