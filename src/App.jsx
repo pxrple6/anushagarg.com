@@ -162,7 +162,7 @@ export default function App() {
                       ))
                     }
                   </p>
-                  <a href="#" onClick={() => toggleReadMore(index)}>
+                  <a href="#poems" onClick={() => toggleReadMore(index)}>
                     {poem.showFull ? 'Show Less' : 'Read More'}
                   </a>
                 </div>
