@@ -6,7 +6,7 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPoems, setFilteredPoems] = useState([]);
   const [poems, setPoems] = useState([
-    { 
+     { 
       title: 'Turn Back Time', 
       content: 'I wish I could turn back time<br> when I used to shine<br> shine as a daughter, sister, and a friend<br> oh my lord! when did this end<br><br> I used to be a prodigy<br> But now I feel my life is a tragedy<br><br> With every passing day<br> I think my parents made a mistake<br> the mistake of bringing me to this world<br> how much of a disappointment can they take<br><br> I know I am not perfect<br> I know I am not a star<br> But one day for sure<br> I will take myself far<br><br> Far in success and as of for now<br> I wish my future self all the best', 
       showFull: false 
@@ -39,12 +39,13 @@ export default function App() {
   ]);
 
   useEffect(() => {
+    const lowercasedSearchTerm = searchTerm.toLowerCase();
     if (searchTerm === '') {
       setFilteredPoems(poems);
     } else {
       setFilteredPoems(poems.filter(poem => 
-        poem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        poem.content.toLowerCase().includes(searchTerm.toLowerCase())
+        poem.title.toLowerCase().includes(lowercasedSearchTerm) ||
+        poem.content.toLowerCase().includes(lowercasedSearchTerm)
       ));
     }
   }, [searchTerm, poems]);
@@ -124,36 +125,31 @@ export default function App() {
           </div>
         </div>
       </header>
-<section className="poem" id="poem">
-  <div className="container">
-    <div className="title">
-      <h2>Recent Poems &amp; Stories</h2>
-      <p>recent poems &amp; stories on the blog</p>
-      <a 
-        href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="book-link"
-      >
-        Check out "Best Friend Adventures: Diary 1" on Amazon
-      </a>
-    </div>
-    {filteredPoems.map((poem, index) => (
-      <div key={index} className="poem-card">
-        <h3>{poem.title}</h3>
-        {poem.showFull ? (
-          <p>{poem.content}</p>
-        ) : (
-          <p>{poem.content.substring(0, 100) + '...'}</p>
-        )}
-        <button onClick={() => toggleReadMore(index)} className="read-more-btn">
-          {poem.showFull ? 'Read Less' : 'Read More'}
-        </button>
-      </div>
-    ))}
-  </div>
-</section>
-
+      <section className="poem" id="poem">
+        <div className="container">
+          <div className="title">
+            <h2>Recent Poems &amp; Stories</h2>
+            <p>recent poems &amp; stories on the blog</p>
+            <a 
+              href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="book-link"
+            >
+              Check out "Best Friend Adventures: Diary 1" on Amazon
+            </a>
+          </div>
+          {filteredPoems.map((poem, index) => (
+            <div key={index} className="poem-card">
+              <h3>{poem.title}</h3>
+              <p dangerouslySetInnerHTML={{ __html: poem.showFull ? poem.content : poem.content.substring(0, 100) + '...' }} />
+              <button onClick={() => toggleReadMore(index)} className="read-more-btn">
+                {poem.showFull ? 'Read Less' : 'Read More'}
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="about" id="about">
         <div className="container">
