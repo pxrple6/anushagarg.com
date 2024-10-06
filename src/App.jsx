@@ -137,12 +137,22 @@ export default function App() {
       >
         Check out "Best Friend Adventures: Diary 1" on Amazon
       </a>
-
-
     </div>
+    {filteredPoems.map((poem, index) => (
+      <div key={index} className="poem-card">
+        <h3>{poem.title}</h3>
+        {poem.showFull ? (
+          <p>{poem.content}</p>
+        ) : (
+          <p>{poem.content.substring(0, 100) + '...'}</p>
+        )}
+        <button onClick={() => toggleReadMore(index)} className="read-more-btn">
+          {poem.showFull ? 'Read Less' : 'Read More'}
+        </button>
+      </div>
+    ))}
   </div>
 </section>
-
 
 
       <section className="about" id="about">
