@@ -106,7 +106,7 @@ export default function App() {
         <div className="banner">
           <div className="container">
             <h1 className="banner-title">
-              <span>Anusha.</span> Garg
+              <span>Anusha</span> Garg
             </h1>
             <p>everything that I compose &amp; write</p>
             <form>
