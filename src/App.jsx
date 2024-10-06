@@ -124,56 +124,52 @@ export default function App() {
           </div>
         </div>
       </header>
-      
-      <section className="poem" id="poem">
-        <div className="container">
-          <div className="title">
-            <h2>Recent Poems &amp; Stories</h2>
-            <p>recent poems &amp; stories on the blog</p>
-            <a 
-              href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="book-link"
-            >
-              Check out "Best Friend Adventures: Diary 1" on Amazon
-            </a>
-          </div>
-          <div className="design-content"
-                 {filteredPoems.map((poem, index) => (
-  <div key={index} className="blog-item">
-    <div className="blog-text">
-      <h2>{poem.title}</h2>
-      <p>
-        {poem.showFull ? 
-          poem.content.split('<br>').map((line, idx) => (
-            <React.Fragment key={idx}>
-              {line}
-              <br />
-            </React.Fragment>
-          ))
-          :
-          poem.content.split('<br>').slice(0, 4).map((line, idx) => (
-            <React.Fragment key={idx}>
-              {line}
-              <br />
-            </React.Fragment>
-          ))
-        }
-      </p>
-      <button onClick={() => toggleReadMore(index)}>
-        {poem.showFull ? 'Show Less' : 'Read More'}
-      </button>
+<section className="poem" id="poem">
+  <div className="container">
+    <div className="title">
+      <h2>Recent Poems &amp; Stories</h2>
+      <p>recent poems &amp; stories on the blog</p>
+      <a 
+        href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="book-link"
+      >
+        Check out "Best Friend Adventures: Diary 1" on Amazon
+      </a>
     </div>
-  </div>
-))}
-
-                </div>
-              </div>
-            ))}
+    <div className="design-content">
+      {filteredPoems.map((poem, index) => (
+        <div key={index} className="blog-item">
+          <div className="blog-text">
+            <h2>{poem.title}</h2>
+            <p>
+              {poem.showFull ? 
+                poem.content.split('<br>').map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))
+                :
+                poem.content.split('<br>').slice(0, 4).map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))
+              }
+            </p>
+            <button onClick={() => toggleReadMore(index)}>
+              {poem.showFull ? 'Show Less' : 'Read More'}
+            </button>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       <section className="about" id="about">
         <div className="container">
