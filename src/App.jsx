@@ -138,24 +138,6 @@ export default function App() {
         Check out "Best Friend Adventures: Diary 1" on Amazon
       </a>
     </div>
-    
-    {/* ADDING THIS SECTION TO DISPLAY POEMS */}
-    <div className="poem-list"> {/* NEW DIV TO CONTAIN POEMS */}
-      {filteredPoems.map((poem, index) => ( // LOOP THROUGH FILTERED POEMS
-        <div key={index} className="poem-item"> {/* NEW DIV FOR EACH POEM */}
-          <h3>{poem.title}</h3> {/* TITLE OF THE POEM */}
-          <p 
-            dangerouslySetInnerHTML={{
-              __html: poem.showFull ? poem.content : poem.content.split('<br>').slice(0, 2).join('<br>') + '...' // DISPLAY CONTENT BASED ON STATE
-            }}
-          />
-          <button onClick={() => toggleReadMore(index)}> {/* TOGGLE READ MORE BUTTON */}
-            {poem.showFull ? 'Read Less' : 'Read More'} {/* BUTTON TEXT BASED ON STATE */}
-          </button>
-        </div>
-      ))}
-    </div> {/* END OF POEM LIST DIV */}
-
   </div>
 </section>
 
