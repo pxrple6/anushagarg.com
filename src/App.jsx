@@ -125,7 +125,7 @@ export default function App() {
           </div>
         </div>
       </header>
-     <section className="poem" id="poem">
+    <section className="poem" id="poem">
         <div className="container">
           <div className="title">
             <h2>Recent Poems &amp; Stories</h2>
@@ -139,27 +139,11 @@ export default function App() {
                   __html: poem.showFull ? poem.content : poem.content.substring(0, 100) + '...' 
                 }} 
               />
-              {!poem.showFull && (
-                <button onClick={() => showFullContent(index)} className="read-more-btn">
-                  Read More
-                </button>
-              )}
+              <button onClick={() => toggleReadMore(index)} className="read-more-btn">
+                {poem.showFull ? 'Show Less' : 'Read More'}
+              </button>
             </div>
           ))}
-        </div>
-        <div className="container">
-          <div className="title">
-            <h2>Recent Poems &amp; Stories</h2>
-            <p>recent poems &amp; stories on the blog</p>
-            <a 
-              href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="book-link"
-            >
-              Check out "Best Friend Adventures: Diary 1" on Amazon
-            </a>
-          </div>
         </div>
       </section>
 
