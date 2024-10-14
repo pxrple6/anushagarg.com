@@ -154,24 +154,28 @@ export default function App() {
         </div>
       </section>
 
-      <section className="about" id="about">
-        <div className="container">
-          <div className="about-content">
-            <div>
-              <img src={me} alt="About" />
-            </div>
-            <div className="about-text">
-              <div className="title">
-                <h2>Anusha</h2>
-                <p>literature &amp; coding is my passion</p>
-              </div>
-              <p>
-                I am a storyteller and poet who crafts immersive worlds through words. Beyond prose, I create captivating front-end websites, merging creativity with code. My YouTube channel offers insights into my creative process, writing snippets, and web development projects. Join me on a journey where imagination meets technology, and creativity knows no bounds.
-              </p>
-            </div>
-          </div>
+     <section className="about" id="about">
+  <div className="container">
+    <div className="about-content">
+      <div>
+        <img src={me} alt="About" />
+      </div>
+      <div className="about-text">
+        <div className="title">
+          <h2>Anusha</h2>
+          <p>literature &amp; coding is my passion</p>
         </div>
-      </section>
+        <p>
+          I am a storyteller and poet who crafts immersive worlds through words. Beyond prose, I create captivating front-end websites, merging creativity with code. My YouTube channel offers insights into my creative process, writing snippets, and web development projects. Join me on a journey where imagination meets technology, and creativity knows no bounds.
+        </p>
+        <p>
+          Check out my book: <a href="https://www.amazon.in/BEST-FRIEND-ADVENTURES-DIARY-1-ebook/dp/B08P633K6P" target="_blank" rel="noopener noreferrer">BEST FRIEND ADVENTURES DIARY</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
       
       <footer>
         <div className="social-links">
