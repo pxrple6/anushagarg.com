@@ -43,13 +43,38 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPoems, setFilteredPoems] = useState([]);
   const [poems, setPoems] = useState([
-    { title: 'Turn Back Time', content: 'I wish I could turn back time... (full content)', showFull: false },
-    { title: 'Teenage Chronicles', content: 'Being a teen is so cool... (full content)', showFull: false },
-    { title: 'Dark Phase', content: 'Oh God when will this dark phase end... (full content)', showFull: false },
-    { title: 'Happiness, A Question', content: 'What is happiness?... (full content)', showFull: false },
-    { title: 'A Temptation Tale', content: '"I\'m on a diet," I assured... (full content)', showFull: false },
-    { title: 'The Saga Of Indian Cuisine', content: 'Indian cuisine, a tale indeed... (full content)', showFull: false },
+      { 
+      title: 'Turn Back Time', 
+      content: 'I wish I could turn back time<br> when I used to shine<br> shine as a daughter, sister, and a friend<br> oh my lord! when did this end<br><br> I used to be a prodigy<br> But now I feel my life is a tragedy<br><br> With every passing day<br> I think my parents made a mistake<br> the mistake of bringing me to this world<br> how much of a disappointment can they take<br><br> I know I am not perfect<br> I know I am not a star<br> But one day for sure<br> I will take myself far<br><br> Far in success and as of for now<br> I wish my future self all the best', 
+      showFull: false 
+    },
+    { 
+      title: 'Teenage Chronicles', 
+      content: 'Being a teen is so cool, the kids say<br> But they never realize how quickly time flies<br> Yesterday I was crying to play<br> Now at the blink of an eye,<br> I will soon be facing bills to pay<br><br> Dressing our barbies carefree<br> Climbing huge trees with glee<br> Oh, what sweet reminiscence it brings<br> I still want those wings<br><br> Believing in unicorns, Santa, and fairies<br> Believing in magic, where dreams never vary<br> Now, I\'m a teenager, sitting on the couch<br> Filled with a world of screens and devices one can touch<br><br> I miss the days when I used to play<br> Now I\'m stuck in a world of teens<br> Battling emotions I’ve never seen<br> Day and night I try to figure what life is about<br> But I always end with expectations and self-doubt<br><br> Peer pressure Is always in my ear,<br> The motive of being is never clear<br> No matter how old I get<br> A spark in my heart is set<br> The spark of childhood euphoria<br> The pure joy of a child\'s glee<br> Is the only joy I once again want to see', 
+      showFull: false 
+    },
+    { 
+      title: 'Dark Phase', 
+      content: 'Oh God when will this dark phase end<br> Everyday when I look at my friends<br> With shimmer in my eyes<br> All I see is a dimmed light<br> The light of friendship trust and believe<br> is the only faded light I see<br><br> Oh God what is my mistake<br> Why is my friendship at it’s stake<br><br> Oh God please save this light<br> I beg you so with all my might', 
+      showFull: false 
+    },
+    { 
+      title: 'Happiness, A Question', 
+      content: 'What is happiness?<br> Happiness is nothing but caring less<br> Happiness is a weaving tale<br> Happiness is love but never on a scale<br> Happiness might be a disease<br> Passing from one other with ease<br><br> But If you were to dare<br> If you somewhat actually care<br> You will forced by yourself to ask<br> Is happiness a mask?<br> Does happiness exist?<br> Is happiness just a myth?<br><br> The Answer is quite complicated<br> I believe it is better to gatekeep it<br> Whether happiness exists or not<br> Always remember it has a cost<br> Thus another question arised<br> Shall happiness be compromised?<br> Because what if we fail to pay back?<br><br> By now happiness may seem like a mess<br> But you shall care less<br> Because even if you fail to pay back<br> Happiness would never be something you lack<br> The world is full of happiness<br> Happiness is helping beat the stress<br> The stress of anything that troubles<br> So let\'s spread happiness with our words<br> Let\'s try making happiness free<br> Let\'s try making it as simple as a glee', 
+      showFull: false 
+    },
+    { 
+      title: 'A Temptation Tale', 
+      content: '"I\'m on a diet," I assured,<br> But pizza thoughts, my cravings procured.<br> I picked up the phone to place the call,<br> Oh! How hard my mind tried to haul.<br><br> Tick-tock, the clock felt slow,<br> My cravings aglow, a tempting glow.<br> Ding-dong, the doorbell rang,<br> My pizza order, ready to hang.<br><br> Opening the box, anticipation soared high,<br> A cheesy delight, pleasing to the eye.<br> But as cheese melts, my resolve\'s demise,<br> Resisting temptation, a futile guise.<br><br> Though I aimed for discipline, I must confess,<br> In the face of pizza, I couldn\'t suppress.<br> So I indulged, with guilt and pleasure combined,<br> A fleeting moment of weakness, in my diet confined.', 
+      showFull: false 
+    },
+    { 
+      title: 'The Saga Of Indian Cuisine', 
+      content: 'Indian cuisine, a tale indeed<br> With every state, a new one we weave<br> From paneer to dosa’s<br> From chicken to samosa’s<br><br> Indian cuisine, a divine treat<br> Every corner provides you with a feast<br> From Rasmalai to Boorelu<br> From Kajukatli to Pateleo<br><br> Indian cuisine, you’ll never regret<br> Your cravings always met<br> So immerse yourself in this power divine<br> Cause after all, shikanji is better than wine', 
+      showFull: false 
+    },
   ]);
+
 
   useEffect(() => {
     const lowercasedSearchTerm = searchTerm.toLowerCase();
