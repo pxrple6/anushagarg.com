@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>anushagarg.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
+    rel="stylesheet"
+  />
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" 
+    rel="stylesheet"
+  />
+  <style>
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fall {
+      from { transform: translateY(-100vh); }
+      to { transform: translateY(100vh); }
+    }
+    /* Falling hearts styling */
+    .heart {
+      position: absolute;
+      font-size: 2rem;
+      animation: fall 5s linear infinite;
+      pointer-events: none;
+      z-index: -1; /* Place behind main content */
+      color: #f472b6; /* Pink color for hearts */
+    }
+    .heart:nth-child(odd) {
+      animation-duration: 5s;
+    }
+    .heart:nth-child(even) {
+      animation-duration: 6s;
+    }
+    /* Container for hearts */
+    .hearts-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    /* Typewriter effect */
+    #typewriter {
+      border-right: .15em solid #333;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    /* Main content styling without a box */
+    .main-content {
+      position: relative;
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body class="font-roboto bg-white-100">
+  <!-- Hearts Container (background) -->
+  <div class="hearts-container">
+    <div class="heart" style="top: 10%; left: 5%;">❤️🎀</div>
+    <div class="heart" style="top: 30%; left: 20%;">❤️🎀</div>
+    <div class="heart" style="top: 50%; left: 50%;">❤️🎀</div>
+    <div class="heart" style="top: 70%; left: 75%;">❤️🎀</div>
+    <div class="heart" style="top: 90%; left: 90%;">❤️🎀</div>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content fade-in">
+    <!-- Navigation -->
+    <div class="flex justify-between items-center px-8 py-6 border-b">
+      <div class="flex items-center">
+        <span class="text-2xl font-bold text-pink-600">ANUSHA</span>
+      </div>
+      <button id="menu-toggle" class="text-pink-600 hover:text-pink-800 focus:outline-none">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+    </div>
+    
+    <nav id="nav-menu" class="hidden">
+      <ul class="px-8 py-4 space-y-2 md:space-y-0 md:flex md:space-x-6">
+        <li>
+          <a class="block text-pink-600 hover:text-pink-800 transition-colors" href="index2.html">HOME</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href="about.html">ABOUT</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href="poems.html">POEMS</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href="">SHORT STORIES</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href="contact.html">CONTACT</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="flex flex-col md:flex-row items-center px-8 py-16">
+      <div class="md:w-1/2 mt-6 md:mt-0 flex justify-center">
+        <img alt="Portrait of anushagarg" class="rounded-full fade-in" height="250" width="250" src="anusha.jpg" />
+      </div>
+      <div class="md:w-1/2 text-center md:text-left">
+        <h2 class="text-5xl font-bold text-pink-600 fade-in">
+          HELLO<br/>
+          MY NAME IS<br/>
+          <span id="typewriter"></span>
+        </h2>
+        <p class="text-gray-600 mt-6 fade-in text-lg">
+          Nice to meet you! I'm a Poet/Coder. Get to know me more!
+        </p>
+        <a href="about.html" class="mt-8 inline-block px-8 py-3 bg-pink-600 text-white rounded-full fade-in hover:bg-pink-700 transition-colors">
+          ABOUT ME
+        </a>
+        <div class="mt-8 space-x-4 fade-in">
+          <a href="https://www.instagram.com/garganusha_" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors">
+            <i class="fab fa-instagram fa-2x"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors">
+            <i class="fab fa-linkedin fa-2x"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="bg-pink-600 text-white text-center py-6 mt-6 fade-in">
+    &copy; 2025 anushagarg.com
+  </div>
+  
+  <script>
+    // Wait for the DOM to fully load
+    document.addEventListener("DOMContentLoaded", function() {
+      // Hamburger menu toggle
+      const menuToggle = document.getElementById("menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+      menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("hidden");
+      });
+      
+      // Continuous typewriter effect for "ANUSHA"
+      const text = "ANUSHA";
+      let index = 0;
+      const speed = 150; // milliseconds per character
+      const pauseDuration = 2000; // pause after text is fully typed
+      
+      function typeWriter() {
+        const target = document.getElementById("typewriter");
+        if (index < text.length) {
+          target.innerHTML += text.charAt(index);
+          index++;
+          setTimeout(typeWriter, speed);
+        } else {
+          // After finishing, pause, then clear and restart
+          setTimeout(() => {
+            target.innerHTML = "";
+            index = 0;
+            typeWriter();
+          }, pauseDuration);
+        }
+      }
+      
+      typeWriter();
+    });
+  </script>
+</body>
+</html>

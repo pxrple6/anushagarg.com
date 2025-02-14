@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poems - anushagarg.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>  
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="font-roboto bg-white-100">
+ 
+  <div class="bg-white shadow-md mx-auto max-w-4xl fade-in relative">
+    <div class="flex justify-between items-center px-6 py-4 border-b">
+      <div class="flex items-center">
+        <span class="text-xl font-bold text-pink-600">ANUSHA</span>
+      </div>
+     
+      <button id="menu-toggle" class="text-pink-600 hover:text-pink-800 focus:outline-none md:hidden">
+        <i class="fas fa-bars fa-3x"></i>
+      </button>
+     
+      <nav id="nav-menu" class="hidden md:flex space-x-4">
+        <a class="text-gray-600" href="index2.html">HOME</a>
+        <a class="text-gray-600" href="about.html">ABOUT</a>
+        <a class="text-pink-600 border-b-2 border-pink-600" href="poems.html">POEMS</a>
+        <a class="text-gray-600" href="">SHORT STORIES</a>
+        <a class="text-gray-600" href="contact.html">CONTACT</a>
+      </nav>
+    </div>
+ 
+    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white shadow-md md:hidden">
+      <a class="block px-6 py-3 text-gray-600 border-b" href="index2.html">HOME</a>
+      <a class="block px-6 py-3 text-gray-600 border-b" href="about.html">ABOUT</a>
+      <a class="block px-6 py-3 text-pink-600 border-b" href="poems.html">POEMS</a>
+      <a class="block px-6 py-3 text-gray-600 border-b" href="shortstories.html">SHORT STORIES</a>
+      <a class="block px-6 py-3 text-gray-600" href="contact.html">CONTACT</a>
+    </div>
+  </div>
+
+  <div class="px-6 py-12">
+    <h2 class="text-4xl font-bold text-pink-600 text-center fade-in">POEMS</h2>
+    
+
+    <div class="mt-8 flex justify-center">
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search poems..." 
+        class="border border-gray-300 rounded-l px-4 py-2 focus:outline-none" 
+      />
+      <button 
+        id="searchBtn"
+        class="bg-pink-600 text-white rounded-r px-4 py-2"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    
+  
+<div id="poemsContainer" class="mt-8 space-y-4">
+
+  <div class="bg-white p-6 shadow rounded fade-in poem-box">
+    <div class="flex justify-between items-center">
+      <h3 class="text-2xl font-bold text-pink-600">I Wish I Could Turn Back Time</h3>
+      <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+    </div>
+    <div class="poem-content mt-4 hidden">
+      <pre>
+I wish I could turn back time
+when I used to shine
+shine as a daughter, sister, and a friend
+oh my lord! when did this end
+
+I used to be a prodigy
+But now I feel my life is a tragedy
+
+With every passing day
+I think my parents made a mistake
+the mistake of bringing me to this world
+how much of a disappointment can they take
+
+I know I am not perfect
+I know I am not a star
+But one day for sure
+I will take myself far
+
+Far in success and as of for now
+I wish my future self all the best
+      </pre>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 shadow rounded fade-in poem-box">
+    <div class="flex justify-between items-center">
+      <h3 class="text-2xl font-bold text-pink-600">Teenage Chronicles</h3>
+      <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+    </div>
+    <div class="poem-content mt-4 hidden">
+      <pre>
+Being a teen is so cool, the kids say
+But they never realize how quickly time flies
+Yesterday I was crying to play
+Now at the blink of an eye,
+I will soon be facing bills to pay
+
+Dressing our barbies carefree
+Climbing huge trees with glee
+Oh, what sweet reminiscence it brings
+I still want those wings
+
+Believing in unicorns, Santa, and fairies
+Believing in magic, where dreams never vary
+Now, I'm a teenager, sitting on the couch
+Filled with a world of screens and devices one can touch
+
+I miss the days when I used to play
+Now I'm stuck in a world of teens
+Battling emotions I’ve never seen
+Day and night I try to figure what life is about
+But I always end with expectations and self-doubt
+
+Peer pressure Is always in my ear,
+The motive of being is never clear
+No matter how old I get
+A spark in my heart is set
+The spark of childhood euphoria
+The pure joy of a child's glee
+Is the only joy I once again want to see
+      </pre>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white p-6 shadow rounded fade-in poem-box">
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl font-bold text-pink-600">Dark Phase</h3>
+    <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+  </div>
+  <div class="poem-content mt-4 hidden">
+    <pre>
+Oh God when will this dark phase end
+Everyday when I look at my friends
+With shimmer in my eyes
+All I see is a dimmed light
+The light of friendship trust and believe
+is the only faded light I see
+
+Oh God what is my mistake
+Why is my friendship at it’s stake
+
+Oh God please save this light
+I beg you so with all my might
+    </pre>
+  </div>
+</div>
+</div>
+
+<div class="bg-white p-6 shadow rounded fade-in poem-box">
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl font-bold text-pink-600">Happiness, A Question</h3>
+    <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+  </div>
+  <div class="poem-content mt-4 hidden">
+    <pre>
+What is happiness?
+Happiness is nothing but caring less
+Happiness is a weaving tale
+Happiness is love but never on a scale
+Happiness might be a disease
+Passing from one other with ease
+
+But If you were to dare
+If you somewhat actually care
+You will forced by yourself to ask
+Is happiness a mask?
+Does happiness exist?
+Is happiness just a myth?
+
+The Answer is quite complicated
+I believe it is better to gatekeep it
+Whether happiness exists or not
+Always remember it has a cost
+Thus another question arised
+Shall happiness be compromised?
+Because what if we fail to pay back?
+
+By now happiness may seem like a mess
+But you shall care less
+Because even if you fail to pay back
+Happiness would never be something you lack
+The world is full of happiness
+Happiness is helping beat the stress
+The stress of anything that troubles
+So let's spread happiness with our words
+Let's try making happiness free
+Let's try making it as simple as a glee
+    </pre>
+  </div>
+</div>
+</div>
+<div class="bg-white p-6 shadow rounded fade-in poem-box">
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl font-bold text-pink-600">A Temptation Tale</h3>
+    <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+  </div>
+  <div class="poem-content mt-4 hidden">
+    <pre>
+I'm on a diet, I assured,
+But pizza thoughts, my cravings procured.
+I picked up the phone to place the call,
+Oh! How hard my mind tried to haul.
+
+Tick-tock, the clock felt slow,
+My cravings aglow, a tempting glow.
+Ding-dong, the doorbell rang,
+My pizza order, ready to hang.
+
+Opening the box, anticipation soared high,
+A cheesy delight, pleasing to the eye.
+But as cheese melts, my resolve's demise,
+Resisting temptation, a futile guise.
+
+Though I aimed for discipline, I must confess,
+In the face of pizza, I couldn't suppress.
+So I indulged, with guilt and pleasure combined,
+A fleeting moment of weakness, in my diet confined.
+    </pre>
+  </div>
+</div>
+</div>
+>
+
+ 
+  <div class="bg-white p-6 shadow rounded fade-in poem-box">
+    <div class="flex justify-between items-center">
+      <h3 class="text-2xl font-bold text-pink-600">Happiest Birthday</h3>
+      <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+    </div>
+    <div class="poem-content mt-4 hidden">
+      <pre>
+Another year, another cheer,
+Brace through the world,
+Loud and clear.
+
+Fifteen, an age so bright,
+Brace yourself, take a flight.
+Teenage, oh so sweet,
+Take your age like a treat.
+
+A step closer towards adulthood,
+A step ahead from childhood.
+But don’t be scared,
+Cause I am here,
+Besties forever!
+I swear.
+
+Now eat a bite
+Of your cake,
+Now leave the fright
+At the gate.
+Hold my hand,
+Together we stand.
+
+Chapter fourteen comes to an end,
+But I am still your best friend.
+      </pre>
+    </div>
+  </div>
+</div>
+<div class="bg-white p-6 shadow rounded fade-in poem-box">
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl font-bold text-pink-600">What Is Love?</h3>
+    <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+  </div>
+  <div class="poem-content mt-4 hidden">
+    <pre>
+Love is a flower,
+Blooming in our hearts.
+Every action makes it pound,
+Every decision counts.
+
+Love isn’t just affection,
+Love isn’t just attention.
+Love is in the air,
+Love is everywhere.
+
+A dove to another,
+A child to his mother,
+One to its career,
+Another to his dear.
+
+They say love is complicated,
+One must keep its heart gated.
+If so, then why?
+What is love? He cries.
+    </pre>
+  </div>
+</div>
+</div>
+<div class="bg-white p-6 shadow rounded fade-in poem-box">
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl font-bold text-pink-600">The Saga Of Indian Cuisine</h3>
+    <button class="bg-pink-600 text-white px-3 py-1 rounded toggle-poem">Show</button>
+  </div>
+  <div class="poem-content mt-4 hidden">
+    <pre>
+Indian cuisine, a tale indeed
+With every state, a new one we weave
+From paneer to dosa’s
+From chicken to samosa’s
+
+Indian cuisine, a divine treat
+Every corner provides you with a feast
+From Rasmalai to Boorelu
+From Kajukatli to Pateleo
+
+Indian cuisine, you’ll never regret
+Your cravings always met
+So immerse yourself in this power divine
+Cause after all, shikanji is better than wine
+    </pre>
+  </div>
+</div>
+</div>
+
+  
+  <div class="bg-pink-600 text-white text-center py-4 mt-4 fade-in">
+    &copy; 2025 anushagarg.com
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Select all toggle buttons
+      const toggleButtons = document.querySelectorAll('.toggle-poem');
+    
+      // Add click event listeners to each button
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Find the corresponding poem content
+          const poemContent = button.closest('.poem-box').querySelector('.poem-content');
+          // Toggle the 'hidden' class to show/hide the content
+          poemContent.classList.toggle('hidden');
+          // Update the button text based on visibility
+          button.textContent = poemContent.classList.contains('hidden') ? 'Show' : 'Hide';
+        });
+      });
+  
+      // Implement search functionality
+      const searchBtn = document.getElementById('searchBtn');
+      const searchInput = document.getElementById('searchInput');
+  
+      searchBtn.addEventListener('click', function() {
+        const searchTerm = searchInput.value.toLowerCase(); // Get the search input
+        const poemTitles = document.querySelectorAll('.poem-box'); // Get all poem boxes
+  
+        // Loop through each poem and filter based on title
+        poemTitles.forEach(poem => {
+          const title = poem.querySelector('h3').textContent.toLowerCase();
+          
+          // If the title includes the search term, show the poem, otherwise hide it
+          if (title.includes(searchTerm)) {
+            poem.style.display = 'block';
+          } else {
+            poem.style.display = 'none';
+          }
+        });
+      });
+  
+      // Optional: Implement search while typing
+      searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const poemTitles = document.querySelectorAll('.poem-box');
+  
+        poemTitles.forEach(poem => {
+          const title = poem.querySelector('h3').textContent.toLowerCase();
+          if (title.includes(searchTerm)) {
+            poem.style.display = 'block';
+          } else {
+            poem.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+  
+  

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - anushagarg.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="font-roboto bg-white-100">
+ 
+  <div class="bg-white shadow-md mx-auto max-w-7xl fade-in">
+  
+    <div class="flex justify-between items-center px-8 py-6 border-b">
+      <div class="flex items-center">
+        <span class="text-2xl font-bold text-pink-600">ANUSHA</span>
+      </div>
+      
+      <button id="menu-toggle" class="text-pink-600 hover:text-pink-800 focus:outline-none">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+    </div>
+   
+    <nav id="nav-menu" class="hidden">
+      <ul class="px-8 py-4 space-y-2 md:space-y-0 md:flex md:space-x-6">
+        <li>
+          <a class="block text-pink-600 hover:text-pink-800 transition-colors" href="index2.html">HOME</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href="about.html">ABOUT</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href="poems.html">POEMS</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href=""">SHORT STORIES</a>
+        </li>
+        <li>
+          <a class="block text-gray-600 hover:text-pink-600 transition-colors" href="contact.html">CONTACT</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="px-6 py-12">
+    <h2 class="text-4xl font-bold text-pink-600 text-center fade-in">
+      ABOUT ME
+    </h2>
+    <div class="mt-8 flex flex-col md:flex-row items-center">
+      <div class="md:w-1/3 flex justify-center">
+        <img alt="Portrait of anushagarg class="rounded-full fade-in" height="250" width="250" src="anusha.jpg"/>
+      </div>
+      <div class="md:w-2/3 mt-6 md:mt-0 md:pl-8 fade-in">
+        <p class="text-gray-600">
+        
+          I am a storyteller and poet, passionate about creating immersive worlds through words. Whether it’s through poetry or short stories, I love crafting narratives that resonate and transport readers to new realms. Writing is my form of expression, a way to connect with others and explore the vast landscapes of the imagination.
+          
+          Beyond the world of prose, I channel my creativity into the realm of web development. As a front-end developer, I merge the art of design with the science of code, building captivating websites that engage and inspire. My YouTube channel offers a glimpse into my creative process, where I share writing snippets, web development projects, and everything that fuels my passion for creativity.
+          
+          But my interests don’t stop there. I also have a love for cooking, where I experiment with flavors and techniques, bringing together ingredients much like words, to create something beautiful. Research is another area I thrive in, always diving deep into new topics, whether it’s for my writing, coding, or just for the pure joy of learning.
+          
+          Join me on this journey where imagination meets technology, and creativity knows no bounds. Let's explore the art of storytelling, web development, and everything in between.
+        </p>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="bg-pink-600 text-white text-center py-4 mt-4 fade-in">
+    &copy; 2025 anushagarg.com
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const menuToggle = document.getElementById("menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+      menuToggle.addEventListener("click", function() {
+        navMenu.classList.toggle("hidden");
+      });
+    });
+  </script>
+</body>
+</html>
