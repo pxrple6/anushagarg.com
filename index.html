@@ -15,7 +15,6 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
     #typewriter {
       border-right: .15em solid #333;
       white-space: nowrap;
@@ -26,103 +25,82 @@
 <body class="font-roboto bg-white">
 
   <!-- Main Content -->
-  <div class="main-content fade-in">
+  <div class="px-8 py-6">
     <!-- Navigation -->
-    <div class="flex justify-between items-center px-8 py-6 border-b">
-      <div class="flex items-center">
-        <span class="text-2xl font-bold text-pink-600">ANUSHA</span>
-      </div>
-      <button id="menu-toggle" class="text-pink-600 hover:text-pink-800 focus:outline-none">
+    <div class="flex justify-between items-center border-b pb-4">
+      <div class="text-2xl font-bold text-pink-600">ANUSHA</div>
+      <button id="menu-toggle" class="text-pink-600 hover:text-pink-800">
         <i class="fas fa-bars fa-2x"></i>
       </button>
     </div>
-
-    <nav id="nav-menu" class="hidden">
-      <ul class="px-8 py-4 space-y-2 md:space-y-0 md:flex md:space-x-6">
-        <li><a class="block text-pink-600 hover:text-pink-800 transition-colors" href="index2.html">HOME</a></li>
-        <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="about.html">ABOUT</a></li>
-        <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="poems.html">POEMS</a></li>
-        <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="#">SHORT STORIES</a></li>
-        <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="contact.html">CONTACT</a></li>
+    <nav id="nav-menu" class="hidden mt-4">
+      <ul class="space-y-2 md:flex md:space-x-6 md:space-y-0">
+        <li><a href="index2.html" class="text-pink-600 hover:text-pink-800">HOME</a></li>
+        <li><a href="about.html"   class="text-gray-600 hover:text-pink-600">ABOUT</a></li>
+        <li><a href="poems.html"   class="text-gray-600 hover:text-pink-600">POEMS</a></li>
+        <li><a href="#"            class="text-gray-600 hover:text-pink-600">SHORT STORIES</a></li>
+        <li><a href="contact.html" class="text-gray-600 hover:text-pink-600">CONTACT</a></li>
       </ul>
     </nav>
 
     <!-- Hero Section -->
-    <div class="flex flex-col md:flex-row items-center px-8 py-16">
-      <!-- Image and Blob -->
+    <div class="flex flex-col md:flex-row items-center py-16 gap-12">
+      <!-- Image + Blob -->
       <div class="md:w-1/2 relative flex justify-center items-center">
-        <!-- Blob Background -->
+        <!-- Blob -->
         <div class="absolute -z-10 w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
           <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
             <g transform="translate(400,300)">
-              <path fill="#f9a8d4" d="M151.2,-153.4C194.6,-113.7,222.4,-56.9,215.5,-6.4C208.6,44.2,167,88.4,123.7,119.3C80.5,150.2,35.7,167.7,-10.5,174.2C-56.6,180.7,-113.2,176.2,-145.4,141.5C-177.6,106.8,-185.4,41.9,-170.4,-13.7C-155.4,-69.3,-117.7,-115.5,-72.3,-154.3C-26.9,-193,26.2,-224.3,81.5,-219.2C136.8,-214.1,193.1,-172.5,151.2,-153.4Z" />
+              <path fill="#f9a8d4" d="M151.2,-153.4C194.6,-113.7,222.4,-56.9,215.5,-6.4C208.6,44.2,167,88.4,123.7,119.3C80.5,150.2,35.7,167.7,-10.5,174.2C-56.6,180.7,-113.2,176.2,-145.4,141.5C-177.6,106.8,-185.4,41.9,-170.4,-13.7C-155.4,-69.3,-117.7,-115.5,-72.3,-154.3C-26.9,-193,26.2,-224.3,81.5,-219.2C136.8,-214.1,193.1,-172.5,151.2,-153.4Z"/>
             </g>
           </svg>
         </div>
-
-        <!-- Your Image -->
-        <img alt="Portrait of Anusha" class="rounded-full fade-in relative z-10" height="250" width="250" src="anusha.jpg" />
+        <!-- Portrait -->
+        <img src="anusha.jpg" alt="Anusha" width="250" height="250"
+             class="rounded-full fade-in relative z-10" />
       </div>
 
-      <!-- Text Content -->
-      <div class="md:w-1/2 text-center md:text-left mt-10 md:mt-0">
-        <h2 class="text-5xl font-bold text-pink-600 fade-in">
-          HELLO<br/>
-          MY NAME IS<br/>
+      <!-- Text -->
+      <div class="md:w-1/2 text-center md:text-left">
+        <h2 class="text-5xl font-bold text-pink-600 fade-in leading-tight">
+          HELLO<br/>MY NAME IS<br/>
           <span id="typewriter"></span>
         </h2>
-        <p class="text-gray-600 mt-6 fade-in text-lg">
+        <p class="mt-6 text-gray-600 text-lg fade-in">
           Nice to meet you! I'm a Poet/Coder. Get to know me more!
         </p>
-        <a href="about.html" class="mt-8 inline-block px-8 py-3 bg-pink-600 text-white rounded-full fade-in hover:bg-pink-700 transition-colors">
+        <a href="about.html"
+           class="mt-8 inline-block px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors fade-in">
           ABOUT ME
         </a>
         <div class="mt-8 space-x-4 fade-in">
-          <a href="https://www.instagram.com/garganusha_" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors">
-            <i class="fab fa-instagram fa-2x"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors">
-            <i class="fab fa-linkedin fa-2x"></i>
-          </a>
+          <a href="https://www.instagram.com/garganusha_" target="_blank"
+             class="text-pink-600 hover:text-pink-800"><i class="fab fa-instagram fa-2x"></i></a>
+          <a href="https://www.linkedin.com/in/yourprofile" target="_blank"
+             class="text-pink-600 hover:text-pink-800"><i class="fab fa-linkedin fa-2x"></i></a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
-  <div class="bg-pink-600 text-white text-center py-6 mt-6 fade-in">
+  <footer class="bg-pink-600 text-white text-center py-6">
     &copy; 2025 anushagarg.com
-  </div>
+  </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const menuToggle = document.getElementById("menu-toggle");
-      const navMenu = document.getElementById("nav-menu");
-      menuToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("hidden");
-      });
-
-      const text = "ANUSHA";
-      let index = 0;
-      const speed = 150;
-      const pauseDuration = 2000;
-
-      function typeWriter() {
-        const target = document.getElementById("typewriter");
-        if (index < text.length) {
-          target.innerHTML += text.charAt(index);
-          index++;
-          setTimeout(typeWriter, speed);
-        } else {
-          setTimeout(() => {
-            target.innerHTML = "";
-            index = 0;
-            typeWriter();
-          }, pauseDuration);
-        }
-      }
-
-      typeWriter();
+    document.addEventListener("DOMContentLoaded", () => {
+      // Menu toggle
+      document.getElementById("menu-toggle")
+              .addEventListener("click", () => document.getElementById("nav-menu")
+                                                                .classList.toggle("hidden"));
+      // Typewriter
+      const text = "ANUSHA", pause = 2000, speed = 150;
+      let i = 0, tw = document.getElementById("typewriter");
+      (function type(){ 
+        if(i < text.length) { tw.innerHTML += text[i++]; setTimeout(type, speed); }
+        else { setTimeout(() => { tw.innerHTML = ""; i=0; type(); }, pause); }
+      })();
     });
   </script>
 </body>
