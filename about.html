@@ -2,27 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>anushagarg.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me | anushagarg.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    .fade-in {
-      animation: fadeIn 2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    #typewriter {
-      border-right: .1em solid #333;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
 </head>
-<body class="font-roboto bg-white min-h-screen flex flex-col">
+<body class="font-roboto bg-white text-gray-700 min-h-screen flex flex-col">
 
   <!-- Navbar -->
   <div class="flex justify-between items-center px-8 py-6 border-b">
@@ -34,54 +20,52 @@
 
   <nav id="nav-menu" class="hidden">
     <ul class="px-8 py-4 space-y-2 md:space-y-0 md:flex md:space-x-6">
-      <li><a class="block text-pink-600 hover:text-pink-800 transition-colors" href="index2.html">HOME</a></li>
-      <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="about.html">ABOUT</a></li>
+      <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="index2.html">HOME</a></li>
+      <li><a class="block text-pink-600 hover:text-pink-800 transition-colors" href="#">ABOUT</a></li>
       <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="poems.html">POEMS</a></li>
       <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="#">SHORT STORIES</a></li>
       <li><a class="block text-gray-600 hover:text-pink-600 transition-colors" href="contact.html">CONTACT</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
-  <div class="flex-1 relative flex flex-col items-center justify-center text-center overflow-hidden px-8">
-
-    <!-- Big Yellow Blob -->
-    <svg class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-[1000px] h-[1000px] -z-10" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#fde68a" d="M457.5,26.5Q523,53,554.5,117Q586,181,570,251Q554,321,511,370.5Q468,420,396,437Q324,454,261,436Q198,418,151.5,376Q105,334,65,272Q25,210,67,145.5Q109,81,184.5,56Q260,31,328,35Q396,39,457.5,26.5Z"/>
-    </svg>
-
-    <!-- Profile Picture -->
-    <img src="anusha.jpg" alt="Anusha" class="rounded-full w-48 h-48 object-cover mb-6 fade-in" />
-
-    <!-- Text Section -->
-    <h2 class="text-5xl md:text-6xl font-light text-pink-600 fade-in mb-4 leading-snug">
-      HELLO<br/>
-      MY NAME IS<br/>
-      <span id="typewriter" class="font-medium"></span>
-    </h2>
-
-    <p class="text-gray-600 mt-4 text-lg md:text-xl fade-in max-w-2xl font-light">
-      Nice to meet you! I'm a Poet/Coder. Get to know me more!
+  <!-- About Section -->
+  <div class="flex-1 flex flex-col items-center text-center px-6 py-16">
+    <h1 class="text-4xl md:text-5xl text-pink-600 font-medium mb-6">About Me</h1>
+    <p class="max-w-3xl text-lg md:text-xl leading-relaxed">
+      Hey! I'm <span class="text-pink-600 font-medium">Anusha</span>, a curious blend of <strong>poet</strong> and <strong>coder</strong> on a mission to weave creativity and logic into everything I do.
+      <br /><br />
+      Whether it’s stringing words into verses or writing clean lines of code, I thrive in spaces where expression meets innovation.
+      <br /><br />
+      I’m passionate about using storytelling to inspire, and technology to create impact — from heartfelt poetry to full-stack apps, I love turning ideas into experiences.
     </p>
 
-    <a href="about.html" class="mt-8 inline-block px-10 py-3 bg-pink-600 text-white rounded-full fade-in hover:bg-pink-700 transition-colors text-lg font-medium">
-      ABOUT ME
-    </a>
-
-    <!-- Social Icons -->
-    <div class="mt-8 space-x-6 fade-in">
-      <a href="https://www.instagram.com/garganusha_" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors">
-        <i class="fab fa-instagram fa-2x"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors">
-        <i class="fab fa-linkedin fa-2x"></i>
-      </a>
+    <!-- Fun facts or skills -->
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div>
+        <i class="fas fa-feather-alt fa-2x text-pink-600 mb-4"></i>
+        <h3 class="text-xl font-medium mb-2">Poetry</h3>
+        <p class="text-gray-600">Verses that speak, connect, and spark reflection.</p>
+      </div>
+      <div>
+        <i class="fas fa-code fa-2x text-pink-600 mb-4"></i>
+        <h3 class="text-xl font-medium mb-2">Coding</h3>
+        <p class="text-gray-600">Full-stack web projects with clean, creative code.</p>
+      </div>
+      <div>
+        <i class="fas fa-heart fa-2x text-pink-600 mb-4"></i>
+        <h3 class="text-xl font-medium mb-2">Purpose</h3>
+        <p class="text-gray-600">Fuelled by curiosity, empathy, and a drive to create meaning.</p>
+      </div>
     </div>
 
+    <!-- Call to action -->
+    <a href="contact.html" class="mt-12 inline-block px-10 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors text-lg font-medium">
+      LET’S CONNECT
+    </a>
   </div>
 
   <!-- Footer -->
-  <div class="bg-pink-600 text-white text-center py-6 fade-in text-sm">
+  <div class="bg-pink-600 text-white text-center py-6 text-sm">
     &copy; 2025 anushagarg.com
   </div>
 
@@ -94,29 +78,6 @@
       menuToggle.addEventListener("click", () => {
         navMenu.classList.toggle("hidden");
       });
-
-      // Typewriter Effect
-      const text = "ANUSHA";
-      let index = 0;
-      const speed = 150;
-      const pauseDuration = 2000;
-
-      function typeWriter() {
-        const target = document.getElementById("typewriter");
-        if (index < text.length) {
-          target.innerHTML += text.charAt(index);
-          index++;
-          setTimeout(typeWriter, speed);
-        } else {
-          setTimeout(() => {
-            target.innerHTML = "";
-            index = 0;
-            typeWriter();
-          }, pauseDuration);
-        }
-      }
-
-      typeWriter();
     });
   </script>
 </body>
