@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=10" />
-  <title>Poems - anushagargcom</title>
-  <script src="https://cdntailwindcsscom"></script>  
-  <link
-    href="https://cdnjscloudflarecom/ajax/libs/font-awesome/5153/css/allmincss"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fontsgoogleapiscom/css2?family=Roboto:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    fade-in {
-      animation: fadeIn 2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+<!-- Replace `fade-in` tag/selector with a class -->
+<style>
+  .fade-in {
+    animation: fadeIn 2s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
 </head>
 <body class="font-roboto bg-white-100">
  
@@ -625,56 +620,33 @@ When the world isn’t driven by power or money
     &copy; 2025 anushagargcom
   </div>
   <script>
-    documentaddEventListener("DOMContentLoaded", function() {
-      // Select all toggle buttons
-      const toggleButtons = documentquerySelectorAll('toggle-poem');
-    
-      // Add click event listeners to each button
-      toggleButtonsforEach(button => {
-        buttonaddEventListener('click', () => {
-          // Find the corresponding poem content
-          const poemContent = buttonclosest('poem-box')querySelector('poem-content');
-          // Toggle the 'hidden' class to show/hide the content
-          poemContentclassListtoggle('hidden');
-          // Update the button text based on visibility
-          buttontextContent = poemContentclassListcontains('hidden') ? 'Show' : 'Hide';
-        });
-      });
   
-      // Implement search functionality
-      const searchBtn = documentgetElementById('searchBtn');
-      const searchInput = documentgetElementById('searchInput');
-  
-      searchBtnaddEventListener('click', function() {
-        const searchTerm = searchInputvaluetoLowerCase(); // Get the search input
-        const poemTitles = documentquerySelectorAll('poem-box'); // Get all poem boxes
-  
-        // Loop through each poem and filter based on title
-        poemTitlesforEach(poem => {
-          const title = poemquerySelector('h3')textContenttoLowerCase();
-          
-          // If the title includes the search term, show the poem, otherwise hide it
-          if (titleincludes(searchTerm)) {
-            poemstyledisplay = 'block';
-          } else {
-            poemstyledisplay = 'none';
-          }
-        });
-      });
-    
-      // Optional: Implement search while typing
-      searchInputaddEventListener('input', function() {
-        const searchTerm = searchInputvaluetoLowerCase();
-        const poemTitles = documentquerySelectorAll('poem-box');
-  
-        poemTitlesforEach(poem => {
-          const title = poemquerySelector('h3')textContenttoLowerCase();
-          if (titleincludes(searchTerm)) {
-            poemstyledisplay = 'block';
-          } else {
-            poemstyledisplay = 'none';
-          }
-        });
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleButtons = document.querySelectorAll('.toggle-poem');
+
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const poemBox = button.closest('.poem-box');
+        const poemContent = poemBox.querySelector('.poem-content');
+        poemContent.classList.toggle('hidden');
+        button.textContent = poemContent.classList.contains('hidden') ? 'Show' : 'Hide';
       });
     });
-  </script>
+
+    const searchBtn = document.getElementById('searchBtn');
+    const searchInput = document.getElementById('searchInput');
+
+    function filterPoems() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const poemBoxes = document.querySelectorAll('.poem-box');
+
+      poemBoxes.forEach(poem => {
+        const title = poem.querySelector('h3').textContent.toLowerCase();
+        poem.style.display = title.includes(searchTerm) ? 'block' : 'none';
+      });
+    }
+
+    searchBtn.addEventListener('click', filterPoems);
+    searchInput.addEventListener('input', filterPoems);
+  });
+</script>
