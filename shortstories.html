@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', 'Roboto', sans-serif;
+      background: #f8f5f1;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    /* Paper texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(191, 161, 129, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(124, 92, 54, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(214, 195, 163, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* Floating decorative elements */
+    .floating-element {
+      position: fixed;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 2;
+      animation: float 6s ease-in-out infinite;
+    }
+    .floating-element:nth-child(2) {
+      animation-delay: -2s;
+      animation-duration: 8s;
+    }
+    .floating-element:nth-child(3) {
+      animation-delay: -4s;
+      animation-duration: 7s;
+    }
+    .floating-element:nth-child(4) {
+      animation-delay: -1s;
+      animation-duration: 9s;
+    }
+    .floating-element:nth-child(5) {
+      animation-delay: -3s;
+      animation-duration: 6s;
+    }
+    .floating-element:nth-child(6) {
+      animation-delay: -5s;
+      animation-duration: 10s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+    /* Journal stickers */
+    .journal-sticker {
+      position: fixed;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 2;
+      filter: drop-shadow(0 2px 4px rgba(124, 92, 54, 0.1));
+    }
+    .sticker-1 { top: 15%; left: 10%; animation: gentle-bounce 4s ease-in-out infinite; }
+    .sticker-2 { top: 25%; right: 15%; animation: gentle-bounce 4s ease-in-out infinite 1s; }
+    .sticker-3 { bottom: 20%; left: 8%; animation: gentle-bounce 4s ease-in-out infinite 2s; }
+    .sticker-4 { bottom: 30%; right: 12%; animation: gentle-bounce 4s ease-in-out infinite 3s; }
+    @keyframes gentle-bounce {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+    }
+    /* Hand-drawn decorative lines */
+    .decorative-line {
+      position: fixed;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #bfa181, transparent);
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .line-1 { top: 40%; left: 5%; width: 100px; transform: rotate(-15deg); }
+    .line-2 { top: 60%; right: 8%; width: 80px; transform: rotate(20deg); }
+    .line-3 { bottom: 40%; left: 15%; width: 120px; transform: rotate(-10deg); }
+    .paper-card {
+      background: #fffdf8;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
+      border: 1.5px solid #ede6db;
+      position: relative;
+      z-index: 3;
+    }
+    .essay-card {
+      background: linear-gradient(135deg, #7c5c36 0%, #bfa181 100%);
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.15);
+      border: 1.5px solid #ede6db;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+    }
+    .essay-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px 0 rgba(120, 90, 60, 0.25);
+    }
+    .essay-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(124, 92, 54, 0.9) 0%, rgba(191, 161, 129, 0.8) 100%);
+      z-index: 1;
+    }
+    .essay-card-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      transition: opacity 0.3s ease;
+    }
+    .essay-card-icon {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 3;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      transition: opacity 0.3s ease;
+    }
+    .essay-full-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fffdf8;
+      padding: 2rem;
+      z-index: 4;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .essay-full-content.revealed {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #ede6db;
+      color: #7c5c36;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      z-index: 5;
+    }
+    .back-button:hover {
+      background: #f5eee6;
+    }
+    .essay-card.revealed .essay-card-content,
+    .essay-card.revealed .essay-card-icon {
+      opacity: 0;
+    }
+    .essay-card.revealed {
+      cursor: default;
+    }
+    .essay-card.revealed:hover {
+      transform: none;
+      box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.15);
+    }
+    .search-input {
+      background: #fffdf8;
+      border: 1.5px solid #ede6db;
+      border-radius: 0.75rem 0 0 0.75rem;
+      color: #7c5c36;
+      box-shadow: 0 2px 8px 0 #bfa18122;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: #bfa181;
+      box-shadow: 0 0 0 3px rgba(191, 161, 129, 0.1);
+    }
+    .search-btn {
+      background: #ede6db;
+      border: 1.5px solid #ede6db;
+      border-left: none;
+      border-radius: 0 0.75rem 0.75rem 0;
+      color: #7c5c36;
+      transition: background 0.2s, color 0.2s;
+    }
+    .search-btn:hover {
+      background: #f5eee6;
+      color: #4b3a1a;
+    }
+    .footer-journal {
+      background: #ede6db;
+      border-top: 1.5px solid #d6c3a3;
+      color: #7c5c36;
+      box-shadow: 0 -2px 16px 0 #bfa18111;
+      position: relative;
+      z-index: 3;
+    }
+    .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+      z-index: 3;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .essay-content {
+      font-family: 'Inter', sans-serif;
+      color: #7c5c36;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="font-inter text-[#7c5c36] min-h-screen flex flex-col" style="background: #f8f5f1;">
+  <!-- Background decorative elements -->
+  <div class="floating-element" style="top: 20%; left: 5%; font-size: 2rem; color: #bfa181;">
+    <i class="fas fa-leaf"></i>
+  </div>
+  <div class="floating-element" style="top: 15%; right: 10%; font-size: 1.5rem; color: #7c8c6a;">
+    <i class="fas fa-feather"></i>
+  </div>
+  <div class="floating-element" style="bottom: 25%; left: 12%; font-size: 1.8rem; color: #bfa181;">
+    <i class="fas fa-seedling"></i>
+  </div>
+  <div class="floating-element" style="bottom: 20%; right: 8%; font-size: 1.3rem; color: #7c8c6a;">
+    <i class="fas fa-heart"></i>
+  </div>
+  <div class="floating-element" style="top: 50%; left: 3%; font-size: 1.6rem; color: #bfa181;">
+    <i class="fas fa-star"></i>
+  </div>
+  <div class="floating-element" style="top: 45%; right: 5%; font-size: 1.4rem; color: #7c8c6a;">
+    <i class="fas fa-book-open"></i>
+  </div>
+
+  <!-- Journal stickers -->
+  <div class="journal-sticker sticker-1" style="font-size: 3rem; color: #bfa181;">
+    <i class="fas fa-quote-left"></i>
+  </div>
+  <div class="journal-sticker sticker-2" style="font-size: 2.5rem; color: #7c8c6a;">
+    <i class="fas fa-pen-fancy"></i>
+  </div>
+  <div class="journal-sticker sticker-3" style="font-size: 2.8rem; color: #bfa181;">
+    <i class="fas fa-coffee"></i>
+  </div>
+  <div class="journal-sticker sticker-4" style="font-size: 2.2rem; color: #7c8c6a;">
+    <i class="fas fa-music"></i>
+  </div>
+
+  <!-- Decorative lines -->
+  <div class="decorative-line line-1"></div>
+  <div class="decorative-line line-2"></div>
+  <div class="decorative-line line-3"></div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
+    <div class="text-3xl font-bold tracking-widest font-playfair">ANUSHA</div>
+    <nav class="hidden md:flex space-x-8 text-lg">
+      <a href="index.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a>
+      <a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a>
+      <a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a>
+      <a href="#" class="text-[#bfa181] font-bold transition">ESSAYS</a>
+      <a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a>
+    </nav>
+    <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
+      <i class="fas fa-bars fa-2x"></i>
+    </button>
+  </header>
+  <nav id="nav-menu" class="md:hidden hidden px-8 py-4 paper-card fade-in">
+    <ul class="space-y-4 text-lg">
+      <li><a href="index.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a></li>
+      <li><a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a></li>
+      <li><a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a></li>
+      <li><a href="#" class="text-[#bfa181] font-bold transition">ESSAYS</a></li>
+      <li><a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 px-6 py-12">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-8 fade-in">ESSAYS</h1>
+      
+      <!-- Search Section -->
+      <div class="mt-8 flex justify-center mb-12">
+        <div class="flex">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search essays..." 
+            class="search-input px-4 py-3 focus:outline-none" 
+          />
+          <button 
+            id="searchBtn"
+            class="search-btn px-4 py-3"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Essays Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Essay Card 1 -->
+        <div class="essay-card fade-in" data-essay="1">
+          <div class="essay-card-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <div class="essay-card-content">
+            <h3 class="text-2xl font-playfair font-bold text-white mb-2">Success Isn't Perfection</h3>
+            <p class="text-white/90 text-sm">A reflection on the true meaning of success and the dangers of perfectionism.</p>
+          </div>
+          <div class="essay-full-content" id="essay-1">
+            <button class="back-button" onclick="closeEssay(1)">
+              <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36] mb-4">Success Isn't Perfection</h3>
+            <div class="essay-content">
+              Gloria Steinem, an American journalist and social activist once quoted, "Perfectionism is internalized oppression," and I am a firm believer of the truth it portrays.
+
+              We live in a capitalistic culture - a heavy word with a very simple meaning, it's money that runs everything around and leaves us to be mere puppets. Success is considered to be proportional to the capital or profit you earn. While not true in every case, this layout is what makes those in the top 1% be there and control people like us.
+
+              However, we can't just consider one definition of the term. For me personally, success is being loved and being present within those who look up to you. Another thing that resonates with us when we think about success is perfection. For most of us, success is following a pattern that drives one along, a perfect time to work, a perfect time to rest and a perfect time to be ourselves.
+
+              Maybe this is why we are filled with self-doubt. With the feeling of a constant voice in our head that reminds us "You might have been good but were you perfect?" or "You aren't enough, look around." Today, we are stuck in a loophole of comparison. It's rare for someone to not be their best selves one day and blame themselves for the rest.
+
+              It's the harsh truth, we are guinea pigs running behind the idea of being ideal. We have stopped celebrating small wins. In fact, we have forgotten the meaning of achievement as a whole. Achieving something - big or small, is still worth praise. Opulence does not demand exemplary behaviour, it demands persistence amidst obstacles.
+
+              As a student and the founder of a youth-led initiative, I have learned this early on. Not demanding exemplary behaviour from oneself doesn't mean not doing it at all. Exemplary behaviour reflects the concept of pushing yourself to the extreme and mentally punishing yourself if you fail to do so. However, it also means to try your best and to celebrate wherever you stand today and to strive for excellence tomorrow.
+
+              One doesn't have to be a consummate master of anything they do. In actuality, perfectionism leads to nothing but the craving of more. While this idea may seem to ameliorate present efforts, it facilitates nothing but apathy. It restricts the world, limiting creativity and forcing adoption to an uncontrolled life.
+
+              We force ourselves to try harder, even when we mentally and sometimes physically can't. We believe it's praise that drives us, and an idealistic image where we thrive. This not only limits our growth but also impacts how we are and what we want to be.
+
+              We need to realise we humans aren't made to fit in a mold. Everyone has unique ways and to be successful is to thrive in them. To recognise mistakes, to accept errors and to believe in faith. I believe this should be our motive as humans because at the end of the day, you're not a machine that runs by command, you're someone who runs by needs.
+
+              The thought of being a model human teaches us to neglect the process and focus on the result. It reduces the glee of making it and replaces it by the guilt of not being the best. The entire desire to be the best feels like an achievement as a whole but it is not. In the process, we lose ourselves and the motive of why we started in the first place.
+
+              Perfectionism isn't home to success, it's home to the fear of failure. Success can never be the war to be on top, it shall always be the need to do something in the first place. Because, as Pierre Corneille once said, "To win without risk is to triumph without glory."
+
+              I saw this in my life too. If that one day I hadn't decided to make a change, however small, via Annadatri, I would have never been here in the first place. I always feared it would interfere in my studies, that I would not be able to do stuff as good as the other founders do or I wouldn't be able to do anything at all.
+
+              However, it was the strength to overcome all of these obstacles that helped me neglect the thought of debacle and initiate a change, even if it is tiny - it is there and I am here for it. This is what made me drop the idea of being ideal, to try to have people look up to me, because I realised that true success can only be achieved by enjoying the process and being grateful for its existence.
+
+              If you start today and you quit by the thought of failure, you were never really there. To be a master stroke is to stay even in the face of adversity. Success is the art of being strong against failure and chasing ideality will never help achieve it.
+
+              Even James Dyson, the founder and chairman of Dyson, failed 5,217 times before finishing a prototype. The only thing that made him successful was staying. He didn't let the thought of not achieving it for the first time overpower him. He accepted errors and tried his best. This is what marks achievement.
+
+              This is also what I take to be my inspiration, no matter how many times I fail, no matter how many times I want to give up, it's the idea of presence that shall always guide me through. Sir Shakespeare in his play Hamlet asked "To be or not to be, that is the question" and for me the answer shall always be the same because to be is a pathway that leads to be someone for your past self to look up to, not for yourself to regret.
+
+              To end, I believe that success is the gate held by the lock of perfectionism and it is nothing but perseverance that acts as its key.
+            </div>
+          </div>
+        </div>
+
+        <!-- Essay Card 2 -->
+        <div class="essay-card fade-in" data-essay="2">
+          <div class="essay-card-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <div class="essay-card-content">
+            <h3 class="text-2xl font-playfair font-bold text-white mb-2">The Art of Self-Love</h3>
+            <p class="text-white/90 text-sm">Exploring the journey of learning to love and accept ourselves unconditionally.</p>
+          </div>
+          <div class="essay-full-content" id="essay-2">
+            <button class="back-button" onclick="closeEssay(2)">
+              <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36] mb-4">The Art of Self-Love</h3>
+            <div class="essay-content">
+              Self-love is not selfish. It's not narcissistic. It's essential.
+
+              In a world that constantly tells us we're not enough - not thin enough, not smart enough, not successful enough - learning to love ourselves becomes an act of rebellion. It's choosing to see our worth, even when others don't.
+
+              Self-love is about treating ourselves with the same kindness and compassion we would offer to a dear friend. It's about setting boundaries, saying no when we need to, and prioritizing our well-being. It's about celebrating our victories, no matter how small, and being gentle with ourselves during our struggles.
+
+              The journey of self-love is not linear. There are days when we feel confident and strong, and other days when we doubt everything about ourselves. But that's okay. Self-love is not about feeling good all the time; it's about accepting ourselves in all our complexity.
+
+              When we learn to love ourselves, we become better friends, partners, and human beings. We have more to give to others because we're not constantly trying to fill an empty cup. We can show up authentically in the world, knowing that we are worthy of love and respect, just as we are.
+            </div>
+          </div>
+        </div>
+
+        <!-- Essay Card 3 -->
+        <div class="essay-card fade-in" data-essay="3">
+          <div class="essay-card-icon">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <div class="essay-card-content">
+            <h3 class="text-2xl font-playfair font-bold text-white mb-2">Growth Through Adversity</h3>
+            <p class="text-white/90 text-sm">How challenges and difficulties can become our greatest teachers and catalysts for growth.</p>
+          </div>
+          <div class="essay-full-content" id="essay-3">
+            <button class="back-button" onclick="closeEssay(3)">
+              <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36] mb-4">Growth Through Adversity</h3>
+            <div class="essay-content">
+              Life has a way of throwing curveballs when we least expect them. Just when we think we have everything figured out, something happens that shakes us to our core. But what if these moments of adversity are actually opportunities for growth?
+
+              When we face challenges, we are forced to dig deep and discover strengths we never knew we had. We learn resilience, patience, and the ability to adapt to changing circumstances. We develop empathy for others who are going through similar struggles.
+
+              The most beautiful flowers often grow in the harshest conditions. Similarly, our most profound growth often happens during our darkest moments. It's during these times that we learn what truly matters to us, what we're capable of, and who we want to become.
+
+              Adversity teaches us to appreciate the good times and to find joy in the small moments. It helps us develop gratitude for what we have and compassion for those who are struggling. It shapes our character and makes us more resilient human beings.
+
+              So the next time you're facing a difficult situation, remember that this too shall pass. And when it does, you'll be stronger, wiser, and more compassionate than you were before.
+            </div>
+          </div>
+        </div>
+
+        <!-- Essay Card 4 -->
+        <div class="essay-card fade-in" data-essay="4">
+          <div class="essay-card-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="essay-card-content">
+            <h3 class="text-2xl font-playfair font-bold text-white mb-2">The Power of Connection</h3>
+            <p class="text-white/90 text-sm">Exploring how meaningful relationships and human connection enrich our lives.</p>
+          </div>
+          <div class="essay-full-content" id="essay-4">
+            <button class="back-button" onclick="closeEssay(4)">
+              <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36] mb-4">The Power of Connection</h3>
+            <div class="essay-content">
+              In our increasingly digital world, it's easy to forget the importance of genuine human connection. We have hundreds of "friends" on social media, but how many of them truly know us? How many of them would be there for us in our darkest moments?
+
+              True connection is about vulnerability and authenticity. It's about being willing to show our true selves, flaws and all, and accepting others for who they are. It's about listening with empathy and speaking with kindness. It's about being present and fully engaged in our interactions with others.
+
+              The people we surround ourselves with have a profound impact on our lives. They influence our thoughts, our beliefs, and our actions. They can lift us up when we're down and celebrate with us when we succeed. They can challenge us to grow and become better versions of ourselves.
+
+              But meaningful connections require effort and intentionality. They require us to be vulnerable, to be patient, and to be willing to invest time and energy in our relationships. They require us to be present and to truly listen to others.
+
+              In a world that often feels disconnected and lonely, genuine human connection is more important than ever. It's what gives our lives meaning and purpose. It's what makes us feel seen, heard, and valued.
+            </div>
+          </div>
+        </div>
+
+        <!-- Essay Card 5 -->
+        <div class="essay-card fade-in" data-essay="5">
+          <div class="essay-card-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="essay-card-content">
+            <h3 class="text-2xl font-playfair font-bold text-white mb-2">Finding Your Purpose</h3>
+            <p class="text-white/90 text-sm">A guide to discovering what truly matters to you and living a purpose-driven life.</p>
+          </div>
+          <div class="essay-full-content" id="essay-5">
+            <button class="back-button" onclick="closeEssay(5)">
+              <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36] mb-4">Finding Your Purpose</h3>
+            <div class="essay-content">
+              Purpose is not something we find; it's something we create. It's not a destination we arrive at, but a journey we embark on. It's about discovering what truly matters to us and aligning our actions with our values.
+
+              Finding your purpose starts with self-reflection. What brings you joy? What makes you feel alive? What would you do even if you weren't paid for it? These are clues to your purpose.
+
+              Purpose is not about achieving fame or fortune. It's about making a positive impact in the world, no matter how small. It's about using your unique gifts and talents to serve others and contribute to something larger than yourself.
+
+              Your purpose may evolve over time as you grow and change. What mattered to you at 20 may be different from what matters to you at 40. That's okay. The key is to stay connected to your values and to be willing to adapt and grow.
+
+              Living a purpose-driven life doesn't mean everything will be easy. There will still be challenges and setbacks. But when you're connected to your purpose, you have a deeper sense of meaning and fulfillment that helps you navigate life's ups and downs.
+
+              So take the time to reflect on what truly matters to you. Listen to your heart and follow your intuition. Your purpose is waiting to be discovered.
+            </div>
+          </div>
+        </div>
+
+        <!-- Essay Card 6 -->
+        <div class="essay-card fade-in" data-essay="6">
+          <div class="essay-card-icon">
+            <i class="fas fa-mountain"></i>
+          </div>
+          <div class="essay-card-content">
+            <h3 class="text-2xl font-playfair font-bold text-white mb-2">Embracing Change</h3>
+            <p class="text-white/90 text-sm">Learning to navigate life's transitions and find opportunity in uncertainty.</p>
+          </div>
+          <div class="essay-full-content" id="essay-6">
+            <button class="back-button" onclick="closeEssay(6)">
+              <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36] mb-4">Embracing Change</h3>
+            <div class="essay-content">
+              Change is the only constant in life. Yet, despite this universal truth, we often resist change with all our might. We cling to what's familiar, even when it's no longer serving us, because the unknown feels scary and uncertain.
+
+              But what if we learned to embrace change instead of fearing it? What if we saw change as an opportunity for growth and transformation rather than a threat to our stability?
+
+              Change forces us to adapt and grow. It pushes us out of our comfort zones and helps us discover strengths we never knew we had. It teaches us resilience and flexibility. It opens doors to new possibilities and experiences we might never have considered.
+
+              The key to embracing change is to focus on what we can control rather than what we can't. We can't control external circumstances, but we can control how we respond to them. We can choose to see change as an opportunity rather than a threat.
+
+              Change also teaches us to let go. Sometimes we need to let go of old beliefs, old relationships, or old ways of being to make room for new growth. This can be painful, but it's often necessary for our evolution.
+
+              So the next time you're facing a major change in your life, remember that this too shall pass. And when it does, you'll be stronger, wiser, and more resilient than you were before.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-journal text-center py-6 mt-12 fade-in">
+    <span style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: #bfa181;">crafted with love by Anusha</span><br/>
+    &copy; 2025 anushagarg.com
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const essayCards = document.querySelectorAll('.essay-card');
+      const searchBtn = document.getElementById('searchBtn');
+      const searchInput = document.getElementById('searchInput');
+
+      // Click to reveal essay content
+      essayCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const essayId = card.getAttribute('data-essay');
+          revealEssay(essayId);
+        });
+      });
+
+      // Global functions for reveal/close
+      window.revealEssay = function(essayId) {
+        const card = document.querySelector(`[data-essay="${essayId}"]`);
+        const content = document.getElementById(`essay-${essayId}`);
+        
+        // Close all other essays first
+        document.querySelectorAll('.essay-card').forEach(c => {
+          c.classList.remove('revealed');
+        });
+        document.querySelectorAll('.essay-full-content').forEach(c => {
+          c.classList.remove('revealed');
+        });
+        
+        // Reveal current essay
+        card.classList.add('revealed');
+        content.classList.add('revealed');
+      };
+
+      window.closeEssay = function(essayId) {
+        const card = document.querySelector(`[data-essay="${essayId}"]`);
+        const content = document.getElementById(`essay-${essayId}`, event);
+        
+        card.classList.remove('revealed');
+        content.classList.remove('revealed');
+        
+        // Prevent event bubbling
+        event.stopPropagation();
+      };
+
+      // Search functionality
+      function filterEssays() {
+        const searchTerm = searchInput.value.toLowerCase();
+        
+        essayCards.forEach(card => {
+          const title = card.querySelector('h3').textContent.toLowerCase();
+          const description = card.querySelector('p').textContent.toLowerCase();
+          
+          if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      searchBtn.addEventListener('click', filterEssays);
+      searchInput.addEventListener('input', filterEssays);
+    });
+  </script>
+</body>
+</html>
