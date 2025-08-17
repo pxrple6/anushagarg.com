@@ -117,10 +117,44 @@
       box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
       border: 1.5px solid #ede6db;
       transition: transform 0.2s, box-shadow 0.2s;
+      height: 200px; /* Fixed height for uniform cards */
+      display: flex;
+      flex-direction: column;
     }
     .poem-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.12), 0 2px 8px 0 rgba(120, 90, 60, 0.06);
+    }
+    .poem-card-header {
+      padding: 1.5rem 2rem 1rem 2rem;
+      border-bottom: 1px solid #ede6db;
+    }
+    .poem-card-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 2rem 1.5rem 2rem;
+    }
+    .poems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .poems-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .poem-card {
+        height: 180px;
+      }
+      .poem-card-header {
+        padding: 1rem 1.5rem 0.75rem 1.5rem;
+      }
+      .poem-card-content {
+        padding: 0.75rem 1.5rem 1rem 1.5rem;
+      }
     }
     .search-input {
       background: #fffdf8;
@@ -166,9 +200,32 @@
     .poem-content pre {
       font-family: 'Inter', sans-serif;
       color: #7c5c36;
-      line-height: 1.8;
+      line-height: 1.6;
       white-space: pre-wrap;
       word-wrap: break-word;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .poem-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #7c5c36;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .poem-preview {
+      color: #7c5c36;
+      opacity: 0.7;
+      font-size: 0.875rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   </style>
 </head>
@@ -221,7 +278,7 @@
       <a href="#" class="text-[#bfa181] font-bold transition">POEMS</a>
       <a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
       <a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a>
-            <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">EXPERIENCES</a>
+      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">EXPERIENCES</a>
     </nav>
     <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
       <i class="fas fa-bars fa-2x"></i>
@@ -239,7 +296,7 @@
 
   <!-- Main Content -->
   <main class="flex-1 px-6 py-12">
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <h1 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-8 fade-in">POEMS</h1>
       
       <!-- Search Section -->
@@ -260,17 +317,17 @@
         </div>
       </div>
 
-      <!-- Poems Container -->
-      <div id="poemsContainer" class="space-y-6">
+      <!-- Poems Grid Container -->
+      <div id="poemsContainer" class="poems-grid fade-in">
         <!-- Poem 1 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">I Wish I Could Turn Back Time</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">I Wish I Could Turn Back Time</h3>
+            <div class="poem-preview">I wish I could turn back time when I used to shine shine as a daughter, sister, and a friend oh my lord! when did this end...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I wish I could turn back time
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I wish I could turn back time
 when I used to shine
 shine as a daughter, sister, and a friend
 oh my lord! when did this end
@@ -289,20 +346,21 @@ But one day for sure
 I will take myself far
 
 Far in success and as of for now
-I wish my future self all the best
-            </pre>
+I wish my future self all the best</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 2 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Teenage Chronicles</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Teenage Chronicles</h3>
+            <div class="poem-preview">Being a teen is so cool, the kids say But they never realize how quickly time flies Yesterday I was crying to play...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Being a teen is so cool, the kids say
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Being a teen is so cool, the kids say
 But they never realize how quickly time flies
 Yesterday I was crying to play
 Now at the blink of an eye,
@@ -330,20 +388,21 @@ No matter how old I get
 A spark in my heart is set
 The spark of childhood euphoria
 The pure joy of a child's glee
-Is the only joy I once again want to see
-            </pre>
+Is the only joy I once again want to see</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 3 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Dark Phase</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Dark Phase</h3>
+            <div class="poem-preview">Oh God when will this dark phase end Everyday when I look at my friends With shimmer in my eyes All I see is a dimmed light...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Oh God when will this dark phase end
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Oh God when will this dark phase end
 Everyday when I look at my friends
 With shimmer in my eyes
 All I see is a dimmed light
@@ -354,20 +413,21 @@ Oh God what is my mistake
 Why is my friendship at it's stake
 
 Oh God please save this light
-I beg you so with all my might
-            </pre>
+I beg you so with all my might</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 4 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Happiness, A Question</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Happiness, A Question</h3>
+            <div class="poem-preview">What is happiness? Happiness is nothing but caring less Happiness is a weaving tale Happiness is love but never on a scale...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-What is happiness?
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>What is happiness?
 Happiness is nothing but caring less
 Happiness is a weaving tale
 Happiness is love but never on a scale
@@ -398,20 +458,21 @@ Happiness is helping beat the stress
 The stress of anything that troubles
 So let's spread happiness with our words
 Let's try making happiness free
-Let's try making it as simple as a glee
-            </pre>
+Let's try making it as simple as a glee</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 5 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Food Chronicles</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Food Chronicles</h3>
+            <div class="poem-preview">I'm on a diet, I assured, But pizza thoughts, my cravings procured I picked up the phone to place the call...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I'm on a diet, I assured,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I'm on a diet, I assured,
 But pizza thoughts, my cravings procured
 I picked up the phone to place the call,
 Oh! How hard my mind tried to haul
@@ -429,20 +490,21 @@ Resisting temptation, a futile guise
 Though I aimed for discipline, I must confess,
 In the face of pizza, I couldn't suppress
 So I indulged, with guilt and pleasure combined,
-A fleeting moment of weakness, in my diet confined
-            </pre>
+A fleeting moment of weakness, in my diet confined</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 6 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Popularity: A hole</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Popularity: A hole</h3>
+            <div class="poem-preview">Popularity isn't what you think it is, It is a hidden harmony of regret, It is a concept, a mindset A lie that everyone belives...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Popularity isn't what you think it is,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Popularity isn't what you think it is,
 It is a hidden harmony of regret,
 It is a concept, a mindset 
 A lie that everyone belives,
@@ -457,20 +519,21 @@ It feeds on fear, It drinks from doubt,
 Building Thrones on shaky grounds,
 And chose who chase it-lose themselves,
 In echoes that never call them Home
-In the end, popularity buries its own kings
-            </pre>
+In the end, popularity buries its own kings</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 7 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Happiest Birthday</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Happiest Birthday</h3>
+            <div class="poem-preview">Another year, another cheer, Brace through the world, Loud and clear Fifteen, an age so bright...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Another year, another cheer,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Another year, another cheer,
 Brace through the world,
 Loud and clear
 
@@ -494,20 +557,21 @@ Hold my hand,
 Together we stand
 
 Chapter fourteen comes to an end,
-But I am still your best friend
-            </pre>
+But I am still your best friend</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 8 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">What Is Love?</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">What Is Love?</h3>
+            <div class="poem-preview">Love is a flower, Blooming in our hearts Every action makes it pound, Every decision counts...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Love is a flower,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Love is a flower,
 Blooming in our hearts
 Every action makes it pound,
 Every decision counts
@@ -525,20 +589,21 @@ Another to his dear
 They say love is complicated,
 One must keep its heart gated
 If so, then why?
-What is love? He cries
-            </pre>
+What is love? He cries</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 9 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">The Saga Of Indian Cuisine</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">The Saga Of Indian Cuisine</h3>
+            <div class="poem-preview">Indian cuisine, a tale indeed With every state, a new one we weave From paneer to dosa's From chicken to samosa's...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Indian cuisine, a tale indeed
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Indian cuisine, a tale indeed
 With every state, a new one we weave
 From paneer to dosa's
 From chicken to samosa's
@@ -551,20 +616,21 @@ From Kajukatli to Pateleo
 Indian cuisine, you'll never regret
 Your cravings always met
 So immerse yourself in this power divine
-Cause after all, shikanji is better than wine
-            </pre>
+Cause after all, shikanji is better than wine</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 10 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Oh to Be Loved</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Oh to Be Loved</h3>
+            <div class="poem-preview">Oh to be loved, To be someone's dove Oh to be seen To have someone be keen...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Oh to be loved,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Oh to be loved,
 To be someone's dove
 Oh to be seen
 To have someone be keen
@@ -592,20 +658,21 @@ Self love is gain,
 Embrace yourself,
 Hold yourself,
 To be loved by no one else,
-To be loved themselves
-            </pre>
+To be loved themselves</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 11 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Life: A Tale</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Life: A Tale</h3>
+            <div class="poem-preview">Life's a maze, Full of craze, Life's history, Life's a mystery It starts with a cry...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Life's a maze,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Life's a maze,
 Full of craze,
 Life's history,
 Life's a mystery
@@ -633,20 +700,21 @@ Life's a mess,
 A mess that never cleans,
 A wound that never heals,
 Life's beautiful isn't it?
-So wonderful isn't it?
-            </pre>
+So wonderful isn't it?</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 12 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">The Dream & The Reality</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">The Dream & The Reality</h3>
+            <div class="poem-preview">I saw a dream, So unreal it seems, A face so clear, A face so dear, Dancing through the crowd...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I saw a dream,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I saw a dream,
 So unreal it seems,
 A face so clear,
 A face so dear,
@@ -703,20 +771,21 @@ Suffocation is what we all feel,
 It's about time we leave mainstream stuff,
 It's about time we break these cuffs,
 It's time we realize mainstream isn't for all,
-Success lies where passion falls
-            </pre>
+Success lies where passion falls</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 13 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Friendship</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Friendship</h3>
+            <div class="poem-preview">Friendship, The flowers in the garden of life, A relation that always thrives, Something defined so pure, so sure...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Friendship,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Friendship,
 The flowers in the garden of life,
 A relation that always thrives,
 Something defined so pure, so sure,
@@ -739,20 +808,21 @@ Friendship,
 Something I dream so dear,
 Something I always hold near,
 Oh! To have true friends so pretty,
-Oh! To lack them what a sight so pity
-            </pre>
+Oh! To lack them what a sight so pity</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 14 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Borders and Dreams</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Borders and Dreams</h3>
+            <div class="poem-preview">I live in a world separated by borders, Where power rules, And hatred follows, History is taught to learn lessons...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I live in a world separated by borders,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I live in a world separated by borders,
 Where power rules,
 And hatred follows,
 
@@ -773,20 +843,21 @@ Is war always avenge?
 I see a utopian vision,
 Without bombs and nuclear fission,
 Where people live in peace and harmony,
-When the world isn't driven by power or money
-            </pre>
+When the world isn't driven by power or money</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 15 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">The World's a Play</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">The World's a Play</h3>
+            <div class="poem-preview">The world's a play, Where men are mere puppets, It's the words that control, It's the pen who represents him...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-The world's a play,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>The world's a play,
 Where men are mere puppets,
 It's the words that control,
 It's the pen who represents him,
@@ -847,20 +918,21 @@ The rat who cries,
 We've been pained by ones we don't know,
 
 But alas it's a modern world,
-Nobody cares for so.
-            </pre>
+Nobody cares for so.</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 16 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Saturday Bliss (Inspired By Cheap thrills)</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Saturday Bliss (Inspired By Cheap thrills)</h3>
+            <div class="poem-preview">I don't need no fancy car, Or money to take me far, no heels or bougie huts, all I need is music to keep me shut...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I don't need no fancy car,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I don't need no fancy car,
 Or money to take me far,
 no heels or bougie huts,
 all I need is music to keep me shut
@@ -885,20 +957,21 @@ For no elegance shall let you see,
 I shall dance till the night ends,
 With no one to impress, no trends to defend,
 Let the beat be my only brand-
-Barefoot,bold and never planned
-            </pre>
+Barefoot,bold and never planned</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 17 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">The garden of darkness</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">The garden of darkness</h3>
+            <div class="poem-preview">I walked into a garden, Black and white all around, Eyes glued to my path, I didnt care what befound...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I walked into a garden,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I walked into a garden,
 Black and white all around,
 Eyes glued to my path,
 I didnt care what befound,
@@ -943,20 +1016,21 @@ Before I did,
 It took my flower,
 I wanted to resist,
 But deep down i knew,
-I wasnt the best fit.
-            </pre>
+I wasnt the best fit.</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 18 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">My Dear Teddy</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">My Dear Teddy</h3>
+            <div class="poem-preview">I closed my eyes, I opened my hand, And in there, Lied my new bestfriend, I called him teddy...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I closed my eyes,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I closed my eyes,
 I opened my hand,
 And in there,
 Lied my new bestfriend,
@@ -1039,20 +1113,21 @@ He'll never say goodbye.
 And when the time comes,
 You may pass him on too—
 A little thread of love,
-Forever running through.
-            </pre>
+Forever running through.</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 19 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">The Triumph of Silence</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">The Triumph of Silence</h3>
+            <div class="poem-preview">I walked into a field, Nothing special, Or maybe, I didn't care what around, The winds rushed, The wheat blew...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-I walked into a field,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>I walked into a field,
 Nothing special,
 Or maybe,
 I didn't care what around,
@@ -1112,20 +1187,21 @@ Id rather call it tragic,
 It aint fiction,
 Nor dazzling relevation,
 Just a silent breeze-
-Simple meditation
-            </pre>
+Simple meditation</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 20 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">My little solar system</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">My little solar system</h3>
+            <div class="poem-preview">My life is a balckhole, Darkness all around, Curious is one, But Alas no profound, My life lacks gravity...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-My life is a balckhole,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>My life is a balckhole,
 Darkness all around,
 Curious is one,
 But Alas no profound,
@@ -1148,20 +1224,21 @@ My life is Venus,
 Its moon be my heart,
 What drives me is the orbitals,
 My life is Neptune,
-Driven out by life's dance
-            </pre>
+Driven out by life's dance</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 21 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">Dear Santa Claus I have a Wish</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">Dear Santa Claus I have a Wish</h3>
+            <div class="poem-preview">Dear Santa Claus, I have a wish, I wish the time would stop, To change the things that cause...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Dear Santa Claus, 
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Dear Santa Claus, 
 I have a wish,
 I wish the time would stop,
 To change the things that cause,
@@ -1180,20 +1257,21 @@ Time is what ill sue,
 I wish I had a time machine,
 To go back and never be,
 The worlds a masterpiece,
-But I am not the painting it needs
-            </pre>
+But I am not the painting it needs</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 22 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">A flower of the dear</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">A flower of the dear</h3>
+            <div class="poem-preview">My life is a garden, Thorns and spikes around, Pain, sorrow, lies beforund, Each step shall bleed...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-My life is a garden,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>My life is a garden,
 Thorns and spikes around,
 Pain, sorrow, lies  beforund,
 Each step shall bleed,
@@ -1231,20 +1309,21 @@ It shed,
 To all the happiness,
 It fed,
 The flower shall leave its trace,
-Not through the memories but scars it gave
-            </pre>
+Not through the memories but scars it gave</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
 
         <!-- Poem 23 -->
-        <div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">A letter to the lillies</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">A letter to the lillies</h3>
+            <div class="poem-preview">You hate the rain? Asked the lillies But how could i explain? Moonsoon, The only season i glee...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-You hate the rain?
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>You hate the rain?
 Asked the lillies 
 But how could i explain?
 Moonsoon,
@@ -1281,23 +1360,21 @@ Yet, the god of love
 The rain is complicated,
 So is life,
 To the Lillies,
-I offer only silence
-            </pre>
+I offer only silence</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
-      </div>
-    </div>
-  </main>
-<div class="poem-card p-8 fade-in">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-playfair font-bold text-[#7c5c36]">A Symphony of History:Outfits 
 
-</h3>
-            <button class="journal-btn px-4 py-2 toggle-poem">Show</button>
+        <!-- Poem 24 -->
+        <div class="poem-card">
+          <div class="poem-card-header">
+            <h3 class="poem-title font-playfair">A Symphony of History: Outfits</h3>
+            <div class="poem-preview">Woven Thread share stories, every fold singing its own song, Vibrant colours treasure history, While art takes different forms...</div>
           </div>
-          <div class="poem-content hidden">
-            <pre>
-Woven Thread share stories,
+          <div class="poem-card-content">
+            <div class="poem-content hidden">
+              <pre>Woven Thread share stories,
 every fold singing its own song,
 Vibrant colours treasure history,
 While art takes different forms,
@@ -1318,16 +1395,16 @@ We flaunt them with pride,
 every look carries a soul,
 every accessory showing poise,
 Tradition drapes our being,
-in patterns time can’t erase,
+in patterns time can't erase,
 A legacy stitched with passion,
 in every thread — a sacred grace.
 
 From loom to life it lingers,
 echoing roots we hold dear,
 Traditional outfits — more than attire,
-they’re heritage we wear near.
-
-            </pre>
+they're heritage we wear near.</pre>
+            </div>
+            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
         </div>
       </div>
@@ -1348,23 +1425,45 @@ they’re heritage we wear near.
         button.addEventListener('click', () => {
           const poemBox = button.closest('.poem-card');
           const poemContent = poemBox.querySelector('.poem-content');
-          poemContent.classList.toggle('hidden');
-          button.textContent = poemContent.classList.contains('hidden') ? 'Show' : 'Hide';
+          const preview = poemBox.querySelector('.poem-preview');
+          
+          if (poemContent.classList.contains('hidden')) {
+            poemContent.classList.remove('hidden');
+            preview.style.display = 'none';
+            button.textContent = 'Show Less';
+          } else {
+            poemContent.classList.add('hidden');
+            preview.style.display = 'block';
+            button.textContent = 'Read Full Poem';
+          }
         });
       });
 
       const searchBtn = document.getElementById('searchBtn');
       const searchInput = document.getElementById('searchInput');
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
 
       function filterPoems() {
         const searchTerm = searchInput.value.toLowerCase();
         const poemBoxes = document.querySelectorAll('.poem-card');
 
         poemBoxes.forEach(poem => {
-          const title = poem.querySelector('h3').textContent.toLowerCase();
-          poem.style.display = title.includes(searchTerm) ? 'block' : 'none';
+          const title = poem.querySelector('.poem-title').textContent.toLowerCase();
+          const preview = poem.querySelector('.poem-preview').textContent.toLowerCase();
+          const content = poem.querySelector('.poem-content pre').textContent.toLowerCase();
+          
+          if (title.includes(searchTerm) || preview.includes(searchTerm) || content.includes(searchTerm)) {
+            poem.style.display = 'flex';
+          } else {
+            poem.style.display = 'none';
+          }
         });
       }
+
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('hidden');
+      });
 
       searchBtn.addEventListener('click', filterPoems);
       searchInput.addEventListener('input', filterPoems);
