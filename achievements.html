@@ -5,73 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Achievements | anushagarg.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
   <style>
     body {
-      font-family: 'Inter', 'Roboto', sans-serif;
-      background: #f8f5f1;
+      font-family: 'Nunito Sans', sans-serif;
+      background-color: #f8f5f1; /* A soft, off-white paper color */
+      background-image: radial-gradient(circle at 1px 1px, rgba(222, 205, 180, 0.8) 1px, transparent 0);
+      background-size: 25px 25px;
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
     }
-    /* Paper texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(191, 161, 129, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(124, 92, 54, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(214, 195, 163, 0.02) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .floating-element {
-      position: fixed;
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 2;
-      animation: float 6s ease-in-out infinite;
-    }
-    .floating-element:nth-child(2) { animation-delay: -2s; animation-duration: 8s; }
-    .floating-element:nth-child(3) { animation-delay: -4s; animation-duration: 7s; }
-    .floating-element:nth-child(4) { animation-delay: -1s; animation-duration: 9s; }
-    .floating-element:nth-child(5) { animation-delay: -3s; animation-duration: 6s; }
-    .floating-element:nth-child(6) { animation-delay: -5s; animation-duration: 10s; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(5deg); }
-    }
-    .journal-sticker {
-      position: fixed;
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 2;
-      filter: drop-shadow(0 2px 4px rgba(124, 92, 54, 0.1));
-    }
-    .sticker-1 { top: 15%; left: 10%; animation: gentle-bounce 4s ease-in-out infinite; }
-    .sticker-2 { top: 25%; right: 15%; animation: gentle-bounce 4s ease-in-out infinite 1s; }
-    .sticker-3 { bottom: 20%; left: 8%; animation: gentle-bounce 4s ease-in-out infinite 2s; }
-    .sticker-4 { bottom: 30%; right: 12%; animation: gentle-bounce 4s ease-in-out infinite 3s; }
-    @keyframes gentle-bounce {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-10px) scale(1.05); }
-    }
-    .decorative-line {
-      position: fixed;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #bfa181, transparent);
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .line-1 { top: 40%; left: 5%; width: 100px; transform: rotate(-15deg); }
-    .line-2 { top: 60%; right: 8%; width: 80px; transform: rotate(20deg); }
-    .line-3 { bottom: 40%; left: 15%; width: 120px; transform: rotate(-10deg); }
     .paper-card {
       background: #fffdf8;
       border-radius: 1.25rem;
@@ -90,18 +35,45 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .achievement-card {
-      background: linear-gradient(135deg, #fffdf8 80%, #ede6db 100%);
+      background: #fffdf8;
       border-radius: 1.25rem;
-      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08);
+      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
       border: 1.5px solid #ede6db;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 2.5rem 1.5rem 1.5rem;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
       position: relative;
       z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
     .achievement-card:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.15);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.12);
+    }
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 90px;
+      height: 25px;
+      background: rgba(220, 230, 219, 0.7);
+      border-left: 1px dashed rgba(191, 161, 129, 0.5);
+      border-right: 1px dashed rgba(191, 161, 129, 0.5);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transform: translateX(-50%) rotate(-3deg);
+    }
+    .achievement-card:nth-child(3n+1)::before {
+      transform: translateX(-50%) rotate(4deg);
+      width: 70px;
+      background: rgba(237, 230, 219, 0.7);
+    }
+    .achievement-card:nth-child(5n+2)::before {
+      transform: translateX(-50%) rotate(-5deg);
+      width: 110px;
+      background: rgba(214, 195, 163, 0.6);
     }
     .achievement-icon {
       font-size: 2.2rem;
@@ -109,7 +81,7 @@
       margin-bottom: 1rem;
     }
     .achievement-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 1.3rem;
       font-weight: bold;
       color: #7c5c36;
@@ -119,12 +91,12 @@
       font-size: 0.95rem;
       color: #7c8c6a;
       margin-bottom: 0.7rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito Sans', sans-serif;
     }
     .achievement-desc {
       color: #7c5c36;
       font-size: 1rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito Sans', sans-serif;
       line-height: 1.7;
     }
     .footer-journal {
@@ -134,26 +106,56 @@
       box-shadow: 0 -2px 16px 0 #bfa18111;
       position: relative;
       z-index: 3;
+      padding-top: 2.5rem;
+      clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%);
+    }
+    .footer-journal span {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1.4rem;
+      color: #bfa181;
+    }
+    .font-playfair { font-family: 'Lora', serif; }
+    .doodle {
+      position: absolute;
+      z-index: 2;
+      animation: doodle-pulse 5s ease-in-out infinite alternate;
+    }
+    .doodle svg {
+      width: 100%;
+      height: 100%;
+      stroke: #bfa181;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    @keyframes doodle-pulse {
+      from { opacity: 0.2; }
+      to { opacity: 0.6; }
     }
   </style>
 </head>
-<body class="font-inter text-[#7c5c36] min-h-screen flex flex-col" style="background: #f8f5f1;">
-  <!-- Background decorative elements -->
-  <div class="floating-element" style="top: 20%; left: 5%; font-size: 2rem; color: #bfa181;"><i class="fas fa-leaf"></i></div>
-  <div class="floating-element" style="top: 15%; right: 10%; font-size: 1.5rem; color: #7c8c6a;"><i class="fas fa-feather"></i></div>
-  <div class="floating-element" style="bottom: 25%; left: 12%; font-size: 1.8rem; color: #bfa181;"><i class="fas fa-seedling"></i></div>
-  <div class="floating-element" style="bottom: 20%; right: 8%; font-size: 1.3rem; color: #7c8c6a;"><i class="fas fa-heart"></i></div>
-  <div class="floating-element" style="top: 50%; left: 3%; font-size: 1.6rem; color: #bfa181;"><i class="fas fa-star"></i></div>
-  <div class="floating-element" style="top: 45%; right: 5%; font-size: 1.4rem; color: #7c8c6a;"><i class="fas fa-book-open"></i></div>
-  <!-- Journal stickers -->
-  <div class="journal-sticker sticker-1" style="font-size: 3rem; color: #bfa181;"><i class="fas fa-quote-left"></i></div>
-  <div class="journal-sticker sticker-2" style="font-size: 2.5rem; color: #7c8c6a;"><i class="fas fa-pen-fancy"></i></div>
-  <div class="journal-sticker sticker-3" style="font-size: 2.8rem; color: #bfa181;"><i class="fas fa-coffee"></i></div>
-  <div class="journal-sticker sticker-4" style="font-size: 2.2rem; color: #7c8c6a;"><i class="fas fa-music"></i></div>
-  <!-- Decorative lines -->
-  <div class="decorative-line line-1"></div>
-  <div class="decorative-line line-2"></div>
-  <div class="decorative-line line-3"></div>
+<body class="text-[#7c5c36] min-h-screen flex flex-col">
+  <!-- Doodles -->
+  <div class="doodle" style="width: 50px; top: 15%; left: 5%; transform: rotate(-15deg);">
+    <svg viewBox="0 0 100 100"><path d="M20,50 C20,-50 80,150 80,50 C80,-50 20,150 20,50 z" /></svg>
+  </div>
+  <div class="doodle" style="width: 60px; bottom: 15%; right: 5%; transform: rotate(15deg);">
+    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" /></svg>
+  </div>
+  <div class="doodle" style="width: 100px; top: 25%; right: 10%; transform: rotate(10deg);">
+    <svg viewBox="0 0 200 100"><text x="10" y="60" style="font-family: 'Patrick Hand', cursive; font-size: 50px; fill: #e57373; stroke: none;">yay!</text></svg>
+  </div>
+  <div class="doodle" style="width: 60px; bottom: 20%; left: 10%; transform: rotate(-15deg) scaleX(-1);">
+    <svg viewBox="0 0 100 100">
+      <path d="M 50,90 C 40,70 20,80 20,50 C 20,20 40,10 50,10 C 60,10 80,20 80,50 C 80,80 60,70 50,90 M 40,40 C 40,30 45,30 45,40 M 60,40 C 60,30 55,30 55,40" style="stroke: #7c5c36;"></path>
+    </svg>
+  </div>
+  <div class="doodle" style="width: 50px; top: 50%; left: 10%; transform: rotate(-10deg);">
+    <svg viewBox="0 0 100 100">
+        <path d="M 20 50 L 40 70 L 80 30" style="stroke: #7c8c6a; stroke-width: 4;" />
+    </svg>
+  </div>
   <!-- Navbar -->
   <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
     <div class="text-3xl font-bold tracking-widest font-playfair">ANUSHA</div>
@@ -162,7 +164,9 @@
       <a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a>
       <a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a>
       <a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
-      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">EXPERIENCES</a>
+      <a href="posts.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a>
+      <a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a>
+      <a href="#" class="text-[#bfa181] font-bold transition">ACHIEVEMENTS</a>
       <a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a>
     </nav>
     <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
@@ -175,6 +179,8 @@
       <li><a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a></li>
       <li><a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a></li>
       <li><a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a></li>
+      <li><a href="posts.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a></li>
+      <li><a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a></li>
       <li><a href="#" class="text-[#bfa181] font-bold transition">ACHIEVEMENTS</a></li>
       <li><a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a></li>
     </ul>
@@ -245,19 +251,39 @@
           <div class="achievement-date">December 9, 2023</div>
           <div class="achievement-desc">Participated in German Quiz at Weihnachtszauber Inter-School German Language Festival.</div>
         </div>
+          <div class="achievement-card fade-in">
+          <div class="achievement-icon"><i class="fas fa-language"></i></div>
+          <div class="achievement-title">Battle Of Titans - 3rd Position</div>
+          <div class="achievement-date">30th July 2025</div>
+          <div class="achievement-desc"> Won 3rd Prize in the Battle of Titans under the category Tech Verse.</div>
+        </div>
+          <div class="achievement-card fade-in">
+          <div class="achievement-icon"><i class="fas fa-language"></i></div>
+          <div class="achievement-title">Tinker Tutors Youth Ideathon - 3rd Position</div>
+          <div class="achievement-date">1st August, 2025</div>
+          <div class="achievement-desc">Won 3rd Prize in the Youth Ideathon hosted by Tinker Tutors by representing Ahaarvritti.</div>
+        </div>
+          <div class="achievement-card fade-in">
+          <div class="achievement-icon"><i class="fas fa-language"></i></div>
+          <div class="achievement-title">Selected As Top 40 : Samsung Solve for Tomorrow</div>
+          <div class="achievement-date">31st August, 2025</div>
+          <div class="achievement-desc">Selected as top 40 by representing Annadatri and Ahaarvritti</div>
+        </div>
       </div>
     </div>
   </main>
   <!-- Footer -->
   <footer class="footer-journal text-center py-6 mt-12 fade-in">
-    <span style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: #bfa181;">crafted with love by Anusha</span><br/>
+    <span>crafted with love by Anusha</span><br/>
     &copy; 2025 anushagarg.com
   </footer>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("menu-toggle")
-        .addEventListener("click", () => document.getElementById("nav-menu")
-          .classList.toggle("hidden"));
+     document.addEventListener("DOMContentLoaded", function() {
+      const menuToggle = document.getElementById("menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+      menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("hidden");
+      });
     });
   </script>
 </body>
