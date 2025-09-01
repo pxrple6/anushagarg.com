@@ -5,91 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Me | anushagarg.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: 'Inter', 'Roboto', sans-serif;
-      background: #f8f5f1;
+      font-family: 'Nunito Sans', sans-serif;
+      background-color: #f8f5f1; /* A soft, off-white paper color */
+      background-image: radial-gradient(circle at 1px 1px, rgba(222, 205, 180, 0.8) 1px, transparent 0);
+      background-size: 25px 25px;
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
     }
-    /* Paper texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(191, 161, 129, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(124, 92, 54, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(214, 195, 163, 0.02) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    /* Floating decorative elements */
-    .floating-element {
-      position: fixed;
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 2;
-      animation: float 6s ease-in-out infinite;
-    }
-    .floating-element:nth-child(2) {
-      animation-delay: -2s;
-      animation-duration: 8s;
-    }
-    .floating-element:nth-child(3) {
-      animation-delay: -4s;
-      animation-duration: 7s;
-    }
-    .floating-element:nth-child(4) {
-      animation-delay: -1s;
-      animation-duration: 9s;
-    }
-    .floating-element:nth-child(5) {
-      animation-delay: -3s;
-      animation-duration: 6s;
-    }
-    .floating-element:nth-child(6) {
-      animation-delay: -5s;
-      animation-duration: 10s;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(5deg); }
-    }
-    /* Journal stickers */
-    .journal-sticker {
-      position: fixed;
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 2;
-      filter: drop-shadow(0 2px 4px rgba(124, 92, 54, 0.1));
-    }
-    .sticker-1 { top: 15%; left: 10%; animation: gentle-bounce 4s ease-in-out infinite; }
-    .sticker-2 { top: 25%; right: 15%; animation: gentle-bounce 4s ease-in-out infinite 1s; }
-    .sticker-3 { bottom: 20%; left: 8%; animation: gentle-bounce 4s ease-in-out infinite 2s; }
-    .sticker-4 { bottom: 30%; right: 12%; animation: gentle-bounce 4s ease-in-out infinite 3s; }
-    @keyframes gentle-bounce {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-10px) scale(1.05); }
-    }
-    /* Hand-drawn decorative lines */
-    .decorative-line {
-      position: fixed;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #bfa181, transparent);
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .line-1 { top: 40%; left: 5%; width: 100px; transform: rotate(-15deg); }
-    .line-2 { top: 60%; right: 8%; width: 80px; transform: rotate(20deg); }
-    .line-3 { bottom: 40%; left: 15%; width: 120px; transform: rotate(-10deg); }
     .paper-card {
       background: #fffdf8;
       border-radius: 1.25rem;
@@ -103,7 +30,7 @@
       color: #7c5c36;
       border-radius: 9999px;
       font-weight: 700;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito Sans', sans-serif;
       box-shadow: 0 2px 8px 0 #bfa18122;
       border: 1.5px solid #d6c3a3;
       transition: background 0.2s, color 0.2s, box-shadow 0.2s;
@@ -132,6 +59,8 @@
       box-shadow: 0 -2px 16px 0 #bfa18111;
       position: relative;
       z-index: 3;
+      padding-top: 2.5rem;
+      clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%);
     }
     .divider {
       width: 80px;
@@ -142,54 +71,90 @@
       opacity: 0.7;
     }
     .quote-journal {
-      font-family: 'Caveat', cursive;
+      font-family: 'Dancing Script', cursive;
       font-size: 1.5rem;
       color: #bfa181;
       margin-bottom: 2rem;
       display: inline-block;
     }
+    .bow-card::before {
+      content: '🎀';
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%) rotate(10deg);
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+      opacity: 0.95;
+    }
+    .font-playfair {
+      font-family: 'Lora', serif;
+    }
+    .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+      z-index: 3;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .footer-journal span {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2rem;
+    }
+    .doodle {
+      position: absolute;
+      z-index: 2;
+      animation: doodle-pulse 5s ease-in-out infinite alternate;
+    }
+    .doodle svg {
+      width: 100%;
+      height: 100%;
+      stroke: #bfa181;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    @keyframes doodle-pulse {
+      from { opacity: 0.2; }
+      to { opacity: 0.6; }
+    }
+    .scroll-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .scroll-fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
-<body class="font-inter text-[#7c5c36] min-h-screen flex flex-col" style="background: #f8f5f1;">
-  <!-- Background decorative elements -->
-  <div class="floating-element" style="top: 20%; left: 5%; font-size: 2rem; color: #bfa181;">
-    <i class="fas fa-leaf"></i>
+<body class="text-[#7c5c36] min-h-screen flex flex-col">
+  <!-- Doodles -->
+  <div class="doodle" style="width: 50px; top: 15%; left: 5%; transform: rotate(-15deg);">
+    <svg viewBox="0 0 100 100"><path d="M20,50 C20,-50 80,150 80,50 C80,-50 20,150 20,50 z" /></svg>
   </div>
-  <div class="floating-element" style="top: 15%; right: 10%; font-size: 1.5rem; color: #7c8c6a;">
-    <i class="fas fa-feather"></i>
+  <div class="doodle" style="width: 60px; bottom: 15%; right: 5%; transform: rotate(15deg);">
+    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" /></svg>
   </div>
-  <div class="floating-element" style="bottom: 25%; left: 12%; font-size: 1.8rem; color: #bfa181;">
-    <i class="fas fa-seedling"></i>
+  <div class="doodle" style="width: 120px; top: 25%; right: 10%; transform: rotate(10deg);">
+    <svg viewBox="0 0 200 100"><text x="10" y="60" style="font-family: 'Patrick Hand', cursive; font-size: 50px; fill: #7c8c6a; stroke: none;">hello!</text></svg>
   </div>
-  <div class="floating-element" style="bottom: 20%; right: 8%; font-size: 1.3rem; color: #7c8c6a;">
-    <i class="fas fa-heart"></i>
+  <div class="doodle" style="width: 70px; bottom: 20%; left: 10%; transform: rotate(-15deg);">
+    <svg viewBox="0 0 100 100">
+      <path d="M 50,90 C 40,80 20,80 20,60 C 20,30 40,20 50,20 C 60,20 80,30 80,60 C 80,80 60,80 50,90 M 30,50 C 30,40 35,40 35,50 M 70,50 C 70,40 65,40 65,50 M 20 60 L 20 80 M 80 60 L 80 80" style="stroke: #e57373;"></path>
+    </svg>
   </div>
-  <div class="floating-element" style="top: 50%; left: 3%; font-size: 1.6rem; color: #bfa181;">
-    <i class="fas fa-star"></i>
+  <div class="doodle" style="width: 40px; top: 50%; left: 8%; transform: rotate(10deg);">
+    <svg viewBox="0 0 100 100">
+      <circle cx="30" cy="30" r="10" style="stroke: #7c8c6a;"></circle>
+      <circle cx="60" cy="60" r="15" style="stroke: #e57373;"></circle>
+      <circle cx="40" cy="70" r="8" style="stroke: #bfa181;"></circle>
+    </svg>
   </div>
-  <div class="floating-element" style="top: 45%; right: 5%; font-size: 1.4rem; color: #7c8c6a;">
-    <i class="fas fa-book-open"></i>
-  </div>
-
-  <!-- Journal stickers -->
-  <div class="journal-sticker sticker-1" style="font-size: 3rem; color: #bfa181;">
-    <i class="fas fa-quote-left"></i>
-  </div>
-  <div class="journal-sticker sticker-2" style="font-size: 2.5rem; color: #7c8c6a;">
-    <i class="fas fa-pen-fancy"></i>
-  </div>
-  <div class="journal-sticker sticker-3" style="font-size: 2.8rem; color: #bfa181;">
-    <i class="fas fa-coffee"></i>
-  </div>
-  <div class="journal-sticker sticker-4" style="font-size: 2.2rem; color: #7c8c6a;">
-    <i class="fas fa-music"></i>
-  </div>
-
-  <!-- Decorative lines -->
-  <div class="decorative-line line-1"></div>
-  <div class="decorative-line line-2"></div>
-  <div class="decorative-line line-3"></div>
-
   <!-- Navbar -->
   <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
     <div class="text-3xl font-bold tracking-widest font-playfair">ANUSHA</div>
@@ -198,8 +163,10 @@
       <a href="#" class="text-[#bfa181] font-bold transition">ABOUT</a>
       <a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a>
       <a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
+      <a href="posts.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a>
+      <a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a>
+      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a>
       <a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a>
-      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">EXPERIENCES</a>
     </nav>
     <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
       <i class="fas fa-bars fa-2x"></i>
@@ -211,12 +178,15 @@
       <li><a href="#" class="text-[#bfa181] font-bold transition">ABOUT</a></li>
       <li><a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a></li>
       <li><a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a></li>
+      <li><a href="posts.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a></li>
+      <li><a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a></li>
+      <li><a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a></li>
       <li><a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a></li>
     </ul>
   </nav>
   <!-- About Section -->
   <main class="flex-1 flex flex-col items-center text-center px-6 py-16">
-    <div class="max-w-3xl w-full mx-auto paper-card px-8 py-12">
+    <div class="max-w-3xl w-full mx-auto paper-card px-8 py-12 bow-card scroll-fade-in">
       <h1 class="text-4xl md:text-5xl font-playfair font-bold mb-2">About Me</h1>
       <div class="quote-journal">“Creativity is intelligence having fun.”</div>
       <div class="divider"></div>
@@ -255,17 +225,22 @@
   </main>
   <!-- Footer -->
   <footer class="footer-journal text-center py-6 mt-12 fade-in">
-    <span style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: #bfa181;">crafted with love by Anusha</span><br/>
+    <span style="color: #bfa181;">crafted with love by Anusha</span><br/>
     &copy; 2025 anushagarg.com
   </footer>
   <script>
-    // Hamburger Menu Toggle
     document.addEventListener("DOMContentLoaded", function() {
       const menuToggle = document.getElementById("menu-toggle");
       const navMenu = document.getElementById("nav-menu");
+
       menuToggle.addEventListener("click", () => {
         navMenu.classList.toggle("hidden");
       });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
+      });
+      document.querySelectorAll('.scroll-fade-in').forEach(el => observer.observe(el));
     });
   </script>
 </body>

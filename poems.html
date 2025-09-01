@@ -1,93 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poems | anushagarg.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet" />
-  <style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <style>/* Resetting default styles for consistent rendering */
     body {
-      font-family: 'Inter', 'Roboto', sans-serif;
-      background: #f8f5f1;
+      font-family: 'Nunito Sans', sans-serif;
+      background-color: #f8f5f1; /* A soft, off-white paper color */
+      background-image: radial-gradient(circle at 1px 1px, rgba(222, 205, 180, 0.8) 1px, transparent 0);
+      background-size: 25px 25px;
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
     }
-    /* Paper texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(191, 161, 129, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(124, 92, 54, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(214, 195, 163, 0.02) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    /* Floating decorative elements */
-    .floating-element {
-      position: fixed;
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 2;
-      animation: float 6s ease-in-out infinite;
-    }
-    .floating-element:nth-child(2) {
-      animation-delay: -2s;
-      animation-duration: 8s;
-    }
-    .floating-element:nth-child(3) {
-      animation-delay: -4s;
-      animation-duration: 7s;
-    }
-    .floating-element:nth-child(4) {
-      animation-delay: -1s;
-      animation-duration: 9s;
-    }
-    .floating-element:nth-child(5) {
-      animation-delay: -3s;
-      animation-duration: 6s;
-    }
-    .floating-element:nth-child(6) {
-      animation-delay: -5s;
-      animation-duration: 10s;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(5deg); }
-    }
-    /* Journal stickers */
-    .journal-sticker {
-      position: fixed;
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 2;
-      filter: drop-shadow(0 2px 4px rgba(124, 92, 54, 0.1));
-    }
-    .sticker-1 { top: 15%; left: 10%; animation: gentle-bounce 4s ease-in-out infinite; }
-    .sticker-2 { top: 25%; right: 15%; animation: gentle-bounce 4s ease-in-out infinite 1s; }
-    .sticker-3 { bottom: 20%; left: 8%; animation: gentle-bounce 4s ease-in-out infinite 2s; }
-    .sticker-4 { bottom: 30%; right: 12%; animation: gentle-bounce 4s ease-in-out infinite 3s; }
-    @keyframes gentle-bounce {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-10px) scale(1.05); }
-    }
-    /* Hand-drawn decorative lines */
-    .decorative-line {
-      position: fixed;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #bfa181, transparent);
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .line-1 { top: 40%; left: 5%; width: 100px; transform: rotate(-15deg); }
-    .line-2 { top: 60%; right: 8%; width: 80px; transform: rotate(20deg); }
-    .line-3 { bottom: 40%; left: 15%; width: 120px; transform: rotate(-10deg); }
+    /* Styles for the paper card element */
     .paper-card {
       background: #fffdf8;
       border-radius: 1.25rem;
@@ -101,7 +31,7 @@
       color: #7c5c36;
       border-radius: 9999px;
       font-weight: 700;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Nunito Sans', sans-serif;
       box-shadow: 0 2px 8px 0 #bfa18122;
       border: 1.5px solid #d6c3a3;
       transition: background 0.2s, color 0.2s, box-shadow 0.2s;
@@ -111,51 +41,63 @@
       color: #4b3a1a;
       box-shadow: 0 4px 16px 0 #bfa18133;
     }
+    /* Styling the poem cards */
     .poem-card {
       background: #fffdf8;
       border-radius: 1.25rem;
       box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
       border: 1.5px solid #ede6db;
-      transition: transform 0.2s, box-shadow 0.2s;
-      height: 200px; /* Fixed height for uniform cards */
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      position: relative;
+      padding: 1.5rem 2rem;
       display: flex;
       flex-direction: column;
     }
     .poem-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.12), 0 2px 8px 0 rgba(120, 90, 60, 0.06);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.12);
     }
-    .poem-card-header {
-      padding: 1.5rem 2rem 1rem 2rem;
-      border-bottom: 1px solid #ede6db;
+    /* Applying a washi tape effect at the top of poem cards */
+    .poem-card::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 100px;
+      height: 25px;
+      background: rgba(237, 230, 219, 0.7);
+      border-left: 1px dashed rgba(191, 161, 129, 0.5);
+      border-right: 1px dashed rgba(191, 161, 129, 0.5);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transform: translateX(-50%) rotate(-3deg);
     }
-    .poem-card-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem 2rem 1.5rem 2rem;
+    .poem-card:nth-child(3n+1)::before {
+      transform: translateX(-50%) rotate(4deg);
+      width: 80px;
+      background: rgba(220, 230, 219, 0.7);
     }
+    .poem-card:nth-child(5n+2)::before {
+      transform: translateX(-50%) rotate(-5deg);
+      width: 120px;
+    }
+    /* Styling the grid that holds poems */
     .poems-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2.5rem;
       max-width: 1400px;
       margin: 0 auto;
     }
     @media (max-width: 768px) {
       .poems-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 2rem;
       }
       .poem-card {
-        height: 180px;
-      }
-      .poem-card-header {
-        padding: 1rem 1.5rem 0.75rem 1.5rem;
-      }
-      .poem-card-content {
-        padding: 0.75rem 1.5rem 1rem 1.5rem;
+        padding: 1rem 1.5rem;
       }
     }
+    /* Styles for the search input field */
     .search-input {
       background: #fffdf8;
       border: 1.5px solid #ede6db;
@@ -168,6 +110,7 @@
       border-color: #bfa181;
       box-shadow: 0 0 0 3px rgba(191, 161, 129, 0.1);
     }
+    /* Styles for the search button */
     .search-btn {
       background: #ede6db;
       border: 1.5px solid #ede6db;
@@ -180,6 +123,7 @@
       background: #f5eee6;
       color: #4b3a1a;
     }
+    /* Styles for the page footer */
     .footer-journal {
       background: #ede6db;
       border-top: 1.5px solid #d6c3a3;
@@ -187,18 +131,26 @@
       box-shadow: 0 -2px 16px 0 #bfa18111;
       position: relative;
       z-index: 3;
+      padding-top: 2.5rem;
+      clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%);
     }
-    .fade-in {
-      animation: fadeIn 1.5s ease-in-out;
-      position: relative;
-      z-index: 3;
+    .poem-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.7s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* Expanded Poem Content */
+    .poem-card.expanded .poem-content {
+      max-height: 1500px; /* Large enough for any poem */
+      opacity: 1;
+      visibility: visible;
+      transition: max-height 0.7s ease-in-out, opacity 0.5s 0.2s ease-in-out;
     }
     .poem-content pre {
-      font-family: 'Inter', sans-serif;
+      /* General adjustments for pre elements */
+      font-family: 'Nunito Sans', sans-serif;
       color: #7c5c36;
       line-height: 1.6;
       white-space: pre-wrap;
@@ -207,6 +159,7 @@
       margin: 0;
     }
     .poem-title {
+      /* General adjustments for poem titles */
       font-size: 1.25rem;
       font-weight: bold;
       color: #7c5c36;
@@ -218,6 +171,7 @@
       overflow: hidden;
     }
     .poem-preview {
+      /* General adjustments for poem previews */
       color: #7c5c36;
       opacity: 0.7;
       font-size: 0.875rem;
@@ -227,47 +181,73 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+    .poem-card.expanded .poem-preview {
+      /* Hide when expanded */
+      display: none;
+    }
+    .font-playfair {
+      font-family: 'Lora', serif;
+    }
+    .footer-journal span {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1.4rem;
+    }
+    .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+      z-index: 3;
+    }
+    .doodle {
+      position: absolute;
+      z-index: 2;
+      animation: doodle-pulse 5s ease-in-out infinite alternate;
+    }
+    .doodle svg {
+      width: 100%;
+      height: 100%;
+      stroke: #bfa181;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    @keyframes doodle-pulse {
+      from { opacity: 0.2; }
+      to { opacity: 0.6; }
+    }
+    .scroll-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .scroll-fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
-<body class="font-inter text-[#7c5c36] min-h-screen flex flex-col" style="background: #f8f5f1;">
-  <!-- Background decorative elements -->
-  <div class="floating-element" style="top: 20%; left: 5%; font-size: 2rem; color: #bfa181;">
-    <i class="fas fa-leaf"></i>
+<body class="text-[#7c5c36] min-h-screen flex flex-col">
+  <!-- Doodles -->
+  <div class="doodle" style="width: 50px; top: 15%; left: 5%; transform: rotate(-15deg);">
+    <svg viewBox="0 0 100 100"><path d="M20,50 C20,-50 80,150 80,50 C80,-50 20,150 20,50 z" /></svg>
   </div>
-  <div class="floating-element" style="top: 15%; right: 10%; font-size: 1.5rem; color: #7c8c6a;">
-    <i class="fas fa-feather"></i>
+  <div class="doodle" style="width: 60px; bottom: 15%; right: 5%; transform: rotate(15deg);">
+    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" /></svg>
   </div>
-  <div class="floating-element" style="bottom: 25%; left: 12%; font-size: 1.8rem; color: #bfa181;">
-    <i class="fas fa-seedling"></i>
+  <div class="doodle" style="width: 100px; top: 20%; right: 10%; transform: rotate(15deg);">
+    <svg viewBox="0 0 200 100">
+      <path d="M10 50 C 40 0, 60 0, 90 50 C 60 100, 40 100, 10 50 M190 50 C 160 0, 140 0, 110 50 C 140 100, 160 100, 190 50 M100 20 C 120 40, 80 60, 100 80" style="stroke: #f4cae4; stroke-width: 3;"></path>
+    </svg>
   </div>
-  <div class="floating-element" style="bottom: 20%; right: 8%; font-size: 1.3rem; color: #7c8c6a;">
-    <i class="fas fa-heart"></i>
+  <div class="doodle" style="width: 100px; bottom: 25%; left: 10%; transform: rotate(-5deg);">
+    <svg viewBox="0 0 200 100"><text x="10" y="60" style="font-family: 'Patrick Hand', cursive; font-size: 50px; fill: #7c5c36; stroke: none;">love</text></svg>
   </div>
-  <div class="floating-element" style="top: 50%; left: 3%; font-size: 1.6rem; color: #bfa181;">
-    <i class="fas fa-star"></i>
+  <div class="doodle" style="width: 30px; top: 60%; right: 15%; transform: rotate(-10deg);">
+    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" style="stroke-width: 3; stroke: #f4cae4;"/></svg>
   </div>
-  <div class="floating-element" style="top: 45%; right: 5%; font-size: 1.4rem; color: #7c8c6a;">
-    <i class="fas fa-book-open"></i>
+  <div class="doodle" style="width: 20px; top: 30%; left: 15%; transform: rotate(20deg);">
+    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" style="stroke-width: 3; stroke: #7c8c6a;"/></svg>
   </div>
-
-  <!-- Journal stickers -->
-  <div class="journal-sticker sticker-1" style="font-size: 3rem; color: #bfa181;">
-    <i class="fas fa-quote-left"></i>
-  </div>
-  <div class="journal-sticker sticker-2" style="font-size: 2.5rem; color: #7c8c6a;">
-    <i class="fas fa-pen-fancy"></i>
-  </div>
-  <div class="journal-sticker sticker-3" style="font-size: 2.8rem; color: #bfa181;">
-    <i class="fas fa-coffee"></i>
-  </div>
-  <div class="journal-sticker sticker-4" style="font-size: 2.2rem; color: #7c8c6a;">
-    <i class="fas fa-music"></i>
-  </div>
-
-  <!-- Decorative lines -->
-  <div class="decorative-line line-1"></div>
-  <div class="decorative-line line-2"></div>
-  <div class="decorative-line line-3"></div>
 
   <!-- Navbar -->
   <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
@@ -277,8 +257,10 @@
       <a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a>
       <a href="#" class="text-[#bfa181] font-bold transition">POEMS</a>
       <a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
+      <a href="posts.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a>
+      <a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a>
+      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a>
       <a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a>
-      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">EXPERIENCES</a>
     </nav>
     <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
       <i class="fas fa-bars fa-2x"></i>
@@ -290,6 +272,9 @@
       <li><a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a></li>
       <li><a href="#" class="text-[#bfa181] font-bold transition">POEMS</a></li>
       <li><a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a></li>
+      <li><a href="posts.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a></li>
+      <li><a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a></li>
+      <li><a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a></li>
       <li><a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a></li>
     </ul>
   </nav>
@@ -318,16 +303,13 @@
       </div>
 
       <!-- Poems Grid Container -->
-      <div id="poemsContainer" class="poems-grid fade-in">
+      <div id="poemsContainer" class="poems-grid">
         <!-- Poem 1 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">I Wish I Could Turn Back Time</h3>
-            <div class="poem-preview">I wish I could turn back time when I used to shine shine as a daughter, sister, and a friend oh my lord! when did this end...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I wish I could turn back time
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">I Wish I Could Turn Back Time</h3>
+          <div class="poem-preview">I wish I could turn back time when I used to shine shine as a daughter, sister, and a friend oh my lord! when did this end...</div>
+          <div class="poem-content">
+            <pre>I wish I could turn back time
 when I used to shine
 shine as a daughter, sister, and a friend
 oh my lord! when did this end
@@ -347,20 +329,16 @@ I will take myself far
 
 Far in success and as of for now
 I wish my future self all the best</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 2 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Teenage Chronicles</h3>
-            <div class="poem-preview">Being a teen is so cool, the kids say But they never realize how quickly time flies Yesterday I was crying to play...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Being a teen is so cool, the kids say
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Teenage Chronicles</h3>
+          <div class="poem-preview">Being a teen is so cool, the kids say But they never realize how quickly time flies Yesterday I was crying to play...</div>
+          <div class="poem-content">
+            <pre>Being a teen is so cool, the kids say
 But they never realize how quickly time flies
 Yesterday I was crying to play
 Now at the blink of an eye,
@@ -389,20 +367,16 @@ A spark in my heart is set
 The spark of childhood euphoria
 The pure joy of a child's glee
 Is the only joy I once again want to see</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 3 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Dark Phase</h3>
-            <div class="poem-preview">Oh God when will this dark phase end Everyday when I look at my friends With shimmer in my eyes All I see is a dimmed light...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Oh God when will this dark phase end
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Dark Phase</h3>
+          <div class="poem-preview">Oh God when will this dark phase end Everyday when I look at my friends With shimmer in my eyes All I see is a dimmed light...</div>
+          <div class="poem-content">
+            <pre>Oh God when will this dark phase end
 Everyday when I look at my friends
 With shimmer in my eyes
 All I see is a dimmed light
@@ -414,20 +388,16 @@ Why is my friendship at it's stake
 
 Oh God please save this light
 I beg you so with all my might</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 4 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Happiness, A Question</h3>
-            <div class="poem-preview">What is happiness? Happiness is nothing but caring less Happiness is a weaving tale Happiness is love but never on a scale...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>What is happiness?
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Happiness, A Question</h3>
+          <div class="poem-preview">What is happiness? Happiness is nothing but caring less Happiness is a weaving tale Happiness is love but never on a scale...</div>
+          <div class="poem-content">
+            <pre>What is happiness?
 Happiness is nothing but caring less
 Happiness is a weaving tale
 Happiness is love but never on a scale
@@ -459,20 +429,16 @@ The stress of anything that troubles
 So let's spread happiness with our words
 Let's try making happiness free
 Let's try making it as simple as a glee</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 5 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Food Chronicles</h3>
-            <div class="poem-preview">I'm on a diet, I assured, But pizza thoughts, my cravings procured I picked up the phone to place the call...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I'm on a diet, I assured,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Food Chronicles</h3>
+          <div class="poem-preview">I'm on a diet, I assured, But pizza thoughts, my cravings procured I picked up the phone to place the call...</div>
+          <div class="poem-content">
+            <pre>I'm on a diet, I assured,
 But pizza thoughts, my cravings procured
 I picked up the phone to place the call,
 Oh! How hard my mind tried to haul
@@ -491,20 +457,16 @@ Though I aimed for discipline, I must confess,
 In the face of pizza, I couldn't suppress
 So I indulged, with guilt and pleasure combined,
 A fleeting moment of weakness, in my diet confined</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 6 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Popularity: A hole</h3>
-            <div class="poem-preview">Popularity isn't what you think it is, It is a hidden harmony of regret, It is a concept, a mindset A lie that everyone belives...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Popularity isn't what you think it is,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Popularity: A hole</h3>
+          <div class="poem-preview">Popularity isn't what you think it is, It is a hidden harmony of regret, It is a concept, a mindset A lie that everyone belives...</div>
+          <div class="poem-content">
+            <pre>Popularity isn't what you think it is,
 It is a hidden harmony of regret,
 It is a concept, a mindset 
 A lie that everyone belives,
@@ -520,20 +482,16 @@ Building Thrones on shaky grounds,
 And chose who chase it-lose themselves,
 In echoes that never call them Home
 In the end, popularity buries its own kings</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 7 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Happiest Birthday</h3>
-            <div class="poem-preview">Another year, another cheer, Brace through the world, Loud and clear Fifteen, an age so bright...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Another year, another cheer,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Happiest Birthday</h3>
+          <div class="poem-preview">Another year, another cheer, Brace through the world, Loud and clear Fifteen, an age so bright...</div>
+          <div class="poem-content">
+            <pre>Another year, another cheer,
 Brace through the world,
 Loud and clear
 
@@ -558,20 +516,16 @@ Together we stand
 
 Chapter fourteen comes to an end,
 But I am still your best friend</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 8 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">What Is Love?</h3>
-            <div class="poem-preview">Love is a flower, Blooming in our hearts Every action makes it pound, Every decision counts...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Love is a flower,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">What Is Love?</h3>
+          <div class="poem-preview">Love is a flower, Blooming in our hearts Every action makes it pound, Every decision counts...</div>
+          <div class="poem-content">
+            <pre>Love is a flower,
 Blooming in our hearts
 Every action makes it pound,
 Every decision counts
@@ -590,20 +544,16 @@ They say love is complicated,
 One must keep its heart gated
 If so, then why?
 What is love? He cries</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 9 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">The Saga Of Indian Cuisine</h3>
-            <div class="poem-preview">Indian cuisine, a tale indeed With every state, a new one we weave From paneer to dosa's From chicken to samosa's...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Indian cuisine, a tale indeed
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">The Saga Of Indian Cuisine</h3>
+          <div class="poem-preview">Indian cuisine, a tale indeed With every state, a new one we weave From paneer to dosa's From chicken to samosa's...</div>
+          <div class="poem-content">
+            <pre>Indian cuisine, a tale indeed
 With every state, a new one we weave
 From paneer to dosa's
 From chicken to samosa's
@@ -617,20 +567,16 @@ Indian cuisine, you'll never regret
 Your cravings always met
 So immerse yourself in this power divine
 Cause after all, shikanji is better than wine</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 10 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Oh to Be Loved</h3>
-            <div class="poem-preview">Oh to be loved, To be someone's dove Oh to be seen To have someone be keen...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Oh to be loved,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Oh to Be Loved</h3>
+          <div class="poem-preview">Oh to be loved, To be someone's dove Oh to be seen To have someone be keen...</div>
+          <div class="poem-content">
+            <pre>Oh to be loved,
 To be someone's dove
 Oh to be seen
 To have someone be keen
@@ -659,20 +605,16 @@ Embrace yourself,
 Hold yourself,
 To be loved by no one else,
 To be loved themselves</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 11 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Life: A Tale</h3>
-            <div class="poem-preview">Life's a maze, Full of craze, Life's history, Life's a mystery It starts with a cry...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Life's a maze,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Life: A Tale</h3>
+          <div class="poem-preview">Life's a maze, Full of craze, Life's history, Life's a mystery It starts with a cry...</div>
+          <div class="poem-content">
+            <pre>Life's a maze,
 Full of craze,
 Life's history,
 Life's a mystery
@@ -701,20 +643,16 @@ A mess that never cleans,
 A wound that never heals,
 Life's beautiful isn't it?
 So wonderful isn't it?</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 12 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">The Dream & The Reality</h3>
-            <div class="poem-preview">I saw a dream, So unreal it seems, A face so clear, A face so dear, Dancing through the crowd...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I saw a dream,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">The Dream & The Reality</h3>
+          <div class="poem-preview">I saw a dream, So unreal it seems, A face so clear, A face so dear, Dancing through the crowd...</div>
+          <div class="poem-content">
+            <pre>I saw a dream,
 So unreal it seems,
 A face so clear,
 A face so dear,
@@ -772,20 +710,16 @@ It's about time we leave mainstream stuff,
 It's about time we break these cuffs,
 It's time we realize mainstream isn't for all,
 Success lies where passion falls</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 13 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Friendship</h3>
-            <div class="poem-preview">Friendship, The flowers in the garden of life, A relation that always thrives, Something defined so pure, so sure...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Friendship,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Friendship</h3>
+          <div class="poem-preview">Friendship, The flowers in the garden of life, A relation that always thrives, Something defined so pure, so sure...</div>
+          <div class="poem-content">
+            <pre>Friendship,
 The flowers in the garden of life,
 A relation that always thrives,
 Something defined so pure, so sure,
@@ -809,20 +743,16 @@ Something I dream so dear,
 Something I always hold near,
 Oh! To have true friends so pretty,
 Oh! To lack them what a sight so pity</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 14 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Borders and Dreams</h3>
-            <div class="poem-preview">I live in a world separated by borders, Where power rules, And hatred follows, History is taught to learn lessons...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I live in a world separated by borders,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Borders and Dreams</h3>
+          <div class="poem-preview">I live in a world separated by borders, Where power rules, And hatred follows, History is taught to learn lessons...</div>
+          <div class="poem-content">
+            <pre>I live in a world separated by borders,
 Where power rules,
 And hatred follows,
 
@@ -844,20 +774,16 @@ I see a utopian vision,
 Without bombs and nuclear fission,
 Where people live in peace and harmony,
 When the world isn't driven by power or money</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 15 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">The World's a Play</h3>
-            <div class="poem-preview">The world's a play, Where men are mere puppets, It's the words that control, It's the pen who represents him...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>The world's a play,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">The World's a Play</h3>
+          <div class="poem-preview">The world's a play, Where men are mere puppets, It's the words that control, It's the pen who represents him...</div>
+          <div class="poem-content">
+            <pre>The world's a play,
 Where men are mere puppets,
 It's the words that control,
 It's the pen who represents him,
@@ -919,20 +845,16 @@ We've been pained by ones we don't know,
 
 But alas it's a modern world,
 Nobody cares for so.</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 16 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Saturday Bliss (Inspired By Cheap thrills)</h3>
-            <div class="poem-preview">I don't need no fancy car, Or money to take me far, no heels or bougie huts, all I need is music to keep me shut...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I don't need no fancy car,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Saturday Bliss (Inspired By Cheap thrills)</h3>
+          <div class="poem-preview">I don't need no fancy car, Or money to take me far, no heels or bougie huts, all I need is music to keep me shut...</div>
+          <div class="poem-content">
+            <pre>I don't need no fancy car,
 Or money to take me far,
 no heels or bougie huts,
 all I need is music to keep me shut
@@ -958,20 +880,16 @@ I shall dance till the night ends,
 With no one to impress, no trends to defend,
 Let the beat be my only brand-
 Barefoot,bold and never planned</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 17 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">The garden of darkness</h3>
-            <div class="poem-preview">I walked into a garden, Black and white all around, Eyes glued to my path, I didnt care what befound...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I walked into a garden,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">The garden of darkness</h3>
+          <div class="poem-preview">I walked into a garden, Black and white all around, Eyes glued to my path, I didnt care what befound...</div>
+          <div class="poem-content">
+            <pre>I walked into a garden,
 Black and white all around,
 Eyes glued to my path,
 I didnt care what befound,
@@ -1017,20 +935,16 @@ It took my flower,
 I wanted to resist,
 But deep down i knew,
 I wasnt the best fit.</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 18 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">My Dear Teddy</h3>
-            <div class="poem-preview">I closed my eyes, I opened my hand, And in there, Lied my new bestfriend, I called him teddy...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I closed my eyes,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">My Dear Teddy</h3>
+          <div class="poem-preview">I closed my eyes, I opened my hand, And in there, Lied my new bestfriend, I called him teddy...</div>
+          <div class="poem-content">
+            <pre>I closed my eyes,
 I opened my hand,
 And in there,
 Lied my new bestfriend,
@@ -1114,20 +1028,16 @@ And when the time comes,
 You may pass him on too—
 A little thread of love,
 Forever running through.</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 19 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">The Triumph of Silence</h3>
-            <div class="poem-preview">I walked into a field, Nothing special, Or maybe, I didn't care what around, The winds rushed, The wheat blew...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>I walked into a field,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">The Triumph of Silence</h3>
+          <div class="poem-preview">I walked into a field, Nothing special, Or maybe, I didn't care what around, The winds rushed, The wheat blew...</div>
+          <div class="poem-content">
+            <pre>I walked into a field,
 Nothing special,
 Or maybe,
 I didn't care what around,
@@ -1188,20 +1098,16 @@ It aint fiction,
 Nor dazzling relevation,
 Just a silent breeze-
 Simple meditation</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 20 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">My little solar system</h3>
-            <div class="poem-preview">My life is a balckhole, Darkness all around, Curious is one, But Alas no profound, My life lacks gravity...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>My life is a balckhole,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">My little solar system</h3>
+          <div class="poem-preview">My life is a balckhole, Darkness all around, Curious is one, But Alas no profound, My life lacks gravity...</div>
+          <div class="poem-content">
+            <pre>My life is a balckhole,
 Darkness all around,
 Curious is one,
 But Alas no profound,
@@ -1225,20 +1131,16 @@ Its moon be my heart,
 What drives me is the orbitals,
 My life is Neptune,
 Driven out by life's dance</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 21 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">Dear Santa Claus I have a Wish</h3>
-            <div class="poem-preview">Dear Santa Claus, I have a wish, I wish the time would stop, To change the things that cause...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Dear Santa Claus, 
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">Dear Santa Claus I have a Wish</h3>
+          <div class="poem-preview">Dear Santa Claus, I have a wish, I wish the time would stop, To change the things that cause...</div>
+          <div class="poem-content">
+            <pre>Dear Santa Claus, 
 I have a wish,
 I wish the time would stop,
 To change the things that cause,
@@ -1258,20 +1160,16 @@ I wish I had a time machine,
 To go back and never be,
 The worlds a masterpiece,
 But I am not the painting it needs</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 22 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">A flower of the dear</h3>
-            <div class="poem-preview">My life is a garden, Thorns and spikes around, Pain, sorrow, lies beforund, Each step shall bleed...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>My life is a garden,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">A flower of the dear</h3>
+          <div class="poem-preview">My life is a garden, Thorns and spikes around, Pain, sorrow, lies beforund, Each step shall bleed...</div>
+          <div class="poem-content">
+            <pre>My life is a garden,
 Thorns and spikes around,
 Pain, sorrow, lies  beforund,
 Each step shall bleed,
@@ -1310,20 +1208,16 @@ To all the happiness,
 It fed,
 The flower shall leave its trace,
 Not through the memories but scars it gave</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 23 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">A letter to the lillies</h3>
-            <div class="poem-preview">You hate the rain? Asked the lillies But how could i explain? Moonsoon, The only season i glee...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>You hate the rain?
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">A letter to the lillies</h3>
+          <div class="poem-preview">You hate the rain? Asked the lillies But how could i explain? Moonsoon, The only season i glee...</div>
+          <div class="poem-content">
+            <pre>You hate the rain?
 Asked the lillies 
 But how could i explain?
 Moonsoon,
@@ -1361,20 +1255,16 @@ The rain is complicated,
 So is life,
 To the Lillies,
 I offer only silence</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
 
         <!-- Poem 24 -->
-        <div class="poem-card">
-          <div class="poem-card-header">
-            <h3 class="poem-title font-playfair">A Symphony of History: Outfits</h3>
-            <div class="poem-preview">Woven Thread share stories, every fold singing its own song, Vibrant colours treasure history, While art takes different forms...</div>
-          </div>
-          <div class="poem-card-content">
-            <div class="poem-content hidden">
-              <pre>Woven Thread share stories,
+        <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">A Symphony of History: Outfits</h3>
+          <div class="poem-preview">Woven Thread share stories, every fold singing its own song, Vibrant colours treasure history, While art takes different forms...</div>
+          <div class="poem-content">
+            <pre>Woven Thread share stories,
 every fold singing its own song,
 Vibrant colours treasure history,
 While art takes different forms,
@@ -1403,67 +1293,128 @@ From loom to life it lingers,
 echoing roots we hold dear,
 Traditional outfits — more than attire,
 they're heritage we wear near.</pre>
-            </div>
-            <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
           </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
         </div>
+         <div class="poem-card">
+         <div class="poem-card scroll-fade-in">
+          <h3 class="poem-title font-playfair">I miss a little girl</h3>
+          <div class="poem-preview">My mother said I’ve changed Yet I never noticed how. But, I no longer hold her hand to walk......</div>
+          <div class="poem-content">
+            <pre>My mother said I’ve changed,
+I never noticed how,
+But,
+I no longer hold her hand to walk,
+In fact, 
+we barely even talk,
+I’ve outgrown my dad’s cradle,
+I’ve developed new tastes,
+I never liked studying,
+yet now it’s my comfort place,
+I enjoy the food I once hated,
+Yet despise those I loved,
+I miss being free,
+I miss not being judged,
+I still remember those little days,
+Sitting at the kitchen counter,
+My legs swung;
+My hands made tiny rotis,
+While my brother fed me food,
+I wanted to be an actor,
+Maybe a dancer too,
+Or an astronaut?
+That sounds cool!
+Though,
+ I picked up a pen one day,
+I’ve never looked back,
+I’ve grown – flourished,
+Changing in silent ways,
+Yet sometimes I open a diary,
+A dairy of lost trace, 
+If I were to be honest,
+I am still that little girl,
+I still wear tiaras on my birthday,
+I still love to dress up,
+My dad always ties my shoes,
+My brother still spoils me crazy,
+My mum would always give me a hug,
+And I would always want to be young me.</pre>
+          </div>
+          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
+        </div>
+      </div>
+      <div id="noResults" class="text-center text-xl text-[#7c5c36] opacity-80 py-10 hidden">
+        <i class="fas fa-search fa-2x mb-4 opacity-70"></i>
+        <p class="font-playfair">No poems found</p>
+        <p class="text-base mt-2">Try searching for a different keyword.</p>
       </div>
     </div>
   </main>
 
   <!-- Footer -->
   <footer class="footer-journal text-center py-6 mt-12 fade-in">
-    <span style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: #bfa181;">crafted with love by Anusha</span><br/>
+    <span style="color: #bfa181;">crafted with love by Anusha</span><br/>
     &copy; 2025 anushagarg.com
   </footer>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const toggleButtons = document.querySelectorAll('.toggle-poem');
+      const searchBtn = document.getElementById('searchBtn');
+      const searchInput = document.getElementById('searchInput');
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      const poemsContainer = document.getElementById('poemsContainer');
+      const noResults = document.getElementById('noResults');
 
       toggleButtons.forEach(button => {
         button.addEventListener('click', () => {
-          const poemBox = button.closest('.poem-card');
-          const poemContent = poemBox.querySelector('.poem-content');
-          const preview = poemBox.querySelector('.poem-preview');
+          const poemCard = button.closest('.poem-card');
+          poemCard.classList.toggle('expanded');
           
-          if (poemContent.classList.contains('hidden')) {
-            poemContent.classList.remove('hidden');
-            preview.style.display = 'none';
+          if (poemCard.classList.contains('expanded')) {
             button.textContent = 'Show Less';
           } else {
-            poemContent.classList.add('hidden');
-            preview.style.display = 'block';
             button.textContent = 'Read Full Poem';
           }
         });
       });
 
-      const searchBtn = document.getElementById('searchBtn');
-      const searchInput = document.getElementById('searchInput');
-      const menuToggle = document.getElementById('menu-toggle');
-      const navMenu = document.getElementById('nav-menu');
-
       function filterPoems() {
         const searchTerm = searchInput.value.toLowerCase();
-        const poemBoxes = document.querySelectorAll('.poem-card');
+        const poemCards = document.querySelectorAll('#poemsContainer .poem-card');
+        let visibleCount = 0;
 
-        poemBoxes.forEach(poem => {
-          const title = poem.querySelector('.poem-title').textContent.toLowerCase();
-          const preview = poem.querySelector('.poem-preview').textContent.toLowerCase();
-          const content = poem.querySelector('.poem-content pre').textContent.toLowerCase();
+        poemCards.forEach(card => {
+          const title = card.querySelector('.poem-title').textContent.toLowerCase();
+          const preview = card.querySelector('.poem-preview').textContent.toLowerCase();
+          const content = card.querySelector('.poem-content pre').textContent.toLowerCase();
           
           if (title.includes(searchTerm) || preview.includes(searchTerm) || content.includes(searchTerm)) {
-            poem.style.display = 'flex';
+            card.style.display = 'flex';
+            visibleCount++;
           } else {
-            poem.style.display = 'none';
+            card.style.display = 'none';
           }
         });
+
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+          poemsContainer.style.display = 'none';
+        } else {
+          noResults.classList.add('hidden');
+          poemsContainer.style.display = 'grid';
+        }
       }
 
       menuToggle.addEventListener('click', () => {
         navMenu.classList.toggle('hidden');
       });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.scroll-fade-in').forEach(el => observer.observe(el));
 
       searchBtn.addEventListener('click', filterPoems);
       searchInput.addEventListener('input', filterPoems);
