@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posts | anushagarg.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: #f8f5f1;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .paper-card {
+      background: #fffdf8;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
+      border: 1.5px solid #ede6db;
+      position: relative;
+      z-index: 3;
+    }
+    .font-playfair { font-family: 'Lora', serif; }
+    .fade-in { animation: fadeIn 1.5s ease-in-out; position: relative; z-index: 3; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .footer-journal {
+      background: #ede6db;
+      border-top: 1.5px solid #d6c3a3;
+      color: #7c5c36;
+      box-shadow: 0 -2px 16px 0 #bfa18111;
+      position: relative;
+      z-index: 3;
+      padding-top: 2.5rem;
+      clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%);
+    }
+    .footer-journal span {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1.4rem;
+    }
+    .post-card {
+      background: #fff;
+      padding: 0.75rem;
+      border-radius: 2px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      overflow: hidden;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      display: block;
+      position: relative;
+    }
+    .post-card:hover {
+      transform: translateY(-8px) scale(1.05) rotate(0deg) !important;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+    .post-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .post-card::before {
+      content: '\f08d'; /* Font Awesome pushpin icon */
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      color: #e57373;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      z-index: 5;
+    }
+  </style>
+</head>
+<body class="text-[#7c5c36] min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
+    <div class="text-3xl font-bold tracking-widest font-playfair">ANUSHA</div>
+    <nav class="hidden md:flex space-x-8 text-lg">
+      <a href="index.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a>
+      <a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a>
+      <a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a>
+      <a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
+      <a href="#" class="text-[#bfa181] font-bold transition">POSTS</a>
+      <a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a>
+      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a>
+      <a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a>
+    </nav>
+    <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
+      <i class="fas fa-bars fa-2x"></i>
+    </button>
+  </header>
+  <nav id="nav-menu" class="md:hidden hidden px-8 py-4 paper-card fade-in">
+    <ul class="space-y-4 text-lg">
+      <li><a href="index.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a></li>
+      <li><a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a></li>
+      <li><a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a></li>
+      <li><a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a></li>
+      <li><a href="#" class="text-[#bfa181] font-bold transition">POSTS</a></li>
+      <li><a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a></li>
+      <li><a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a></li>
+      <li><a href="contact.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a></li>
+    </ul>
+  </nav>
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col items-center text-center px-6 py-16">
+    <div class="max-w-6xl w-full mx-auto">
+      <h1 class="text-4xl md:text-5xl font-playfair font-bold mb-4">My Pinboard</h1>
+      <p class="text-lg mb-12 text-[#bfa181]" style="font-family: 'Patrick Hand', cursive; font-size: 1.8rem;">A little collection of my posts & thoughts</p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
+        <!-- Placeholder Instagram Posts -->
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(-3deg);"><img src="https://picsum.photos/id/1015/500/500" alt="Post"></a>
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(2deg);"><img src="https://picsum.photos/id/10/500/500" alt="Post"></a>
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(4deg);"><img src="https://picsum.photos/id/1011/500/500" alt="Post"></a>
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(-2deg);"><img src="https://picsum.photos/id/1025/500/500" alt="Post"></a>
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(3deg);"><img src="https://picsum.photos/id/1040/500/500" alt="Post"></a>
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(-4deg);"><img src="https://picsum.photos/id/1043/500/500" alt="Post"></a>
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(1deg);"><img src="https://picsum.photos/id/1062/500/500" alt="Post"></a>
+        <a href="#" target="_blank" class="post-card aspect-square" style="transform: rotate(-3deg);"><img src="https://picsum.photos/id/1084/500/500" alt="Post"></a>
+      </div>
+      <a href="https://www.instagram.com/garganusha_" target="_blank" class="inline-block mt-12 bg-[#ede6db] text-[#7c5c36] font-bold px-8 py-3 rounded-full hover:bg-[#f5eee6] transition">
+        Find more on Instagram
+      </a>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="footer-journal text-center py-6 mt-12 fade-in">
+    <span style="color: #bfa181;">crafted with love by Anusha</span><br/>
+    &copy; 2025 anushagarg.com
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const menuToggle = document.getElementById("menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+      menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("hidden");
+      });
+    });
+  </script>
+</body>
+</html>
