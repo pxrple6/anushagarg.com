@@ -7,119 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      font-family: 'Nunito Sans', sans-serif;
-      background-color: #f8f5f1; /* A soft, off-white paper color */
-      background-image: radial-gradient(circle at 1px 1px, rgba(222, 205, 180, 0.8) 1px, transparent 0);
-      background-size: 25px 25px;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-    .paper-card {
-      background: #fffdf8;
-      border-radius: 1.25rem;
-      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
-      border: 1.5px solid #ede6db;
-      position: relative;
-      z-index: 3;
-    }
-    .journal-btn {
-      background: #ede6db;
-      color: #7c5c36;
-      border-radius: 0.75rem;
-      font-weight: 700;
-      font-family: 'Nunito Sans', sans-serif;
-      box-shadow: 0 2px 8px 0 #bfa18122;
-      border: 1.5px solid #d6c3a3;
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-    }
-    .journal-btn:hover {
-      background: #f5eee6;
-      color: #4b3a1a;
-      box-shadow: 0 4px 16px 0 #bfa18133;
-    }
-    .form-input {
-      background: #fffdf8;
-      border: 1.5px solid #ede6db;
-      border-radius: 0.75rem;
-      color: #7c5c36;
-      box-shadow: 0 2px 8px 0 #bfa18122;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-input:focus {
-      outline: none;
-      border-color: #bfa181;
-      box-shadow: 0 0 0 3px rgba(191, 161, 129, 0.1);
-    }
-    .icon-card {
-      background: #f5eee6;
-      border-radius: 9999px;
-      padding: 0.75rem;
-      border: 1.5px solid #ede6db;
-      box-shadow: 0 2px 8px 0 #bfa18122;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .icon-card:hover {
-      background: #ede6db;
-      transform: scale(1.08) translateY(-2px);
-    }
-    .footer-journal {
-      background: #ede6db;
-      border-top: 1.5px solid #d6c3a3;
-      color: #7c5c36;
-      box-shadow: 0 -2px 16px 0 #bfa18111;
-      position: relative;
-      z-index: 3;
-      padding-top: 2.5rem;
-      clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%);
-    }
-    .fade-in {
-      animation: fadeIn 1.5s ease-in-out;
-      position: relative;
-      z-index: 3;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .bow-card::before {
-      content: '🎀';
-      position: absolute;
-      top: -18px;
-      left: 50%;
-      transform: translateX(-50%) rotate(10deg);
-      font-size: 2.5rem;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
-      opacity: 0.95;
-    }
-    .font-playfair {
-      font-family: 'Lora', serif;
-    }
-    .footer-journal span {
-      font-family: 'Patrick Hand', cursive;
-      font-size: 1.4rem;
-    }
-    .doodle {
-      position: absolute;
-      z-index: 2;
-      animation: doodle-pulse 5s ease-in-out infinite alternate;
-    }
-    .doodle svg {
-      width: 100%;
-      height: 100%;
-      stroke: #bfa181;
-      stroke-width: 2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    @keyframes doodle-pulse {
-      from { opacity: 0.2; }
-      to { opacity: 0.6; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body class="text-[#7c5c36] min-h-screen flex flex-col">
   <!-- Doodles -->
@@ -144,21 +32,22 @@
   <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
     <div class="text-3xl font-bold tracking-widest font-playfair">ANUSHA</div>
     <nav class="hidden md:flex space-x-8 text-lg">
-      <a href="index.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a>
-      <a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a>
-      <a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a>
-      <a href="shortstories.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
-      <a href="posts.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a>
-      <a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a>
-      <a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a>
-      <a href="#" class="text-[#bfa181] font-bold transition">CONTACT</a>
+      <a href="index.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a>
+      <a href="about.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a>
+      <a href="poems.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a>
+      <a href="shortstories.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
+      <a href="posts.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a>
+      <a href="codes.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a>
+      <a href="achievements.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a>
+      <a href="#" class="ink-link text-[#bfa181] font-bold transition">CONTACT</a>
     </nav>
-    <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
+    <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
       <i class="fas fa-bars fa-2x"></i>
     </button>
   </header>
   <nav id="nav-menu" class="md:hidden hidden px-8 py-4 paper-card fade-in">
     <ul class="space-y-4 text-lg">
+<<<<<<< HEAD
       <li><a href="index.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a></li>
       <li><a href="about.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a></li>
       <li><a href="poems.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a></li>
@@ -167,6 +56,16 @@
       <li><a href="codes.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a></li>
       <li><a href="achievements.html" class="text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a></li>
       <li><a href="#" class="text-[#bfa181] font-bold transition">CONTACT</a></li>
+=======
+      <li><a href="index.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">HOME</a></li>
+      <li><a href="about.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a></li>
+      <li><a href="poems.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a></li>
+      <li><a href="shortstories.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a></li>
+      <li><a href="posts.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a></li>
+      <li><a href="codes.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a></li>
+      <li><a href="achievements.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a></li>
+      <li><a href="#" class="ink-link text-[#bfa181] font-bold transition">CONTACT</a></li>
+>>>>>>> 89e4420 (Initial commit)
     </ul>
   </nav>
 
@@ -175,28 +74,44 @@
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-8 fade-in">CONTACT ME</h1>
       
+<<<<<<< HEAD
       <div class="paper-card p-8 md:p-12 fade-in bow-card">
+=======
+      <div class="paper-card torn p-8 md:p-12 fade-in bow-card">
+>>>>>>> 89e4420 (Initial commit)
         <div class="flex flex-col md:flex-row items-start gap-12">
           <!-- Contact Information -->
           <div class="md:w-1/3 text-center md:text-left">
             <p class="text-lg mb-8 text-[#7c5c36]">Feel free to reach out to me through any of the following channels:</p>
             <div class="space-y-6">
               <div class="flex flex-col items-center md:items-start">
+<<<<<<< HEAD
                 <a href="mailto:pxrple6@gmail.com" class="icon-card inline-block mb-2">
+=======
+                <a href="mailto:pxrple6@gmail.com" class="icon-card inline-block mb-2 sticker">
+>>>>>>> 89e4420 (Initial commit)
                   <i class="fas fa-envelope fa-2x" style="color:#bfa181;"></i>
                 </a>
                 <span class="text-[#7c5c36] font-medium">Email</span>
                 <span class="text-sm text-[#bfa181]">pxrple6@gmail.com</span>
               </div>
               <div class="flex flex-col items-center md:items-start">
+<<<<<<< HEAD
                 <a href="https://www.instagram.com/garganusha_" target="_blank" class="icon-card inline-block mb-2">
+=======
+                <a href="https://www.instagram.com/garganusha_" target="_blank" class="icon-card inline-block mb-2 sticker">
+>>>>>>> 89e4420 (Initial commit)
                   <i class="fab fa-instagram fa-2x" style="color:#bfa181;"></i>
                 </a>
                 <span class="text-[#7c5c36] font-medium">Instagram</span>
                 <span class="text-sm text-[#bfa181]">@garganusha_</span>
               </div>
               <div class="flex flex-col items-center md:items-start">
+<<<<<<< HEAD
                 <a href="https://www.linkedin.com/in/anushagarg6" target="_blank" class="icon-card inline-block mb-2">
+=======
+                <a href="https://www.linkedin.com/in/anushagarg6" target="_blank" class="icon-card inline-block mb-2 sticker">
+>>>>>>> 89e4420 (Initial commit)
                   <i class="fab fa-linkedin fa-2x" style="color:#7c8c6a;"></i>
                 </a>
                 <span class="text-[#7c5c36] font-medium">LinkedIn</span>
@@ -207,6 +122,7 @@
 
           <!-- Contact Form -->
           <div class="md:w-2/3 w-full">
+<<<<<<< HEAD
             <form action="mailto:pxrple6@gmail.com" method="post" enctype="text/plain" class="space-y-6">
               <div>
                 <label for="name" class="block text-[#7c5c36] font-medium mb-2">Name</label>
@@ -224,6 +140,42 @@
                 Send Message
               </button>
             </form>
+=======
+            <div class="journal-page">
+              <div class="washi"></div>
+              <div class="washi small"></div>
+              <span class="punch-hole"></span>
+              <span class="punch-hole"></span>
+              <span class="punch-hole"></span>
+              <span class="punch-hole"></span>
+              <span class="punch-hole"></span>
+              <span class="punch-hole"></span>
+              <form id="contact-form" action="https://formspree.io/f/mvgbraqv" method="POST" class="space-y-6" novalidate>
+                <div>
+                  <label for="name" class="block text-[#7c5c36] font-medium mb-2 font-hand label-ink">Name</label>
+                  <input type="text" id="name" name="name" class="form-input w-full p-3 focus:outline-none" required aria-required="true" />
+                </div>
+                <div>
+                  <label for="email" class="block text-[#7c5c36] font-medium mb-2 font-hand label-ink">Email</label>
+                  <input type="email" id="email" name="email" class="form-input w-full p-3 focus:outline-none" required aria-required="true" />
+                </div>
+                <div>
+                  <label for="message" class="block text-[#7c5c36] font-medium mb-2 font-hand label-ink">Message</label>
+                  <textarea id="message" name="message" class="form-input w-full p-3 focus:outline-none resize-none" rows="6" required aria-required="true"></textarea>
+                </div>
+                <!-- Honeypot anti-spam field -->
+                <div class="hidden" aria-hidden="true">
+                  <label for="website">Website</label>
+                  <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+                </div>
+                <!-- Subject for convenience -->
+                <input type="hidden" name="_subject" value="New message from anushagarg.com" />
+                <button type="submit" class="journal-btn stamp w-full py-3 text-lg font-bold">
+                  Send Message
+                </button>
+              </form>
+            </div>
+>>>>>>> 89e4420 (Initial commit)
           </div>
         </div>
       </div>
@@ -248,10 +200,95 @@
     document.addEventListener("DOMContentLoaded", function() {
      const menuToggle = document.getElementById("menu-toggle");
      const navMenu = document.getElementById("nav-menu");
+<<<<<<< HEAD
 
       menuToggle.addEventListener("click", () => {
         navMenu.classList.toggle("hidden");
       });
+=======
+      const form = document.getElementById("contact-form");
+      const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+
+      function showToast(message, type = 'success') {
+        let toast = document.getElementById('toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'toast';
+          toast.className = 'toast';
+          document.body.appendChild(toast);
+        }
+        toast.className = 'toast ' + type;
+        toast.textContent = message;
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3500);
+      }
+
+      menuToggle.addEventListener("click", () => {
+        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', (!expanded).toString());
+        navMenu.classList.toggle("hidden");
+      });
+
+      // Client-side validation helper
+      function isValidEmail(email) {
+        return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
+      }
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          // spam honeypot
+          const honey = form.querySelector('#website');
+          if (honey && honey.value) return; // silently drop
+
+          const name = form.name.value.trim();
+          const email = form.email.value.trim();
+          const message = form.message.value.trim();
+
+          // basic validation
+          let valid = true;
+          if (!name) valid = false;
+          if (!isValidEmail(email)) valid = false;
+          if (!message) valid = false;
+          form.email.setAttribute('aria-invalid', (!isValidEmail(email)).toString());
+
+          if (!valid) {
+            showToast('Please fill all fields with a valid email.', 'error');
+            return;
+          }
+
+          // Submit via fetch to Formspree
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending…';
+          }
+          try {
+            const formData = new FormData(form);
+            const res = await fetch(form.action, {
+              method: 'POST',
+              headers: { 'Accept': 'application/json' },
+              body: formData
+            });
+            if (res.ok) {
+              form.reset();
+              showToast('Thanks! Your message has been sent.', 'success');
+            } else {
+              showToast('Oops, something went wrong. Please try again.', 'error');
+            }
+          } catch (err) {
+            showToast('Network error. Please try again later.', 'error');
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Send Message';
+            }
+          }
+        });
+      }
+>>>>>>> 89e4420 (Initial commit)
     });
   </script>
 </body>

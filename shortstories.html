@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,4 +187,404 @@
     });
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Essays | anushagarg.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background-color: #f8f5f1;
+      background-image: radial-gradient(circle at 1px 1px, rgba(222, 205, 180, 0.8) 1px, transparent 0);
+      background-size: 25px 25px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .paper-card { background: #fffdf8; border-radius: 1.25rem; box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04); border: 1.5px solid #ede6db; position: relative; z-index: 3; }
+    .font-playfair { font-family: 'Lora', serif; }
+    .fade-in { animation: fadeIn 1.5s ease-in-out; position: relative; z-index: 3; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .footer-journal { background: #ede6db; border-top: 1.5px solid #d6c3a3; color: #7c5c36; box-shadow: 0 -2px 16px 0 #bfa18111; position: relative; z-index: 3; padding-top: 2.5rem; clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%); }
+    .footer-journal span { font-family: 'Patrick Hand', cursive; font-size: 1.4rem; }
+    .doodle { position: absolute; z-index: 2; animation: doodle-pulse 5s ease-in-out infinite alternate; }
+    .doodle svg { width: 100%; height: 100%; stroke: #bfa181; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    @keyframes doodle-pulse { from { opacity: 0.2; } to { opacity: 0.6; } }
+    .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #f8f5f1; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease; }
+    .preloader.hidden { opacity: 0; visibility: hidden; }
+    .preloader-icon { width: 80px; height: 80px; animation: preloader-pulse 1.5s ease-in-out infinite; }
+    @keyframes preloader-pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+    .polaroid-card { background: #fff; padding: 1rem; padding-bottom: 4.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); border-radius: 2px; position: relative; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+    .polaroid-card:nth-child(odd) { transform: rotate(-4deg); }
+    .polaroid-card:nth-child(even) { transform: rotate(3deg); }
+    .polaroid-card:hover { transform: rotate(0deg) scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.1); z-index: 10; }
+    .polaroid-content { background: #f8f5f1; border: 1px solid #ede6db; padding: 1.5rem; height: 250px; overflow: hidden; }
+    .polaroid-title { position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; font-family: 'Patrick Hand', cursive; font-size: 1.75rem; color: #7c5c36; text-align: center; }
+    .prose { color: #7c5c36; line-height: 1.7; }
+    .prose p { margin-bottom: 1rem; }
+    /* 3D context for flip */
+    #essayModal { perspective: 1600px; }
+    /* Book layout */
+    .book { position: relative; width: min(100%, 1000px); }
+    .book-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; }
+    .left-page, .right-page { height: min(80vh, 720px); }
+    .left-page { border-right: 2px solid #e3d6c0; position: relative; }
+    .right-page { border-left: 2px solid #e3d6c0; position: relative; }
+    .spine { position: absolute; top: 0; bottom: 0; left: 50%; width: 6px; transform: translateX(-50%); background: linear-gradient(180deg, #e9ddc6, #e3d6c0); box-shadow: 0 0 10px rgba(0,0,0,0.06) inset; z-index: 2; border-radius: 3px; }
+
+    /* Page (right side flips) */
+    .page {
+      transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 700ms ease;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+      position: relative;
+      overflow: hidden;
+      transform: rotateY(0deg);
+    }
+    .page.turn-in { transform: rotateY(0deg); box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
+    .page.turn-out-right { transform-origin: right center; transform: rotateY(-100deg); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+    .page.turn-out-left { transform-origin: left center; transform: rotateY(100deg); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+    /* subtle page curl shadow */
+    .page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(124,92,54,0.20), rgba(124,92,54,0.10), transparent 65%);
+      opacity: 0;
+      transition: opacity 700ms ease;
+    }
+    .page.turn-in::before { opacity: 0.35; }
+    .page.turn-out-right::before { opacity: 0.2; }
+    .page.turn-out-left::before { opacity: 0.2; }
+
+    /* Arrow buttons */
+    .page-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 9999px;
+      background: rgba(237, 230, 219, 0.95);
+      border: 1px solid #d6c3a3;
+      color: #7c5c36;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      z-index: 5;
+      user-select: none;
+    }
+    .page-arrow:hover { transform: translateY(-50%) scale(1.06); box-shadow: 0 8px 18px rgba(0,0,0,0.12); }
+    .page-arrow:active { transform: translateY(-50%) scale(0.98); }
+    #prevPageBtn { right: 8px; left: auto; }
+    #nextPageBtn { right: 8px; }
+    .page-arrow[disabled] { opacity: 0.4; pointer-events: none; }
+    /* Page numbers */
+    .page-footer { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 16px; color: #a08660; font-size: 0.9rem; }
+    .page-num { opacity: 0.85; }
+    /* Scrollable page body inside each page */
+    .page-body { position: absolute; top: 72px; bottom: 40px; left: 16px; right: 16px; overflow: auto; padding: 0 8px; }
+    .page-body h2 { margin-bottom: 1rem; }
+    /* Nice scrollbar */
+    .page-body::-webkit-scrollbar { width: 10px; }
+    .page-body::-webkit-scrollbar-track { background: #f1ece4; border-radius: 8px; }
+    .page-body::-webkit-scrollbar-thumb { background: #d6c3a3; border-radius: 8px; }
+    .page-body::-webkit-scrollbar-thumb:hover { background: #c8b18b; }
+    /* Better Cover */
+    .cover-hero { display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 48px 16px; text-align:center; }
+    .cover-title { font-family: 'Lora', serif; font-size: 2.8rem; letter-spacing: 2px; color:#7c5c36; }
+    .cover-sub { color:#a08660; margin-top:6px; }
+    .cover-badge { margin-top:16px; display:inline-block; padding:6px 12px; border:1px dashed #d6c3a3; background:#fffaf2; color:#7c5c36; border-radius:8px; }
+    .cover-divider { width: 140px; height: 2px; background: linear-gradient(90deg, transparent, #d6c3a3, transparent); margin: 16px 0; }
+    /* Essay list (behind the book) */
+    .essay-list { display:grid; grid-template-columns: 1fr; gap: 16px; }
+    @media(min-width:768px){ .essay-list{ grid-template-columns: 1fr 1fr; } }
+    .essay-item { background:#fffdf8; border:1px solid #ede6db; border-radius:14px; padding:18px 18px 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); position:relative; }
+    .essay-item .essay-title { font-family: 'Patrick Hand', cursive; font-size:1.6rem; color:#7c5c36; margin-top:8px; text-align:center; }
+    .essay-item .essay-excerpt { background:#f8f5f1; border:1px solid #ede6db; padding:12px; color:#7c5c36; opacity:0.9; height:160px; overflow:hidden; border-radius:8px; }
+  </style>
+</head>
+<body class="text-[#7c5c36] min-h-screen flex flex-col">
+  <div id="preloader" class="preloader">
+    <div class="preloader-icon">
+      <svg viewBox="0 0 100 100" style="stroke: #bfa181; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;"><path d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z" /></svg>
+    </div>
+  </div>
+  <!-- Doodles -->
+  <div class="doodle" style="width: 50px; top: 15%; left: 5%; transform: rotate(-15deg);">
+    <svg viewBox="0 0 100 100"><path d="M20,50 C20,-50 80,150 80,50 C80,-50 20,150 20,50 z" /></svg>
+  </div>
+  <div class="doodle" style="width: 60px; bottom: 15%; right: 5%; transform: rotate(15deg);">
+    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" /></svg>
+  </div>
+  <!-- Navbar -->
+  <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
+    <div class="text-3xl font-bold tracking-widest font-playfair">ANUSHA</div>
+    <nav class="hidden md:flex space-x-8 text-lg">
+      <a href="index.html" class="ink-link">HOME</a>
+      <a href="about.html" class="ink-link">ABOUT</a>
+      <a href="poems.html" class="ink-link">POEMS</a>
+      <a href="#" class="ink-link">ESSAYS</a>
+      <a href="posts.html" class="ink-link">POSTS</a>
+      <a href="codes.html" class="ink-link">CODES</a>
+      <a href="achievements.html" class="ink-link">ACHIEVEMENTS</a>
+      <a href="contact.html" class="ink-link">CONTACT</a>
+    </nav>
+    <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
+      <i class="fas fa-bars fa-2x"></i>
+    </button>
+  </header>
+  <nav id="nav-menu" class="md:hidden hidden px-8 py-4 paper-card fade-in">
+    <ul class="space-y-4 text-lg">
+      <li><a href="index.html" class="ink-link">HOME</a></li>
+      <li><a href="about.html" class="ink-link">ABOUT</a></li>
+      <li><a href="poems.html" class="ink-link">POEMS</a></li>
+      <li><a href="#" class="ink-link">ESSAYS</a></li>
+      <li><a href="posts.html" class="ink-link">POSTS</a></li>
+      <li><a href="codes.html" class="ink-link">CODES</a></li>
+      <li><a href="achievements.html" class="ink-link">ACHIEVEMENTS</a></li>
+      <li><a href="contact.html" class="ink-link">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 px-6 py-16">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-16 fade-in">ESSAYS & SHORT STORIES</h1>
+      <div class="journal-page fade-in">
+        <div class="washi"></div>
+        <div class="washi small"></div>
+        <span class="punch-hole"></span>
+        <span class="punch-hole"></span>
+        <span class="punch-hole"></span>
+        <span class="punch-hole"></span>
+        <span class="punch-hole"></span>
+        <span class="punch-hole"></span>
+
+        <div class="essay-list">
+          <!-- Essay 1 -->
+          <article class="essay-item">
+            <div class="essay-excerpt">The old library was a sanctuary of silence, where the only sound was the gentle rustle of turning pages. Each book was a doorway to another world, a whispered promise of adventure and knowledge. I ran my fingers along the spines, feeling the history embedded in the worn leather and faded gold lettering...</div>
+            <h3 class="essay-title">The Library of Whispers</h3>
+            <div class="full-essay-content hidden">
+              <p>The old library was a sanctuary of silence, where the only sound was the gentle rustle of turning pages. Each book was a doorway to another world, a whispered promise of adventure and knowledge. I ran my fingers along the spines, feeling the history embedded in the worn leather and faded gold lettering. The air smelled of aged paper and forgotten stories, a perfume that always brought me a sense of peace.</p><p>In one corner, a grandfather clock ticked away the seconds, a steady heartbeat in the quiet room. Sunlight streamed through the tall, arched windows, illuminating dust motes dancing in the air like tiny fairies. This was my haven, a place where time seemed to slow down, and the worries of the outside world faded into the background. Here, I was not just a girl, but a traveler, a detective, a sorceress—anything I chose to be, one page at a time.</p>
+            </div>
+          </article>
+          <!-- Essay 2 -->
+          <article class="essay-item">
+            <div class="essay-excerpt">City lights blurred into a vibrant tapestry as the train sped through the night. Outside, the world was a fleeting masterpiece of neon and shadow. Inside, strangers shared a transient space, each lost in their own thoughts, their own stories, their own destinations. The rhythm of the tracks was a lullaby for the lonely...</div>
+            <h3 class="essay-title">Midnight Train</h3>
+            <div class="full-essay-content hidden">
+              <p>City lights blurred into a vibrant tapestry as the train sped through the night. Outside, the world was a fleeting masterpiece of neon and shadow. Inside, strangers shared a transient space, each lost in their own thoughts, their own stories, their own destinations. The rhythm of the tracks was a lullaby for the lonely and a drumbeat for the hopeful.</p><p>I watched faces in the reflection of the window, superimposed over the rushing darkness. An old man with a kind, wrinkled face, a young woman sketching in a notebook, a child sleeping soundly on his mother's lap. We were all moving forward, together yet apart, carried by the steel serpent towards a future unknown. The journey was the story, a temporary chapter in each of our lives.</p>
+            </div>
+          </article>
+          <!-- Essay 3 -->
+          <article class="essay-item">
+            <div class="essay-excerpt">The first frost of autumn had painted the forest in hues of amber and crimson. A crisp breeze carried the scent of pine and damp earth. It was a time of transition, a beautiful decay that promised renewal. Every falling leaf was a tiny, silent poem about letting go and embracing change...</div>
+            <h3 class="essay-title">An Autumn's Tale</h3>
+            <div class="full-essay-content hidden">
+              <p>The first frost of autumn had painted the forest in hues of amber and crimson. A crisp breeze carried the scent of pine and damp earth. It was a time of transition, a beautiful decay that promised renewal. Every falling leaf was a tiny, silent poem about letting go and embracing change.</p><p>I walked along a path carpeted in gold, the crunch of leaves under my boots a satisfying sound. The squirrels were busy, gathering their winter stores, their frantic energy a stark contrast to the peaceful descent of the leaves. The world was preparing to sleep, to rest under a blanket of snow, and in its quiet preparation, there was a profound and simple beauty. It was a reminder that endings are just beginnings in disguise.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Essay Page Flip -->
+  <div id="essayModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+    <div class="book">
+      <span class="spine"></span>
+      <button id="closeModalBtn" class="absolute -top-2 right-0 text-3xl text-[#bfa181] hover:text-[#7c5c36] transition-colors">&times;</button>
+      <div class="book-inner">
+        <!-- Left Page (previous) -->
+        <div class="left-page journal-page relative">
+          <div class="washi"></div>
+          <div class="washi small"></div>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <button id="prevPageBtn" class="page-arrow" aria-label="Previous page"><i class="fas fa-chevron-left"></i></button>
+          <div class="page-body">
+            <h2 id="leftTitle" class="font-playfair text-2xl md:text-3xl mb-4 text-center"></h2>
+            <div id="leftContent" class="prose"></div>
+          </div>
+          <div class="page-footer"><span class="page-num" id="leftPageNum"></span><span></span></div>
+        </div>
+        <!-- Right Page (current, flips) -->
+        <div class="right-page journal-page page relative">
+          <div class="washi"></div>
+          <div class="washi small"></div>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <span class="punch-hole"></span>
+          <button id="nextPageBtn" class="page-arrow" aria-label="Next page"><i class="fas fa-chevron-right"></i></button>
+          <div class="page-body">
+            <h2 id="rightTitle" class="font-playfair text-3xl md:text-4xl mb-6 text-center"></h2>
+            <div id="rightContent" class="prose"></div>
+          </div>
+          <div class="page-footer"><span></span><span class="page-num" id="rightPageNum"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-journal text-center py-6 mt-12 fade-in">
+    <span style="color: #bfa181;">crafted with love by Anusha</span><br/>
+    &copy; 2025 anushagarg.com
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      preloader.classList.add('hidden');
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      const essayCards = document.querySelectorAll('.essay-item');
+      const modal = document.getElementById('essayModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const prevPageBtn = document.getElementById('prevPageBtn');
+      const nextPageBtn = document.getElementById('nextPageBtn');
+      const leftTitle = document.getElementById('leftTitle');
+      const leftContent = document.getElementById('leftContent');
+      const rightTitle = document.getElementById('rightTitle');
+      const rightContent = document.getElementById('rightContent');
+      const leftPageNum = document.getElementById('leftPageNum');
+      const rightPageNum = document.getElementById('rightPageNum');
+      const pageEl = modal.querySelector('.right-page.page');
+      const onKeyDown = (e) => { if (e.key === 'Escape') closeModal(); };
+      let pages = [];
+      let currentPage = 0; // 0 = cover (right), 1..N = essays
+
+      // Build list of essays from cards
+      const essays = Array.from(essayCards).map(card => ({
+        title: card.querySelector('.essay-title')?.innerText || 'Untitled',
+        html: card.querySelector('.full-essay-content')?.innerHTML || ''
+      }));
+
+      function getCoverHTML() {
+        return `
+          <div class="cover-hero">
+            <div class="cover-title">ESSAYS & SHORT STORIES</div>
+            <div class="cover-divider"></div>
+            <div class="cover-sub">by Anusha</div>
+            <span class="cover-badge">Flip ➤ to begin</span>
+          </div>
+        `;
+      }
+
+      function buildPages() {
+        // index 0 = cover, then each essay
+        return [{ type: 'cover', title: 'Essays', html: getCoverHTML() },
+                ...essays.map(e => ({ type: 'essay', title: e.title, html: e.html }))];
+      }
+
+      function renderSpread() {
+        const rightPage = pages[currentPage];
+        const leftPage = currentPage > 0 ? pages[currentPage - 1] : null;
+        // Left displays previous (or blank)
+        leftTitle.innerText = leftPage?.title || '';
+        leftContent.innerHTML = leftPage?.html || '';
+        // Right displays current (cover or essay)
+        rightTitle.innerText = rightPage?.title || '';
+        rightContent.innerHTML = rightPage?.html || '';
+        // Page numbers (essays only)
+        const totalEssays = essays.length;
+        leftPageNum.textContent = (leftPage && leftPage.type === 'essay') ? `${currentPage - 1} / ${totalEssays}` : '';
+        rightPageNum.textContent = (rightPage && rightPage.type === 'essay') ? `${currentPage} / ${totalEssays}` : (rightPage ? 'Cover' : '');
+        prevPageBtn.toggleAttribute('disabled', currentPage === 0);
+        nextPageBtn.toggleAttribute('disabled', currentPage >= pages.length - 1);
+      }
+
+      function flipTo(direction) { // 'next' | 'prev'
+        pageEl.classList.remove('turn-in','turn-out-right','turn-out-left');
+        const outClass = direction === 'next' ? 'turn-out-right' : 'turn-out-left';
+        pageEl.classList.add(outClass);
+        const afterOut = () => {
+          pageEl.removeEventListener('transitionend', afterOut);
+          currentPage += (direction === 'next' ? 1 : -1);
+          renderSpread();
+          // bring page back in
+          pageEl.classList.remove('turn-out-right','turn-out-left');
+          void pageEl.offsetWidth;
+          pageEl.classList.add('turn-in');
+        };
+        pageEl.addEventListener('transitionend', afterOut);
+      }
+
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('hidden');
+      });
+
+      function openBook(startOnFirstEssay = true) {
+        // Build the flipbook and open modal
+        pages = buildPages();
+        currentPage = startOnFirstEssay && essays.length > 0 ? 1 : 0;
+        renderSpread();
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        pageEl.classList.remove('turn-out-right','turn-out-left');
+        void pageEl.offsetWidth; // reflow
+        pageEl.classList.add('turn-in');
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', onKeyDown);
+        pageEl.addEventListener('click', (ev) => ev.stopPropagation(), { once: true });
+      }
+
+      essayCards.forEach(card => {
+        card.addEventListener('click', () => openBook(true));
+      });
+
+      const closeModal = () => {
+        // Flip out to the right by default, then hide modal after animation
+        pageEl.classList.remove('turn-in','turn-out-left','turn-out-right');
+        pageEl.classList.add('turn-out-right');
+        const onEnd = () => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = 'auto';
+          pageEl.removeEventListener('transitionend', onEnd);
+          document.removeEventListener('keydown', onKeyDown);
+        };
+        pageEl.addEventListener('transitionend', onEnd);
+      };
+
+      closeModalBtn.addEventListener('click', closeModal);
+      nextPageBtn.addEventListener('click', () => { if (currentPage < pages.length - 1) flipTo('next'); });
+      prevPageBtn.addEventListener('click', () => { if (currentPage > 0) flipTo('prev'); });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      // Auto-open as book on page load (start on first essay)
+      openBook(true);
+    });
+  </script>
+</body>
+>>>>>>> 89e4420 (Initial commit)
 </html>
