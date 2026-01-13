@@ -5,312 +5,479 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poems | anushagarg.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/styles.css" />
-  <style>/* Resetting default styles for consistent rendering */
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-color: #5e3a8f;
+      --primary-light: #7d5ba6;
+      --primary-lighter: #9b7ec4;
+      --primary-dark: #4a2d70;
+      --secondary-color: #8b6bb0;
+      --accent-color: #e8dff5;
+      --text-dark: #2d2d2d;
+      --border-light: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Nunito Sans', sans-serif;
-      background-color: #f8f5f1; /* A soft, off-white paper color */
-      background-image: radial-gradient(circle at 1px 1px, rgba(222, 205, 180, 0.8) 1px, transparent 0);
-      background-size: 25px 25px;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #faf8fc 0%, #f3eef8 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
     }
-    /* Styles for the paper card element */
-    .paper-card {
-      background: #fffdf8;
-      border-radius: 1.25rem;
-      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
-      border: 1.5px solid #ede6db;
-      position: relative;
-      z-index: 3;
+
+    .font-playfair {
+      font-family: 'Playfair Display', serif;
     }
-    .journal-btn {
-      background: #ede6db;
-      color: #7c5c36;
-      border-radius: 9999px;
-      font-weight: 700;
-      font-family: 'Nunito Sans', sans-serif;
-      box-shadow: 0 2px 8px 0 #bfa18122;
-      border: 1.5px solid #d6c3a3;
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(94, 58, 143, 0.08);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(94, 58, 143, 0.1);
     }
-    .journal-btn:hover {
-      background: #f5eee6;
-      color: #4b3a1a;
-      box-shadow: 0 4px 16px 0 #bfa18133;
-    }
-    /* Styling the poem cards */
-    .poem-card {
-      background: #fffdf8;
-      border-radius: 1.25rem;
-      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
-      border: 1.5px solid #ede6db;
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-      position: relative;
-      padding: 1.5rem 2rem;
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
     }
-    .poem-card:hover {
-      transform: translateY(-5px) scale(1.01);
-      box-shadow: 0 8px 32px 0 rgba(120, 90, 60, 0.12);
+
+    .nav-logo a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      transition: color 0.3s ease;
     }
-    /* Applying a washi tape effect at the top of poem cards */
-    .poem-card::before {
+
+    .nav-logo a:hover {
+      color: var(--primary-light);
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: #5a5a5a;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link::after {
       content: '';
       position: absolute;
-      top: -10px;
-      left: 50%;
-      width: 100px;
-      height: 25px;
-      background: rgba(237, 230, 219, 0.7);
-      border-left: 1px dashed rgba(191, 161, 129, 0.5);
-      border-right: 1px dashed rgba(191, 161, 129, 0.5);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      transform: translateX(-50%) rotate(-3deg);
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: width 0.3s ease;
     }
-    .poem-card:nth-child(3n+1)::before {
-      transform: translateX(-50%) rotate(4deg);
-      width: 80px;
-      background: rgba(220, 230, 219, 0.7);
+
+    .nav-link:hover {
+      color: var(--primary-color);
     }
-    .poem-card:nth-child(5n+2)::before {
-      transform: translateX(-50%) rotate(-5deg);
-      width: 120px;
+
+    .nav-link:hover::after {
+      width: 100%;
     }
-    /* Styling the grid that holds poems */
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        flex-direction: column;
+        background: white;
+        width: 250px;
+        padding: 2rem;
+        box-shadow: -5px 0 20px rgba(94, 58, 143, 0.15);
+        transition: right 0.3s ease;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
+
+      .nav-menu.active {
+        right: 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Hero Section */
+    .hero-section {
+      margin-top: 80px;
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+
+    /* Search Section */
+    .search-container {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .search-wrapper {
+      display: flex;
+      background: white;
+      border-radius: 50px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(94, 58, 143, 0.12);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .search-wrapper:focus-within {
+      box-shadow: 0 6px 30px rgba(94, 58, 143, 0.2);
+      border-color: var(--primary-lighter);
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      color: var(--text-dark);
+      background: transparent;
+    }
+
+    .search-btn {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      border: none;
+      padding: 1rem 2rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+      transform: scale(1.05);
+    }
+
+    /* Poems Grid */
     .poems-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 2.5rem;
-      max-width: 1400px;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 2rem;
     }
+
     @media (max-width: 768px) {
       .poems-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
       }
-      .poem-card {
-        padding: 1rem 1.5rem;
+      
+      .hero-title {
+        font-size: 2.5rem;
       }
     }
-    /* Styles for the search input field */
-    .search-input {
-      background: #fffdf8;
-      border: 1.5px solid #ede6db;
-      border-radius: 0.75rem 0 0 0.75rem;
-      color: #7c5c36;
-      box-shadow: 0 2px 8px 0 #bfa18122;
-    }
-    .search-input:focus {
-      outline: none;
-      border-color: #bfa181;
-      box-shadow: 0 0 0 3px rgba(191, 161, 129, 0.1);
-    }
-    /* Styles for the search button */
-    .search-btn {
-      background: #ede6db;
-      border: 1.5px solid #ede6db;
-      border-left: none;
-      border-radius: 0 0.75rem 0.75rem 0;
-      color: #7c5c36;
-      transition: background 0.2s, color 0.2s;
-    }
-    .search-btn:hover {
-      background: #f5eee6;
-      color: #4b3a1a;
-    }
-    /* Styles for the page footer */
-    .footer-journal {
-      background: #ede6db;
-      border-top: 1.5px solid #d6c3a3;
-      color: #7c5c36;
-      box-shadow: 0 -2px 16px 0 #bfa18111;
-      position: relative;
-      z-index: 3;
-      padding-top: 2.5rem;
-      clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%);
-    }
-    .poem-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.7s ease-in-out;
+
+    /* Poem Card */
+    .poem-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(94, 58, 143, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
       opacity: 0;
-      visibility: hidden;
-    }
-    /* Expanded Poem Content */
-    .poem-card.expanded .poem-content {
-      max-height: 1500px; /* Large enough for any poem */
-      opacity: 1;
-      visibility: visible;
-      transition: max-height 0.7s ease-in-out, opacity 0.5s 0.2s ease-in-out;
-    }
-    .poem-content pre {
-      /* General adjustments for pre elements */
-      font-family: 'Nunito Sans', sans-serif;
-      color: #7c5c36;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      font-size: 0.9rem;
-      margin: 0;
-    }
-    .poem-title {
-      /* General adjustments for poem titles */
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #7c5c36;
-      margin-bottom: 0.5rem;
-      line-height: 1.3;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+      border: 1px solid rgba(94, 58, 143, 0.1);
+      position: relative;
       overflow: hidden;
     }
+
+    .poem-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-lighter));
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .poem-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(94, 58, 143, 0.2);
+      border-color: var(--primary-lighter);
+    }
+
+    .poem-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
     .poem-preview {
-      /* General adjustments for poem previews */
-      color: #7c5c36;
-      opacity: 0.7;
-      font-size: 0.875rem;
-      line-height: 1.4;
+      color: #5a5a5a;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    .poem-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .poem-card.expanded .poem-content {
+      max-height: 3000px;
+    }
+
     .poem-card.expanded .poem-preview {
-      /* Hide when expanded */
       display: none;
     }
-    .font-playfair {
-      font-family: 'Lora', serif;
+
+    .poem-content pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #4a4a4a;
+      margin-top: 1rem;
     }
-    .footer-journal span {
-      font-family: 'Patrick Hand', cursive;
-      font-size: 1.4rem;
+
+    .read-btn {
+      align-self: flex-start;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.75rem;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: auto;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(94, 58, 143, 0.2);
     }
-    .fade-in {
-      animation: fadeIn 1.5s ease-in-out;
-      position: relative;
-      z-index: 3;
+
+    .read-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(94, 58, 143, 0.3);
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
     }
-    .doodle {
-      position: absolute;
-      z-index: 2;
-      animation: doodle-pulse 5s ease-in-out infinite alternate;
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--primary-color);
     }
-    .doodle svg {
-      width: 100%;
-      height: 100%;
-      stroke: #bfa181;
-      stroke-width: 2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+
+    .no-results i {
+      font-size: 3rem;
+      opacity: 0.5;
+      margin-bottom: 1rem;
+      color: var(--primary-lighter);
     }
-    @keyframes doodle-pulse {
-      from { opacity: 0.2; }
-      to { opacity: 0.6; }
+
+    .no-results h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-dark);
     }
-    .scroll-fade-in {
+
+    .no-results p {
+      color: var(--secondary-color);
+      font-size: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+      padding: 2rem;
+      text-align: center;
+      color: white;
+      margin-top: 4rem;
+    }
+
+    footer p {
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .footer-heart {
+      color: var(--accent-color);
+      animation: pulse 1.5s ease infinite;
+      display: inline-block;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    /* Scroll animations */
+    .scroll-fade {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transition: all 0.6s ease;
     }
-    .scroll-fade-in.visible {
+
+    .scroll-fade.visible {
       opacity: 1;
       transform: translateY(0);
     }
   </style>
 </head>
-<body class="text-[#7c5c36] min-h-screen flex flex-col">
-  <!-- Doodles -->
-  <div class="doodle" style="width: 50px; top: 15%; left: 5%; transform: rotate(-15deg);">
-    <svg viewBox="0 0 100 100"><path d="M20,50 C20,-50 80,150 80,50 C80,-50 20,150 20,50 z" /></svg>
-  </div>
-  <div class="doodle" style="width: 60px; bottom: 15%; right: 5%; transform: rotate(15deg);">
-    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" /></svg>
-  </div>
-  <div class="doodle" style="width: 100px; top: 20%; right: 10%; transform: rotate(15deg);">
-    <svg viewBox="0 0 200 100">
-      <path d="M10 50 C 40 0, 60 0, 90 50 C 60 100, 40 100, 10 50 M190 50 C 160 0, 140 0, 110 50 C 140 100, 160 100, 190 50 M100 20 C 120 40, 80 60, 100 80" style="stroke: #f4cae4; stroke-width: 3;"></path>
-    </svg>
-  </div>
-  <div class="doodle" style="width: 100px; bottom: 25%; left: 10%; transform: rotate(-5deg);">
-    <svg viewBox="0 0 200 100"><text x="10" y="60" style="font-family: 'Patrick Hand', cursive; font-size: 50px; fill: #7c5c36; stroke: none;">love</text></svg>
-  </div>
-  <div class="doodle" style="width: 30px; top: 60%; right: 15%; transform: rotate(-10deg);">
-    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" style="stroke-width: 3; stroke: #f4cae4;"/></svg>
-  </div>
-  <div class="doodle" style="width: 20px; top: 30%; left: 15%; transform: rotate(20deg);">
-    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" style="stroke-width: 3; stroke: #7c8c6a;"/></svg>
-  </div>
-
+<body>
   <!-- Navbar -->
-  <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
-    <div class="text-3xl font-bold tracking-widest font-playfair">ANUSHA</div>
-    <nav class="hidden md:flex space-x-8 text-lg">
-      <a href="index.html" class="ink-link">HOME</a>
-      <a href="about.html" class="ink-link">ABOUT</a>
-      <a href="#" class="ink-link">POEMS</a>
-      <a href="shortstories.html" class="ink-link">ESSAYS</a>
-      <a href="posts.html" class="ink-link">POSTS</a>
-      <a href="codes.html" class="ink-link">CODES</a>
-      <a href="achievements.html" class="ink-link">ACHIEVEMENTS</a>
-      <a href="contact.html" class="ink-link">CONTACT</a>
-    </nav>
-    <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
-      <i class="fas fa-bars fa-2x"></i>
-    </button>
-  </header>
-  <nav id="nav-menu" class="md:hidden hidden px-8 py-4 paper-card fade-in">
-    <ul class="space-y-4 text-lg">
-      <li><a href="index.html" class="ink-link">HOME</a></li>
-      <li><a href="about.html" class="ink-link">ABOUT</a></li>
-      <li><a href="#" class="ink-link">POEMS</a></li>
-      <li><a href="shortstories.html" class="ink-link">ESSAYS</a></li>
-      <li><a href="posts.html" class="ink-link">POSTS</a></li>
-      <li><a href="codes.html" class="ink-link">CODES</a></li>
-      <li><a href="achievements.html" class="ink-link">ACHIEVEMENTS</a></li>
-      <li><a href="contact.html" class="ink-link">CONTACT</a></li>
-    </ul>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">Anusha Garg</a>
+      </div>
+      <div class="nav-menu" id="navMenu">
+        <a href="index.html#home" class="nav-link">Home</a>
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#achievements" class="nav-link">Achievements</a>
+        <a href="poems.html" class="nav-link">Poetry</a>
+        <a href="index.html#projects" class="nav-link">Projects</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </nav>
 
-  <!-- Main Content -->
-  <main class="flex-1 px-6 py-12">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-8 fade-in">POEMS</h1>
-      
-      <!-- Search Section -->
-      <div class="mt-8 flex justify-center mb-12">
-        <div class="flex">
-          <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Search poems..." 
-            class="search-input px-4 py-3 focus:outline-none" 
-          />
-          <button 
-            id="searchBtn"
-            class="search-btn px-4 py-3"
-          >
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title font-playfair">Poetry Collection</h1>
+    <p class="hero-subtitle">
+      A curated collection of heartfelt verses exploring life, love, emotions, and the human experience.
+    </p>
+  </section>
 
-      <!-- Poems Grid Container -->
-      <div id="poemsContainer" class="poems-grid">
-        <!-- Poem 1 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">I Wish I Could Turn Back Time</h3>
-          <div class="poem-preview">I wish I could turn back time when I used to shine shine as a daughter, sister, and a friend oh my lord! when did this end...</div>
-          <div class="poem-content">
-            <pre>I wish I could turn back time
+  <!-- Search Section -->
+  <div class="search-container">
+    <div class="search-wrapper">
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Search poems by title, theme, or keywords..."
+      />
+      <button class="search-btn" id="searchBtn">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Poems Grid -->
+  <div class="poems-grid" id="poemsContainer">
+    <!-- Poem cards will be dynamically populated -->
+  </div>
+
+  <!-- No Results -->
+  <div class="no-results hidden" id="noResults">
+    <i class="fas fa-search"></i>
+    <h3 class="font-playfair">No poems found</h3>
+    <p>Try searching with different keywords or browse all poems</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Crafted with <span class="footer-heart">♥</span> by Anusha Garg</p>
+    <p>&copy; 2025 anushagarg.com · All rights reserved</p>
+  </footer>
+
+  <script>
+    // Poem data - Complete collection (27 poems)
+    const poems = [
+      {
+        title: "I Wish I Could Turn Back Time",
+        preview: "I wish I could turn back time when I used to shine shine as a daughter, sister, and a friend oh my lord! when did this end...",
+        content: `I wish I could turn back time
 when I used to shine
 shine as a daughter, sister, and a friend
 oh my lord! when did this end
@@ -329,17 +496,12 @@ But one day for sure
 I will take myself far
 
 Far in success and as of for now
-I wish my future self all the best</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 2 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Teenage Chronicles</h3>
-          <div class="poem-preview">Being a teen is so cool, the kids say But they never realize how quickly time flies Yesterday I was crying to play...</div>
-          <div class="poem-content">
-            <pre>Being a teen is so cool, the kids say
+I wish my future self all the best`
+      },
+      {
+        title: "Teenage Chronicles",
+        preview: "Being a teen is so cool, the kids say But they never realize how quickly time flies Yesterday I was crying to play...",
+        content: `Being a teen is so cool, the kids say
 But they never realize how quickly time flies
 Yesterday I was crying to play
 Now at the blink of an eye,
@@ -367,17 +529,12 @@ No matter how old I get
 A spark in my heart is set
 The spark of childhood euphoria
 The pure joy of a child's glee
-Is the only joy I once again want to see</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 3 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Dark Phase</h3>
-          <div class="poem-preview">Oh God when will this dark phase end Everyday when I look at my friends With shimmer in my eyes All I see is a dimmed light...</div>
-          <div class="poem-content">
-            <pre>Oh God when will this dark phase end
+Is the only joy I once again want to see`
+      },
+      {
+        title: "Dark Phase",
+        preview: "Oh God when will this dark phase end Everyday when I look at my friends With shimmer in my eyes All I see is a dimmed light...",
+        content: `Oh God when will this dark phase end
 Everyday when I look at my friends
 With shimmer in my eyes
 All I see is a dimmed light
@@ -388,17 +545,12 @@ Oh God what is my mistake
 Why is my friendship at it's stake
 
 Oh God please save this light
-I beg you so with all my might</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 4 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Happiness, A Question</h3>
-          <div class="poem-preview">What is happiness? Happiness is nothing but caring less Happiness is a weaving tale Happiness is love but never on a scale...</div>
-          <div class="poem-content">
-            <pre>What is happiness?
+I beg you so with all my might`
+      },
+      {
+        title: "Happiness, A Question",
+        preview: "What is happiness? Happiness is nothing but caring less Happiness is a weaving tale Happiness is love but never on a scale...",
+        content: `What is happiness?
 Happiness is nothing but caring less
 Happiness is a weaving tale
 Happiness is love but never on a scale
@@ -429,17 +581,12 @@ Happiness is helping beat the stress
 The stress of anything that troubles
 So let's spread happiness with our words
 Let's try making happiness free
-Let's try making it as simple as a glee</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 5 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Food Chronicles</h3>
-          <div class="poem-preview">I'm on a diet, I assured, But pizza thoughts, my cravings procured I picked up the phone to place the call...</div>
-          <div class="poem-content">
-            <pre>I'm on a diet, I assured,
+Let's try making it as simple as a glee`
+      },
+      {
+        title: "Food Chronicles",
+        preview: "I'm on a diet, I assured, But pizza thoughts, my cravings procured I picked up the phone to place the call...",
+        content: `I'm on a diet, I assured,
 But pizza thoughts, my cravings procured
 I picked up the phone to place the call,
 Oh! How hard my mind tried to haul
@@ -457,20 +604,15 @@ Resisting temptation, a futile guise
 Though I aimed for discipline, I must confess,
 In the face of pizza, I couldn't suppress
 So I indulged, with guilt and pleasure combined,
-A fleeting moment of weakness, in my diet confined</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 6 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Popularity: A hole</h3>
-          <div class="poem-preview">Popularity isn't what you think it is, It is a hidden harmony of regret, It is a concept, a mindset A lie that everyone belives...</div>
-          <div class="poem-content">
-            <pre>Popularity isn't what you think it is,
+A fleeting moment of weakness, in my diet confined`
+      },
+      {
+        title: "Popularity: A Hole",
+        preview: "Popularity isn't what you think it is, It is a hidden harmony of regret, It is a concept, a mindset A lie that everyone believes...",
+        content: `Popularity isn't what you think it is,
 It is a hidden harmony of regret,
 It is a concept, a mindset 
-A lie that everyone belives,
+A lie that everyone believes,
 
 Popularity is that lost soul,
 Lying its way in life,
@@ -482,17 +624,12 @@ It feeds on fear, It drinks from doubt,
 Building Thrones on shaky grounds,
 And chose who chase it-lose themselves,
 In echoes that never call them Home
-In the end, popularity buries its own kings</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 7 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Happiest Birthday</h3>
-          <div class="poem-preview">Another year, another cheer, Brace through the world, Loud and clear Fifteen, an age so bright...</div>
-          <div class="poem-content">
-            <pre>Another year, another cheer,
+In the end, popularity buries its own kings`
+      },
+      {
+        title: "Happiest Birthday",
+        preview: "Another year, another cheer, Brace through the world, Loud and clear Fifteen, an age so bright...",
+        content: `Another year, another cheer,
 Brace through the world,
 Loud and clear
 
@@ -516,17 +653,12 @@ Hold my hand,
 Together we stand
 
 Chapter fourteen comes to an end,
-But I am still your best friend</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 8 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">What Is Love?</h3>
-          <div class="poem-preview">Love is a flower, Blooming in our hearts Every action makes it pound, Every decision counts...</div>
-          <div class="poem-content">
-            <pre>Love is a flower,
+But I am still your best friend`
+      },
+      {
+        title: "What Is Love?",
+        preview: "Love is a flower, Blooming in our hearts Every action makes it pound, Every decision counts...",
+        content: `Love is a flower,
 Blooming in our hearts
 Every action makes it pound,
 Every decision counts
@@ -544,17 +676,12 @@ Another to his dear
 They say love is complicated,
 One must keep its heart gated
 If so, then why?
-What is love? He cries</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 9 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">The Saga Of Indian Cuisine</h3>
-          <div class="poem-preview">Indian cuisine, a tale indeed With every state, a new one we weave From paneer to dosa's From chicken to samosa's...</div>
-          <div class="poem-content">
-            <pre>Indian cuisine, a tale indeed
+What is love? He cries`
+      },
+      {
+        title: "The Saga Of Indian Cuisine",
+        preview: "Indian cuisine, a tale indeed With every state, a new one we weave From paneer to dosa's From chicken to samosa's...",
+        content: `Indian cuisine, a tale indeed
 With every state, a new one we weave
 From paneer to dosa's
 From chicken to samosa's
@@ -567,17 +694,12 @@ From Kajukatli to Pateleo
 Indian cuisine, you'll never regret
 Your cravings always met
 So immerse yourself in this power divine
-Cause after all, shikanji is better than wine</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 10 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Oh to Be Loved</h3>
-          <div class="poem-preview">Oh to be loved, To be someone's dove Oh to be seen To have someone be keen...</div>
-          <div class="poem-content">
-            <pre>Oh to be loved,
+Cause after all, shikanji is better than wine`
+      },
+      {
+        title: "Oh to Be Loved",
+        preview: "Oh to be loved, To be someone's dove Oh to be seen To have someone be keen...",
+        content: `Oh to be loved,
 To be someone's dove
 Oh to be seen
 To have someone be keen
@@ -605,17 +727,12 @@ Self love is gain,
 Embrace yourself,
 Hold yourself,
 To be loved by no one else,
-To be loved themselves</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 11 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Life: A Tale</h3>
-          <div class="poem-preview">Life's a maze, Full of craze, Life's history, Life's a mystery It starts with a cry...</div>
-          <div class="poem-content">
-            <pre>Life's a maze,
+To be loved themselves`
+      },
+      {
+        title: "Life: A Tale",
+        preview: "Life's a maze, Full of craze, Life's history, Life's a mystery It starts with a cry...",
+        content: `Life's a maze,
 Full of craze,
 Life's history,
 Life's a mystery
@@ -643,17 +760,12 @@ Life's a mess,
 A mess that never cleans,
 A wound that never heals,
 Life's beautiful isn't it?
-So wonderful isn't it?</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 12 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">The Dream & The Reality</h3>
-          <div class="poem-preview">I saw a dream, So unreal it seems, A face so clear, A face so dear, Dancing through the crowd...</div>
-          <div class="poem-content">
-            <pre>I saw a dream,
+So wonderful isn't it?`
+      },
+      {
+        title: "The Dream & The Reality",
+        preview: "I saw a dream, So unreal it seems, A face so clear, A face so dear, Dancing through the crowd...",
+        content: `I saw a dream,
 So unreal it seems,
 A face so clear,
 A face so dear,
@@ -710,17 +822,12 @@ Suffocation is what we all feel,
 It's about time we leave mainstream stuff,
 It's about time we break these cuffs,
 It's time we realize mainstream isn't for all,
-Success lies where passion falls</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 13 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Friendship</h3>
-          <div class="poem-preview">Friendship, The flowers in the garden of life, A relation that always thrives, Something defined so pure, so sure...</div>
-          <div class="poem-content">
-            <pre>Friendship,
+Success lies where passion falls`
+      },
+      {
+        title: "Friendship",
+        preview: "Friendship, The flowers in the garden of life, A relation that always thrives, Something defined so pure, so sure...",
+        content: `Friendship,
 The flowers in the garden of life,
 A relation that always thrives,
 Something defined so pure, so sure,
@@ -743,17 +850,12 @@ Friendship,
 Something I dream so dear,
 Something I always hold near,
 Oh! To have true friends so pretty,
-Oh! To lack them what a sight so pity</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 14 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Borders and Dreams</h3>
-          <div class="poem-preview">I live in a world separated by borders, Where power rules, And hatred follows, History is taught to learn lessons...</div>
-          <div class="poem-content">
-            <pre>I live in a world separated by borders,
+Oh! To lack them what a sight so pity`
+      },
+      {
+        title: "Borders and Dreams",
+        preview: "I live in a world separated by borders, Where power rules, And hatred follows, History is taught to learn lessons...",
+        content: `I live in a world separated by borders,
 Where power rules,
 And hatred follows,
 
@@ -774,17 +876,12 @@ Is war always avenge?
 I see a utopian vision,
 Without bombs and nuclear fission,
 Where people live in peace and harmony,
-When the world isn't driven by power or money</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 15 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">The World's a Play</h3>
-          <div class="poem-preview">The world's a play, Where men are mere puppets, It's the words that control, It's the pen who represents him...</div>
-          <div class="poem-content">
-            <pre>The world's a play,
+When the world isn't driven by power or money`
+      },
+      {
+        title: "The World's a Play",
+        preview: "The world's a play, Where men are mere puppets, It's the words that control, It's the pen who represents him...",
+        content: `The world's a play,
 Where men are mere puppets,
 It's the words that control,
 It's the pen who represents him,
@@ -845,17 +942,12 @@ The rat who cries,
 We've been pained by ones we don't know,
 
 But alas it's a modern world,
-Nobody cares for so.</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 16 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Saturday Bliss (Inspired By Cheap thrills)</h3>
-          <div class="poem-preview">I don't need no fancy car, Or money to take me far, no heels or bougie huts, all I need is music to keep me shut...</div>
-          <div class="poem-content">
-            <pre>I don't need no fancy car,
+Nobody cares for so.`
+      },
+      {
+        title: "Saturday Bliss (Inspired By Cheap Thrills)",
+        preview: "I don't need no fancy car, Or money to take me far, no heels or bougie huts, all I need is music to keep me shut...",
+        content: `I don't need no fancy car,
 Or money to take me far,
 no heels or bougie huts,
 all I need is music to keep me shut
@@ -880,22 +972,17 @@ For no elegance shall let you see,
 I shall dance till the night ends,
 With no one to impress, no trends to defend,
 Let the beat be my only brand-
-Barefoot,bold and never planned</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 17 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">The garden of darkness</h3>
-          <div class="poem-preview">I walked into a garden, Black and white all around, Eyes glued to my path, I didnt care what befound...</div>
-          <div class="poem-content">
-            <pre>I walked into a garden,
+Barefoot,bold and never planned`
+      },
+      {
+        title: "The Garden of Darkness",
+        preview: "I walked into a garden, Black and white all around, Eyes glued to my path, I didnt care what befound...",
+        content: `I walked into a garden,
 Black and white all around,
 Eyes glued to my path,
 I didnt care what befound,
 
-Beneath my ground, ,
+Beneath my ground,
 Layed the dead and dried,
 Every leaf fallen,
 the tears i cried,
@@ -935,17 +1022,12 @@ Before I did,
 It took my flower,
 I wanted to resist,
 But deep down i knew,
-I wasnt the best fit.</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 18 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">My Dear Teddy</h3>
-          <div class="poem-preview">I closed my eyes, I opened my hand, And in there, Lied my new bestfriend, I called him teddy...</div>
-          <div class="poem-content">
-            <pre>I closed my eyes,
+I wasnt the best fit.`
+      },
+      {
+        title: "My Dear Teddy",
+        preview: "I closed my eyes, I opened my hand, And in there, Lied my new bestfriend, I called him teddy...",
+        content: `I closed my eyes,
 I opened my hand,
 And in there,
 Lied my new bestfriend,
@@ -1028,17 +1110,12 @@ He'll never say goodbye.
 And when the time comes,
 You may pass him on too—
 A little thread of love,
-Forever running through.</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 19 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">The Triumph of Silence</h3>
-          <div class="poem-preview">I walked into a field, Nothing special, Or maybe, I didn't care what around, The winds rushed, The wheat blew...</div>
-          <div class="poem-content">
-            <pre>I walked into a field,
+Forever running through.`
+      },
+      {
+        title: "The Triumph of Silence",
+        preview: "I walked into a field, Nothing special, Or maybe, I didn't care what around, The winds rushed, The wheat blew...",
+        content: `I walked into a field,
 Nothing special,
 Or maybe,
 I didn't care what around,
@@ -1098,17 +1175,12 @@ Id rather call it tragic,
 It aint fiction,
 Nor dazzling relevation,
 Just a silent breeze-
-Simple meditation</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 20 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">My little solar system</h3>
-          <div class="poem-preview">My life is a balckhole, Darkness all around, Curious is one, But Alas no profound, My life lacks gravity...</div>
-          <div class="poem-content">
-            <pre>My life is a balckhole,
+Simple meditation`
+      },
+      {
+        title: "My Little Solar System",
+        preview: "My life is a blackhole, Darkness all around, Curious is one, But Alas no profound, My life lacks gravity...",
+        content: `My life is a blackhole,
 Darkness all around,
 Curious is one,
 But Alas no profound,
@@ -1131,17 +1203,12 @@ My life is Venus,
 Its moon be my heart,
 What drives me is the orbitals,
 My life is Neptune,
-Driven out by life's dance</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 21 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Dear Santa Claus I have a Wish</h3>
-          <div class="poem-preview">Dear Santa Claus, I have a wish, I wish the time would stop, To change the things that cause...</div>
-          <div class="poem-content">
-            <pre>Dear Santa Claus, 
+Driven out by life's dance`
+      },
+      {
+        title: "Dear Santa Claus I have a Wish",
+        preview: "Dear Santa Claus, I have a wish, I wish the time would stop, To change the things that cause...",
+        content: `Dear Santa Claus, 
 I have a wish,
 I wish the time would stop,
 To change the things that cause,
@@ -1160,17 +1227,12 @@ Time is what ill sue,
 I wish I had a time machine,
 To go back and never be,
 The worlds a masterpiece,
-But I am not the painting it needs</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 22 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">A flower of the dear</h3>
-          <div class="poem-preview">My life is a garden, Thorns and spikes around, Pain, sorrow, lies beforund, Each step shall bleed...</div>
-          <div class="poem-content">
-            <pre>My life is a garden,
+But I am not the painting it needs`
+      },
+      {
+        title: "A Flower of the Dear",
+        preview: "My life is a garden, Thorns and spikes around, Pain, sorrow, lies beforund, Each step shall bleed...",
+        content: `My life is a garden,
 Thorns and spikes around,
 Pain, sorrow, lies  beforund,
 Each step shall bleed,
@@ -1208,20 +1270,15 @@ It shed,
 To all the happiness,
 It fed,
 The flower shall leave its trace,
-Not through the memories but scars it gave</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 23 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">A letter to the lillies</h3>
-          <div class="poem-preview">You hate the rain? Asked the lillies But how could i explain? Moonsoon, The only season i glee...</div>
-          <div class="poem-content">
-            <pre>You hate the rain?
-Asked the lillies 
+Not through the memories but scars it gave`
+      },
+      {
+        title: "A Letter to the Lilies",
+        preview: "You hate the rain? Asked the lilies But how could i explain? Monsoon, The only season i glee...",
+        content: `You hate the rain?
+Asked the lilies 
 But how could i explain?
-Moonsoon,
+Monsoon,
 The only season i glee,
 When the mere roses thrive, 
 When butterflies take flight,
@@ -1254,18 +1311,13 @@ The thief of joy,
 Yet, the god of love 
 The rain is complicated,
 So is life,
-To the Lillies,
-I offer only silence</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-
-        <!-- Poem 24 -->
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">A Symphony of History: Outfits</h3>
-          <div class="poem-preview">Woven Thread share stories, every fold singing its own song, Vibrant colours treasure history, While art takes different forms...</div>
-          <div class="poem-content">
-            <pre>Woven Thread share stories,
+To the Lilies,
+I offer only silence`
+      },
+      {
+        title: "A Symphony of History: Outfits",
+        preview: "Woven Thread share stories, every fold singing its own song, Vibrant colours treasure history, While art takes different forms...",
+        content: `Woven Thread share stories,
 every fold singing its own song,
 Vibrant colours treasure history,
 While art takes different forms,
@@ -1293,24 +1345,21 @@ in every thread — a sacred grace.
 From loom to life it lingers,
 echoing roots we hold dear,
 Traditional outfits — more than attire,
-they're heritage we wear near.</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-        <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">I miss a little girl</h3>
-          <div class="poem-preview">My mother said I’ve changed Yet I never noticed how. But, I no longer hold her hand to walk......</div>
-          <div class="poem-content">
-            <pre>My mother said I’ve changed,
+they're heritage we wear near.`
+      },
+      {
+        title: "I Miss a Little Girl",
+        preview: "My mother said I've changed Yet I never noticed how. But, I no longer hold her hand to walk...",
+        content: `My mother said I've changed,
 I never noticed how,
 But,
 I no longer hold her hand to walk,
 In fact, 
 we barely even talk,
-I’ve outgrown my dad’s cradle,
-I’ve developed new tastes,
+I've outgrown my dad's cradle,
+I've developed new tastes,
 I never liked studying,
-yet now it’s my comfort place,
+yet now it's my comfort place,
 I enjoy the food I once hated,
 Yet despise those I loved,
 I miss being free,
@@ -1326,8 +1375,8 @@ Or an astronaut?
 That sounds cool!
 Though,
  I picked up a pen one day,
-I’ve never looked back,
-I’ve grown – flourished,
+I've never looked back,
+I've grown – flourished,
 Changing in silent ways,
 Yet sometimes I open a diary,
 A dairy of lost trace, 
@@ -1338,30 +1387,27 @@ I still love to dress up,
 My dad always ties my shoes,
 My brother still spoils me crazy,
 My mum would always give me a hug,
-And I would always want to be young me.</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-              <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Get me a doll</h3>
-          <div class="poem-preview">I saw my barbie in the attic, Locked away; Forced in a closet, Funny how I’d never let it stray, Yet,......</div>
-          <div class="poem-content">
-            <pre>I saw my barbie in the attic,
+And I would always want to be young me.`
+      },
+      {
+        title: "Get Me a Doll",
+        preview: "I saw my barbie in the attic, Locked away; Forced in a closet, Funny how I'd never let it stray, Yet,...",
+        content: `I saw my barbie in the attic,
 Locked away;
 Forced in a closet,
-Funny how I’d never let it stray,
+Funny how I'd never let it stray,
 Yet,
 This day I find its dress fray,
-I’ve always loved them,
+I've always loved them,
 The only toy id ever buy,
 Little treasures of reminiscence,
-A mere gift that’ll make me cry,
+A mere gift that'll make me cry,
 I wish I could take you back in time,
 See me play ;
 Just one last time,
 Hold it in my hand,
 Keep it close to my heart,
-“So tall, so pretty”
+"So tall, so pretty"
 Said the young soul in me,
 Gift my little self a mirror,
 A loophole of time,
@@ -1397,15 +1443,12 @@ Maybe give her hope?
 I wish I get a barbie soon,
 With perfect dress and hair,
 I wish I wake up tomorrow,
-And skip this little  despair .</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-                      <div class="poem-card scroll-fade-in">
-          <h3 class="poem-title font-playfair">Cracked Soul</h3>
-          <div class="poem-preview">>I walked into a room, too bright to see, each step i took cracked, like a locked cage...</div>
-          <div class="poem-content">
-            <pre>I walked into a room,
+And skip this little  despair .`
+      },
+      {
+        title: "Cracked Soul",
+        preview: "I walked into a room, too bright to see, each step i took cracked, like a locked cage...",
+        content: `I walked into a room,
 too bright to see,
 each step i took cracked,
 like a locked cage;
@@ -1491,87 +1534,92 @@ yet heals all pain.
 For i shall keep this dear,
 Locked away.
 For i possess the sole key,
-to store my little melody.</pre>
-          </div>
-          <button class="journal-btn px-4 py-2 mt-4 toggle-poem">Read Full Poem</button>
-        </div>
-       
-        
-      <div id="noResults" class="text-center text-xl text-[#7c5c36] opacity-80 py-10 hidden">
-        <i class="fas fa-search fa-2x mb-4 opacity-70"></i>
-        <p class="font-playfair">No poems found</p>
-        <p class="text-base mt-2">Try searching for a different keyword.</p>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer-journal text-center py-6 mt-12 fade-in">
-    <span style="color: #bfa181;">crafted with love by Anusha</span><br/>
-    &copy; 2025 anushagarg.com
-  </footer>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const toggleButtons = document.querySelectorAll('.toggle-poem');
-      const searchBtn = document.getElementById('searchBtn');
-      const searchInput = document.getElementById('searchInput');
-      const menuToggle = document.getElementById('menu-toggle');
-      const navMenu = document.getElementById('nav-menu');
-      const poemsContainer = document.getElementById('poemsContainer');
-      const noResults = document.getElementById('noResults');
-
-      toggleButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const poemCard = button.closest('.poem-card');
-          poemCard.classList.toggle('expanded');
-          
-          if (poemCard.classList.contains('expanded')) {
-            button.textContent = 'Show Less';
-          } else {
-            button.textContent = 'Read Full Poem';
-          }
-        });
-      });
-
-      function filterPoems() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const poemCards = document.querySelectorAll('#poemsContainer .poem-card');
-        let visibleCount = 0;
-
-        poemCards.forEach(card => {
-          const title = card.querySelector('.poem-title').textContent.toLowerCase();
-          const preview = card.querySelector('.poem-preview').textContent.toLowerCase();
-          const content = card.querySelector('.poem-content pre').textContent.toLowerCase();
-          
-          if (title.includes(searchTerm) || preview.includes(searchTerm) || content.includes(searchTerm)) {
-            card.style.display = 'flex';
-            visibleCount++;
-          } else {
-            card.style.display = 'none';
-          }
-        });
-
-        if (visibleCount === 0) {
-          noResults.classList.remove('hidden');
-          poemsContainer.style.display = 'none';
-        } else {
-          noResults.classList.add('hidden');
-          poemsContainer.style.display = 'grid';
-        }
+to store my little melody.`
       }
+    ];
 
-      menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('hidden');
+    // Render poems
+    function renderPoems(poemsToRender) {
+      const container = document.getElementById('poemsContainer');
+      container.innerHTML = '';
+      
+      poemsToRender.forEach((poem, index) => {
+        const card = document.createElement('div');
+        card.className = 'poem-card scroll-fade';
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        card.innerHTML = `
+          <h3 class="poem-title font-playfair">${poem.title}</h3>
+          <div class="poem-preview">${poem.preview}</div>
+          <div class="poem-content">
+            <pre>${poem.content}</pre>
+          </div>
+          <button class="read-btn">Read Full Poem</button>
+        `;
+        
+        container.appendChild(card);
       });
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.scroll-fade-in').forEach(el => observer.observe(el));
+      // Add event listeners to read buttons
+      document.querySelectorAll('.read-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const card = this.closest('.poem-card');
+          card.classList.toggle('expanded');
+          this.textContent = card.classList.contains('expanded') ? 'Show Less' : 'Read Full Poem';
+        });
+      });
 
-      searchBtn.addEventListener('click', filterPoems);
-      searchInput.addEventListener('input', filterPoems);
+      // Scroll animation
+      observeElements();
+    }
+
+    // Search functionality
+    function searchPoems() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = poems.filter(poem => 
+        poem.title.toLowerCase().includes(searchTerm) ||
+        poem.preview.toLowerCase().includes(searchTerm) ||
+        poem.content.toLowerCase().includes(searchTerm)
+      );
+
+      if (filtered.length === 0) {
+        document.getElementById('poemsContainer').classList.add('hidden');
+        document.getElementById('noResults').classList.remove('hidden');
+      } else {
+        document.getElementById('poemsContainer').classList.remove('hidden');
+        document.getElementById('noResults').classList.add('hidden');
+        renderPoems(filtered);
+      }
+    }
+
+    // Mobile menu
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('navMenu').classList.toggle('active');
+      this.classList.toggle('active');
     });
+
+    // Scroll animation observer
+    function observeElements() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+    }
+
+    // Search events
+    document.getElementById('searchBtn').addEventListener('click', searchPoems);
+    document.getElementById('searchInput').addEventListener('input', searchPoems);
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') searchPoems();
+    });
+
+    // Initial render
+    renderPoems(poems);
   </script>
 </body>
 </html>
