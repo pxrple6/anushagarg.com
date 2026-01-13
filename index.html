@@ -1,343 +1,616 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>anushagarg.com</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito+Sans:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/styles.css" />
-  <style>
-    body {
-      font-family: 'Nunito Sans', sans-serif;
-      background-color: #f8f5f1; /* A soft, off-white paper color */
-      background-image: radial-gradient(circle at 1px 1px, rgba(222, 205, 180, 0.8) 1px, transparent 0);
-      background-size: 25px 25px;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-    .paper-card {
-      background: #fffdf8;
-      border-radius: 1.25rem;
-      box-shadow: 0 4px 24px 0 rgba(120, 90, 60, 0.08), 0 1.5px 4px 0 rgba(120, 90, 60, 0.04);
-      border: 1.5px solid #ede6db;
-      position: relative;
-      z-index: 3;
-    }
-    .fade-in {
-      animation: fadeIn 1.5s ease-in-out;
-      position: relative;
-      z-index: 3;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #typewriter {
-      border-right: .12em solid #bfa181;
-      white-space: nowrap;
-      overflow: hidden;
-      font-family: 'Lora', serif;
-      font-size: 2.5rem;
-      color: #7c5c36;
-      letter-spacing: 0.04em;
-    }
-    .journal-btn {
-      background: #ede6db;
-      color: #7c5c36;
-      border-radius: 9999px;
-      font-weight: 700;
-      font-family: 'Nunito Sans', sans-serif;
-      box-shadow: 0 2px 8px 0 #bfa18122;
-      border: 1.5px solid #d6c3a3;
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-    }
-    .journal-btn:hover {
-      background: #f5eee6;
-      color: #4b3a1a;
-      box-shadow: 0 4px 16px 0 #bfa18133;
-    }
-    .icon-card {
-      background: #f5eee6;
-      border-radius: 9999px;
-      padding: 0.75rem;
-      border: 1.5px solid #ede6db;
-      box-shadow: 0 2px 8px 0 #bfa18122;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .icon-card:hover {
-      background: #ede6db;
-      transform: scale(1.08) translateY(-2px);
-    }
-    .footer-journal {
-      background: #ede6db;
-      border-top: 1.5px solid #d6c3a3;
-      color: #7c5c36;
-      box-shadow: 0 -2px 16px 0 #bfa18111;
-      position: relative;
-      z-index: 3;
-      padding-top: 2.5rem;
-      clip-path: polygon(0 15%, 5% 10%, 10% 16%, 15% 9%, 20% 17%, 25% 12%, 30% 18%, 35% 10%, 40% 15%, 45% 11%, 50% 17%, 55% 10%, 60% 16%, 65% 12%, 70% 18%, 75% 11%, 80% 15%, 85% 9%, 90% 16%, 95% 10%, 100% 15%, 100% 100%, 0 100%);
-    }
-    .hero-image {
-      border-radius: 9999px;
-      border: 8px solid #ede6db;
-      box-shadow: 0 8px 32px 0 #bfa18133;
-      object-fit: cover;
-      transform: rotate(-3deg);
-      transition: transform 0.3s ease-in-out;
-    }
-    .hero-image:hover {
-      transform: rotate(0deg) scale(1.05);
-    }
-    .journal-spread {
-      display: flex;
-      background: #fffdf8;
-      border: 1.5px solid #ede6db;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 35px rgba(120, 90, 60, 0.1), 0 2px 10px rgba(120, 90, 60, 0.08);
-      position: relative;
-    }
-    .journal-spread::after {
-      content: '';
-      position: absolute;
-      top: 5%;
-      bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, #d6c3a3, transparent);
-      opacity: 0.5;
-    }
-    .journal-page {
-      padding: 3rem 4rem;
-    }
-    .font-playfair {
-      font-family: 'Lora', serif;
-    }
-    .footer-journal span {
-      font-family: 'Patrick Hand', cursive;
-      font-size: 1.4rem;
-    }
-    .cloud {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.05));
-      opacity: 0.9;
-      z-index: 0;
-      animation: drift 45s linear infinite alternate;
-    }
-    .cloud::before, .cloud::after {
-      content: '';
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-    }
-    .cloud-1 { width: 60px; height: 60px; top: 15%; left: 10%; }
-    .cloud-1::before { width: 35px; height: 35px; top: -18px; left: 10px; }
-    .cloud-1::after { width: 45px; height: 45px; top: -10px; left: -15px; }
-    .cloud-2 { width: 80px; height: 80px; top: 25%; right: 12%; animation-duration: 55s; }
-    .cloud-2::before { width: 45px; height: 45px; top: -25px; right: 15px; }
-    .cloud-2::after { width: 55px; height: 55px; top: -15px; right: -25px; }
-    .cloud-3 { width: 50px; height: 50px; bottom: 15%; left: 20%; animation-duration: 50s; }
-    .cloud-3::before { width: 30px; height: 30px; top: -15px; left: 8px; }
-    .cloud-3::after { width: 35px; height: 35px; top: -8px; left: -15px; }
-    @keyframes drift {
-      from { transform: translateX(-40px); }
-      to { transform: translateX(40px); }
-    }
-    .doodle {
-      position: absolute;
-      z-index: 2;
-      animation: doodle-pulse 5s ease-in-out infinite alternate;
-    }
-    .doodle svg {
-      width: 100%;
-      height: 100%;
-      stroke: #bfa181;
-      stroke-width: 2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    @keyframes doodle-pulse {
-      from { opacity: 0.2; }
-      to { opacity: 0.6; }
-    }
-    .scroll-fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    .scroll-fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #f8f5f1; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.8s ease, visibility 0.8s ease; }
-    .preloader.hidden { opacity: 0; visibility: hidden; }
-    .preloader-text-container {
-      font-family: 'Patrick Hand', cursive;
-      font-size: 2.5rem;
-      color: #bfa181;
-      display: flex;
-      align-items: center;
-    }
-    .preloader-cursor {
-      display: inline-block;
-      width: 3px;
-      height: 2.5rem;
-      background-color: #bfa181;
-      margin-left: 8px;
-      animation: blink 1s infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-    /* Mobile layout adjustments */
-    @media (max-width: 767px) {
-      .journal-spread { flex-direction: column; }
-      .journal-spread::after { display: none; }
-      .journal-page { padding: 1.5rem 1.25rem; }
-      .hero-image { width: 200px; height: 200px; border-width: 6px; transform: none; }
-      #typewriter { font-size: 2rem; }
-      .doodle, .cloud { display: none; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anusha's Portfolio - Poet & Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="assets/assets/script.js" defer></script>
 </head>
-<body class="min-h-screen flex flex-col">
-  <div id="preloader" class="preloader">
-    <div class="preloader-text-container">
-      <span>𐙚⋆°｡⋆♡ Anusha 𐙚⋆°｡⋆♡  </span>
-      <span class="preloader-cursor"></span>
-    </div>
-  </div>
-  <!-- Decorative Elements -->
-  <div class="cloud cloud-1"></div>
-  <div class="cloud cloud-2"></div>
-  <div class="cloud cloud-3"></div>
-  <div class="doodle" style="width: 50px; top: 20%; right: 25%; transform: rotate(15deg);">
-    <svg viewBox="0 0 100 100"><path d="M50,5 L61.8,38.2 L98.2,38.2 L68.2,59.8 L79.8,95 L50,73.8 L20.2,95 L31.8,59.8 L1.8,38.2 L38.2,38.2 Z" /></svg>
-  </div>
-  <div class="doodle" style="width: 40px; bottom: 20%; left: 10%; transform: rotate(-10deg);">
-     <svg viewBox="0 0 100 100"><path d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z" /></svg>
-  </div>
-  <div class="doodle" style="width: 80px; top: 18%; left: 15%; transform: rotate(-20deg);">
-    <svg viewBox="0 0 200 100">
-      <path d="M10 50 C 40 0, 60 0, 90 50 C 60 100, 40 100, 10 50 M190 50 C 160 0, 140 0, 110 50 C 140 100, 160 100, 190 50 M100 20 C 120 40, 80 60, 100 80" style="stroke: #f4cae4; stroke-width: 3;"></path>
-    </svg>
-  </div>
-  <div class="doodle" style="width: 60px; bottom: 25%; right: 15%; transform: rotate(20deg) scaleX(-1);">
-    <svg viewBox="0 0 100 100"><path d="M 50,90 C 40,70 20,80 20,50 C 20,20 40,10 50,10 C 60,10 80,20 80,50 C 80,80 60,70 50,90 M 40,40 C 40,30 45,30 45,40 M 60,40 C 60,30 55,30 55,40" style="stroke: #7c5c36;"></path></svg>
-  </div>
-  <div class="doodle" style="width: 80px; top: 60%; left: 20%; transform: rotate(10deg);">
-    <svg viewBox="0 0 100 100"><path d="M10 80 Q 50 10, 90 80" /></svg>
-  </div>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Anusha</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+                <a href="#journey" class="nav-link"> Impact</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#poetry" class="nav-link">Poetry</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            
 
-  <!-- Navbar -->
-  <header class="sticky top-0 z-30 w-full py-4 px-8 flex justify-between items-center paper-card shadow-lg fade-in" style="border-radius: 0 0 1.5rem 1.5rem;">
-    <div class="text-3xl font-bold text-[#7c5c36] tracking-widest font-playfair">ANUSHA</div>
-    <nav class="hidden md:flex space-x-8 text-lg">
-      <a href="index.html" class="ink-link text-[#bfa181] font-bold transition">HOME</a>
-      <a href="about.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a>
-      <a href="poems.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a>
-      <a href="shortstories.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a>
-      <a href="posts.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a>
-      <a href="codes.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a>
-      <a href="achievements.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a>
-      <a href="contact.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </nav>
-    <button id="menu-toggle" class="md:hidden text-[#7c5c36] hover:text-[#bfa181] focus:outline-none">
-      <i class="fas fa-bars fa-2x"></i>
-    </button>
-  </header>
-  <nav id="nav-menu" class="md:hidden hidden px-8 py-4 paper-card fade-in">
-    <ul class="space-y-4 text-lg">
-      <li><a href="index.html" class="ink-link text-[#bfa181] font-bold transition">HOME</a></li>
-      <li><a href="about.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ABOUT</a></li>
-      <li><a href="poems.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POEMS</a></li>
-      <li><a href="shortstories.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ESSAYS</a></li>
-      <li><a href="posts.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">POSTS</a></li>
-      <li><a href="codes.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">CODES</a></li>
-      <li><a href="achievements.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">ACHIEVEMENTS</a></li>
-      <li><a href="contact.html" class="ink-link text-[#7c5c36] hover:text-[#bfa181] transition">CONTACT</a></li>
-    </ul>
-  </nav>
-  <!-- Hero Section -->
-  <main class="flex-1 flex flex-col items-center justify-center py-16 px-4 md:px-0">
-    <div class="max-w-6xl w-full journal-spread">
-      <!-- Left Page -->
-      <div class="journal-page w-full md:w-1/2 flex items-center justify-center">
-        <div class="relative flex-shrink-0">
-          <div class="absolute -inset-2 rounded-full bg-[#ede6db] opacity-80 -z-10"></div>
-          <img src="anusha (2).jpg" alt="Anusha" width="280" height="280" class="hero-image fade-in" />
+
+ <section class="home" id="home">
+    <div class="home-container"> <div class="home-text"> <h1 class="home-title">Anusha</h1>
+            <h2 class="home-subtitle">
+                <span class="cycling-text" id="cyclingText">Poet</span>
+            </h2>
+            <p class="home-description">
+                Weaving <a href="#poetry"  style="color: var(--primary-color);  text-decoration: none; font-weight: bold">words</a> and <a href="#projects"  style="color: var(--primary-color);  text-decoration: none; font-weight: bold">code</a> to create beautiful experiences and meaningful <a href="#journey"  style="color: var(--primary-color);  text-decoration: none; font-weight: bold">change</a>
+            </p>
+            <div class="home-links">
+                <a href="#about" class="btn btn-primary">Learn More</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
         </div>
-      </div>
-      <!-- Right Page -->
-      <div class="journal-page w-full md:w-1/2 flex flex-col justify-center text-center md:text-left">
-        <div>
-          <h1 class="text-5xl md:text-6xl font-playfair font-bold text-[#7c5c36] leading-tight fade-in">
-            A collection of<br/>
-            <span class="text-[#bfa181]">words &</span><br/>
-            <span id="typewriter"></span>
-          </h1>
-          <p class="mt-6 text-xl md:text-2xl text-[#7c5c36] fade-in">
-            A cozy corner of the internet for my thoughts, stories, and creations.
-          </p>
-          <a href="about.html"
-             class="journal-btn mt-10 inline-block px-10 py-4 text-lg fade-in w-full md:w-auto text-center">
-            Get to know me
-          </a>
-          <div class="mt-10 flex justify-center md:justify-start gap-6 fade-in">
-            <a href="https://www.instagram.com/garganusha_" target="_blank" class="icon-card"><i class="fab fa-instagram fa-2x" style="color:#bfa181;"></i></a>
-            <a href="https://www.linkedin.com/in/anushagarg6" target="_blank" class="icon-card"><i class="fab fa-linkedin fa-2x" style="color:#7c8c6a;"></i></a>
-          </div>
+
+        <div class="home-image-container"> <img src="assets/anusha.png" alt="Anusha Garg" class="home-photo">
         </div>
-      </div>
+
     </div>
-  </main>
-  <!-- Footer -->
-  <footer class="footer-journal text-center py-6 mt-12 fade-in">
-    <span style="color: #bfa181;">crafted with love by Anusha</span><br/>
-    &copy; 2025 anushagarg.com
-  </footer>
-  <script src="https://embed.ycb.me"
-	async="true"
-	data-domain="anushagarg"
-	data-type="button-floating"
-	data-buttonicon="ycbm"
-	data-buttonposition="bottomRight"
-	data-buttoncolor="#FFDDA5"
-	data-displaymode="auto"></script>
-  <script>
-    window.addEventListener('load', () => {
-      const preloader = document.getElementById('preloader');
-      preloader.classList.add('hidden');
-    });
+</section>
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const menuToggle = document.getElementById("menu-toggle");
-      const navMenu = document.getElementById("nav-menu");
-      menuToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("hidden");
-      });
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p class="about-subtitle">The chapters of my story</p>
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
-      });
-      document.querySelectorAll('.journal-spread').forEach(el => observer.observe(el));
+            <div class="about-cards about-scroll" id="about-scroll">
+                <div class="about-card" id="chapter-1">
+                    <div class="about-text">
+                        <h3>Chapter 1: My Story</h3>
+                        <p>
+                            I am <span class="accent">Anusha</span> — a <span class="highlight">poet</span>, <span class="highlight">researcher</span>, and <span class="highlight">front-end developer</span>. I work at the intersection of <span class="accent">narrative</span> and <span class="accent">interface</span>, combining creative writing with human-centered design to build meaningful digital experiences and community-focused projects.
+                        </p>
+                        <p>
+                            My practice blends <span class="highlight">qualitative research</span>, <span class="highlight">iterative prototyping</span>, and thoughtful visual design. I founded <span class="accent">Annadatri</span>, a student-led initiative addressing food waste and malnutrition, and I contribute to research and community programs that emphasize measurable social impact.
+                        </p>
+                        <p>
+                            I approach projects with <span class="highlight">curiosity</span>, <span class="highlight">empathy</span>, and a focus on <span class="accent">accessibility</span> and <span class="accent">scale</span> — balancing poetic expression with practical engineering.
+                        </p>
+                    </div>
+                    <div class="mini-gallery">
+                         <figure class="board-photo">
+                            <img src="assets/un geneva.png".png" alt="Workshop">
+                            <figcaption class="photo-caption">UN Geneva</figcaption>
+                        </figure>
+                        <figure class="board-photo">
+                            <img src="assets/research award.png" alt="Research award">
+                            <figcaption class="photo-caption">Research award</figcaption>
+                        </figure>
+                        <figure class="board-photo">
+                            <img src="assets/annadatri.png" alt="Annadatri Field">
+                            <figcaption class="photo-caption">Annadatri field</figcaption>
+                        </figure>
+                       
+                    </div>
+                </div>
 
-       // Typewriter
-      const text = "Daydreams.", pause = 3000, speed = 150;
-      let i = 0, tw = document.getElementById("typewriter");
-      (function type(){ 
-        if(i < text.length) { tw.innerHTML += text[i++]; setTimeout(type, speed); }
-        else { setTimeout(() => { tw.innerHTML = ""; i=0; type(); }, pause); }
-      })();
-    });
-  </script>
+                <div class="about-card" id="chapter-2">
+                    <div class="about-text">
+                        <h3>Chapter 2: My Strengths</h3>
+                        <ul class="strengths-list">
+                            <li><span class="accent">Creative Writing</span> &amp; Poetry</li>
+                            <li><span class="accent">Front-End Development</span> (HTML / CSS / JavaScript)</li>
+                            <li><span class="accent">User Interface</span> &amp; Visual Design</li>
+                            <li><span class="accent">Research</span> &amp; Community Organizing</li>
+                            <li><span class="accent">Leadership</span> &amp; Collaboration</li>
+                        </ul>
+                    </div>
+                    <div class="mini-gallery">
+                       <figure class="board-photo">
+                            <img src="assets/prototype.png" alt="Design jam">
+                            <figcaption class="photo-caption">Food Sensor</figcaption>
+                        </figure>
+                        <figure class="board-photo">
+                            <img src="assets/presentation.png" alt="Design jam">
+                            <figcaption class="photo-caption">Research Paper Presentation </figcaption>
+                        </figure>
+                        <figure class="board-photo">
+                            <img src="assets/poetry.png" alt="Design jam">
+                            <figcaption class="photo-caption">Presenting a self composed poem</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="about-card" id="chapter-3">
+                    <div class="about-text">
+                        <h3>Chapter 3: Hobbies</h3>
+                        <p>
+                            Outside projects, I pursue creative and intellectual hobbies that feed both imagination and craft. Below are the practices I return to again and again.
+                        </p>
+                        <ul class="hobbies-list">
+                            <li>
+                                <strong>Cooking:</strong> I experiment with seasonal and regional dishes — cooking is a creative lab where technique, patience, and curiosity meet.
+                            </li>
+                            <li>
+                                <strong>Researching:</strong> I enjoy evidence-driven inquiry, literature reviews, and applied research for social impact projects.
+                            </li>
+                            <li>
+                                <strong>Reading (<span class="highlight">Classics</span>):</strong> Classics are my favorite — I read widely across modern and classic literature to deepen storytelling, vocabulary, and perspective.
+                            </li>
+                            <li>
+                                <strong>Writing Poetry:</strong> I write regularly, workshop with peers, and explore forms that connect personal reflection to broader social themes.
+                            </li>
+                            <li>
+                                <strong>Learning Coding Lessons (Professional):</strong> I pursue structured, professional learning in front-end development — <span class="accent">accessibility</span>, <span class="accent">testing</span>, modern frameworks, and practical projects for resumes and open-source contributions.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mini-gallery">
+                        <figure class="board-photo">
+                            <img src="assets/classics.png" alt="Design jam">
+                            <figcaption class="photo-caption">Favourite Book</figcaption>
+                        </figure>
+                        <figure class="board-photo">
+                            <img src="assets/cooking.png" alt="Design jam">
+                            <figcaption class="photo-caption">Cooking</figcaption>
+                        </figure>
+                         <figure class="board-photo">
+                            <img src="assets/cozy.png" alt="Design jam">
+                            <figcaption class="photo-caption">Cozy </figcaption>
+                        </figure>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section (Pin-board timeline) -->
+   <section class="achievements" id="achievements">
+    <div class="container">
+        <h2 class="section-title">Achievements & Timeline</h2>
+        <p class="section-subtitle">Pinned milestones from my journey</p>
+
+        <div class="pinboard">
+            
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/cwc.png" alt="Change Makers World Cup">
+                    <h4>Selected Top 50 — Change Makers World Cup (7 Nov, 2025)</h4>
+                    <p>Named a Top 50 Changemaker at the 9th Impact Summit hosted at UN Headquarters Geneva (1M1B Foundation).</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/un summit.png" alt="UN Summit">
+                    <h4>School Delegation — 1M1B Active Summit, UN (7 Nov, 2025)</h4>
+                    <p>Represented Mayoor School Noida at UN Headquarters Geneva (themes: SDG 6 & 16).</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/sft.png" alt="Samsung Solve for Tomorrow">
+                    <h4>Selected Top 40 — Samsung Solve for Tomorrow (Aug 31, 2025)</h4>
+                    <p>Selected as a Top 40 team at Samsung Solve for Tomorrow (IIT Delhi). Award included ₹20,000 and a Samsung Galaxy Book 5 360.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/bis.png" alt="BIS Ambassador">
+                    <h4>Recognised as BIS Ambassador of Quality (Oct 2025)</h4>
+                    <p>Appointed BIS Ambassador of Quality by The Bureau of Indian Standards for quality awareness.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/a2.png" alt="German A2">
+                    <h4>A2 Certificate — German (Oct 2025)</h4>
+                    <p>Achieved A2 level certification in German with strong grades (82/100).</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/top500.png" alt="Youth Ideathon">
+                    <h4>Top 500 — School Youth Ideathon </h4>
+                    <p>Selected among the top 500 participants in the School Youth Ideathon (ThinkStartup/CBSE).</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/patent.png" alt="Patent">
+                    <h4>Patent Submitted & Under Publication (Nov, 2025)</h4>
+                    <p>Indian patent submitted (No: 202511083538) for connecting food donors with recipients via digital platforms.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/research honour.png" alt="Best Paper Award">
+                    <h4>Best Paper Award (29 Nov, 2025)</h4>
+                    <p>Awarded at I3CET 2025 for "Food Quality Monitoring System for Remote Monitoring".</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/i3cset.png" alt="Research Publication">
+                    <h4>Research Paper Publications (Nov, 2025)</h4>
+                    <p>Two papers accepted in Scopus-indexed proceedings: AI Flashcard Generators and Food Quality Monitoring.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/annadatri logo.png" alt="Annadatri Founder">
+                    <h4>Founder — Annadatri (2025)</h4>
+                    <p>Founded and lead Annadatri, a youth-led initiative focused on reducing food waste.</p>
+                </div>
+            </div>
+<div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/Elsevier.png" alt="Battle of Logics">
+                    <h4>Elsevier Research Academy Courses </h4>
+                    <p>Learned Research via Elsevier Research Academy Courses (summer  2025)</p>
+                </div>
+            </div>
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/tinker tutor.png" alt="Youth Ideathon 3rd">
+                    <h4>Tinker Tutors Youth Ideathon — 3rd Position (1 Aug, 2025)</h4>
+                    <p>Secured 3rd Prize representing Ahaarvritti at the national Youth Ideathon.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/bot.png" alt="Battle of Titans">
+                    <h4>Battle Of Titans — 3rd Position (30 Jul, 2025)</h4>
+                    <p>Won 3rd Prize in the interschool Battle Of Titans (Tech Verse category).</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2025">
+                <div class="pin-head">2025</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/battle of logics.png" alt="Battle of Logics">
+                    <h4>Battle Of Logics — 3rd Position (29 Apr, 2025)</h4>
+                    <p>Won 3rd Prize in the interhouse Battle Of Logics (Codecraft category).</p>
+                </div>
+            </div>
+
+
+
+            <div class="pin" data-year="2024">
+                <div class="pin-head">2024</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/sci comp ix.png" alt="Inquisitive Innovators">
+                    <h4>Inquisitive Innovators — 3rd Position (25 Oct, 2024)</h4>
+                    <p>Awarded 3rd Prize in the Interhouse Inquisitive Innovators competition.</p>
+                </div>
+            </div>
+<div class="pin" data-year="2024">
+                <div class="pin-head">2024</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/ac memorial.png" alt="Inquisitive Innovators">
+                    <h4>AC Deb Memorial Interschool Orientation Contest</h4>
+                    <p>Participated in the AC Deb Memorial Interschool Orientation Contest, showcasing debating and public speaking skills.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2024">
+                <div class="pin-head">2024</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/bal bharti mun.png" alt="MUN">
+                    <h4>Model United Nations (May 16–17, 2024)</h4>
+                    <p>Demonstrated diplomatic skills and global policy engagement at MUN.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2024">
+                <div class="pin-head">2024</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/24-25.png" alt="Academic Scholar">
+                    <h4>Academic Scholar — Mayoor School (2024–2025)</h4>
+                    <p>Recognized as an Academic Scholar for excellence in the 2024–2025 session.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2024">
+                <div class="pin-head">2024</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/cbse.png" alt="Budding Author">
+                    <h4>CBSE Outstanding Performance — Budding Author</h4>
+                    <p>Recognized by CBSE for excellence in creative writing and literature.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2023">
+                <div class="pin-head">2023</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/ai german.png" alt="German A1">
+                    <h4>A1 Certificate — German (Oct, 2023)</h4>
+                    <p>Achieved A1 certification in German with a score of 53/60.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2023">
+                <div class="pin-head">2023</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/dps german.png" alt="German Festival">
+                    <h4>Weihnachtszauber — German Festival (Dec 9, 2023)</h4>
+                    <p>Participated in the German Quiz at the Weihnachtszauber inter-school festival.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2023">
+                <div class="pin-head">2023</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/mayoor.png" alt="Mayoor Mohatsav">
+                    <h4>Mayoor Mohatsav — 2nd Position (2023)</h4>
+                    <p>Secured 2nd position in Fable Fusion Odyssey at Mayoor Mohatsav.</p>
+                </div>
+            </div>
+
+            <div class="pin" data-year="2023">
+                <div class="pin-head">2023</div>
+                <div class="pin-body">
+                    <img class="pin-image" src="assets/amity.png" alt="Amity Utsav">
+                    <h4>Amity Utsav — 3rd Position (Aug 4, 2023)</h4>
+                    <p>Secured 3rd position at Amity Utsav in academic/cultural competitions.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+    <!-- Poetry Section - Link to poems.html -->
+    <section class="poetry" id="poetry">
+        <div class="container">
+            <h2 class="section-title">Poetry & Writings</h2>
+            <p class="section-subtitle">A collection of verses and reflections</p>
+            <div style="text-align: center; padding: 60px 0;">
+                <p style="font-size: 18px; color: var(--text-dark); margin-bottom: 30px;">Explore all my poems and writings on a dedicated page</p>
+                <a href="poems.html" class="btn btn-primary">View All Poems →</a>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects & Works</h2>
+            <p class="section-subtitle">Bringing ideas to life through technology</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Personal Portfolio</h3>
+                        <span class="project-tag">HTML · CSS · JavaScript</span>
+                    </div>
+                    <p>A digital scrapbook built with love, HTML, and Tailwind CSS to showcase creative and technical work.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/pxrple6/anushagarg.com" target="_blank">GitHub →</a>
+                        <a href="https://anushagarg.com" target="_blank">Live Demo →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Annadatri Initiative</h3>
+                        <span class="project-tag">React · Firebase · Styled Components</span>
+                    </div>
+                    <p>Official website for my student-led initiative. Designed to spread awareness and gather support for our mission against malnutrition.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/pxrple6/ProjectA" target="_blank">GitHub →</a>
+                        <a href="https://www.annadatri.in/" target="_blank">Live Demo →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>AI Flashcards & Mind Maps</h3>
+                        <span class="project-tag">React · OpenAI API · jsPDF</span>
+                    </div>
+                    <p>A web app that generates AI-powered flashcards and mind maps from text. Supports export in PDF, TXT, and CSV formats for easy studying.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/pxrple6/ai-flash-cards" target="_blank">GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Constellations</h3>
+                        <span class="project-tag">React · D3 · Astronomy API</span>
+                    </div>
+                    <p>Simple react app that identifies constellations in the night sky using astronomy API and displays them in graphs (longitude, latitude, and date).</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Invisible Air Guitar</h3>
+                        <span class="project-tag">MediaPipe · Web Audio API · HTML/CSS/JS</span>
+                    </div>
+                    <p>Browser-based "Invisible Air Guitar" app using MediaPipe Hands for real-time hand tracking and the Web Audio API for synthesizing guitar sounds.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/pxrple6/Invisible-Guitar-" target="_blank">GitHub →</a>
+                        <a href="https://pxrple6.github.io/Invisible-Guitar-/" target="_blank">Live Demo →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="journey" id="journey" style="padding: 100px 0; background: #fff;">
+        <div class="container">
+            <h2 class="section-title">The Changemaker Journey</h2>
+            <p class="section-subtitle">From a local initiative to the United Nations</p>
+
+            <div class="journey-steps" style="margin-top: 50px;">
+                
+                <div class="journey-step" style="display: flex; gap: 30px; margin-bottom: 60px; align-items: flex-start;">
+                    <div class="step-number" style="background: #5e3a8f; color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                    <div class="step-content">
+                        <h3 style="color: #5e3a8f;">2024: Founding Annadatri</h3>
+                        <p>Launched <a href="http://www.annadatri.in" target="_blank" style="text-decoration: underline; font-weight: bold;">Annadatri</a>, a student-led initiative focused on bridging the gap between food waste and malnutrition. This was the foundation of my mission to create a zero-hunger community.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step" style="display: flex; gap: 30px; margin-bottom: 60px; align-items: flex-start;">
+                    <div class="step-number" style="background: #5e3a8f; color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                    <div class="step-content">
+                        <h3 style="color: #5e3a8f;">The Evolution: Ahaarvritti Web App</h3>
+                        <p>To scale the impact, I developed <strong>Ahaarvritti</strong>—a dedicated web application designed to connect donors with excess food directly to NGOs in real-time. This technical solution was recognized in the <strong>Top 40 of Samsung Solve for Tomorrow (SFT)</strong> at IIT Delhi.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step" style="display: flex; gap: 30px; margin-bottom: 60px; align-items: flex-start;">
+                    <div class="step-number" style="background: #5e3a8f; color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</div>
+                    <div class="step-content">
+                        <h3 style="color: #5e3a8f;">UN Impact Summit & World Cup</h3>
+                        <p>My journey reached the global stage at the <strong>9th 1M1B Active Impact Summit at the United Nations, Geneva</strong>. Recognized as one of the <strong>World's Top 50 Changemakers</strong> in the Changemakers World Cup organised by the 1M1B organisation, feliciated at the UN headquarters Geneva, Switzerland. </p>
+                        <a href="https://timesofindia.indiatimes.com/education/campus-talks/noida-school-shines-at-un-summit-only-up-school-among-global-top-8/articleshow/125972380.cms" target="_blank" style="display: inline-block; margin-top: 10px; color: #5e3a8f; font-weight: bold;">Read the Times of India Feature →</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="achievements" id="achievements">
+        <div class="container">
+            <h2 class="section-title">Achievements & Timeline</h2>
+            <div class="pinboard">
+                <div class="pin" data-year="2025">...</div> 
+                </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">Let's collaborate and create something beautiful</p>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Reach out through:</h3>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <div>
+                                <p class="label">LinkedIn</p>
+                                <a href="https://www.linkedin.com/in/anushagarg6/" target="_blank">Anusha</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <p class="label">Email</p>
+                                <a href="mailto:pxrple6@gmail.com">pxrple6@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-github"></i>
+                            <div>
+                                <p class="label">GitHub</p>
+                                <a href="https://github.com/pxrple6" target="_blank">@pxrple6</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-instagram"></i>
+                            <div>
+                                <p class="label">Instagram</p>
+                                <a href="https://www.instagram.com/garganusha_/" target="_blank">@garganusha_</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+   
+    
+    <script>
+        // Cycling text for home subtitle
+        document.addEventListener('DOMContentLoaded', function() {
+            const cyclingText = document.getElementById('cyclingText');
+            if (cyclingText) {
+                const roles = ['Poet', 'Developer', 'Researcher', 'Changemaker'];
+                let currentIndex = 0;
+
+                function cycleText() {
+                    cyclingText.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % roles.length;
+                        cyclingText.textContent = roles[currentIndex];
+                        cyclingText.style.opacity = '1';
+                        
+                        setTimeout(cycleText, 3000);
+                    }, 500);
+                }
+                
+                setTimeout(cycleText, 3000);
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            e.target.reset();
+        });
+    </script>
 </body>
 </html>
