@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf8f4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Anusha Garg — Poet & Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"></noscript>
 <style>
 :root {
   --bg: #faf8f4;
@@ -276,16 +281,15 @@ nav.scrolled {
   background: linear-gradient(transparent, var(--bg));
   z-index: 1;
 }
-/* FIX: eager-load the hero image (above fold), GPU-composited, no layout shift */
 .hero-img-wrap img {
   width: 70%; height: 90%;
   object-fit: contain; object-position: center bottom;
   display: block; position: relative; align-self: flex-end;
   filter: contrast(1.02) saturate(0.92);
-  /* GPU layer prevents filter recalc on scroll */
   will-change: transform;
-  /* Explicit intrinsic size prevents reflow */
-  aspect-ratio: auto;
+  aspect-ratio: 3/4;
+  /* Reserve space while loading to prevent layout shift */
+  background: var(--surface);
 }
 
 .hero-float-label {
@@ -373,22 +377,15 @@ nav.scrolled {
 }
 .img-frame.tall { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 3/4; }
 .img-frame.sq { aspect-ratio: 1; }
-/* FIX: GPU-composited zoom — no filter changes on hover, only transform */
 .img-frame img {
   width: 100%; height: 100%; object-fit: cover;
   display: block;
-  /* GPU layer for zero-jank zoom */
   will-change: transform;
   transform: translateZ(0);
   transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  /* Stable desaturate without per-frame recalc */
   filter: grayscale(15%);
 }
-.img-frame:hover img {
-  transform: scale(1.06) translateZ(0);
-  /* Only re-filter on hover-enter, not per frame */
-  filter: grayscale(0%);
-}
+.img-frame:hover img { transform: scale(1.06) translateZ(0); filter: grayscale(0%); }
 .img-frame-label {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 1.5rem 1rem 0.8rem;
@@ -428,18 +425,18 @@ nav.scrolled {
 .ach-item:hover { background: var(--bg); }
 .ach-item:hover::before { transform: scaleY(1); }
 
-/* FIX: achievement icons — fixed size, lazy load, no layout shift */
 .ach-icon {
   flex-shrink: 0; width: 52px; height: 52px;
   overflow: hidden; border-radius: 2px;
-  background: var(--bg); border: 1px solid var(--border);
-  /* Reserve space so surrounding text doesn't jump when image loads */
-  contain: strict;
+  border: 1px solid var(--border);
+  /* Shimmer placeholder while image loads */
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.4s infinite;
 }
 .ach-icon img {
   width: 100%; height: 100%; object-fit: cover;
   display: block;
-  /* Decode off main thread */
   decoding: async;
 }
 
@@ -654,7 +651,22 @@ footer {
 .foot-brand span { color: var(--rust); }
 .foot-copy { font-family: var(--sans); font-size: 0.62rem; font-weight: 600; color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase; }
 
-/* ── REVEAL ── */
+/* ── IMAGE LOADING SHIMMER ── */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.img-frame {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* ── PERFORMANCE: defer paint for off-screen sections ── */
+#achievements, #projects, .journey-section, #poetry, .contact-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.in { opacity: 1; transform: none; }
 .d1 { transition-delay: 0.12s; }
@@ -670,12 +682,13 @@ footer {
   .hamburger { display: flex; }
   #home { grid-template-columns: 1fr; }
   .hero-left { padding: 9rem 1.8rem 4rem; }
-  .hero-right { min-height: 60vw; }
+  .hero-right { min-height: 50vw; max-height: 60vw; }
   .hero-float-label { display: none; }
   .section { padding: 6rem 1.8rem; }
   .about-layout { grid-template-columns: 1fr; gap: 3.5rem; }
   .ach-inner, .journey-inner, .contact-inner { padding: 6rem 1.8rem; }
-  .ach-grid { grid-template-columns: 1fr; }
+  /* Force all ach-grids to single column on tablet — overrides any inline style */
+  .ach-grid, .ach-grid[style] { grid-template-columns: 1fr !important; }
   .proj-grid { grid-template-columns: 1fr 1fr; }
   .journey-steps { grid-template-columns: 1fr; }
   .j-step { border-right: none; border-bottom: 1px solid var(--border); }
@@ -691,38 +704,54 @@ footer {
   nav { padding: 1rem 1.2rem; }
   nav.scrolled { padding: 0.75rem 1.2rem; }
   .mobile-menu { gap: 2rem; padding: 2rem; }
-  .mobile-menu a { font-size: 2rem; padding: 0.5rem 1rem; }
-  #home { min-height: auto; padding-bottom: 0; }
-  .hero-left { padding: 7rem 1.2rem 2.5rem; align-items: flex-start; }
-  .hero-name { font-size: clamp(3rem, 13vw, 4rem); margin-bottom: 1.2rem; }
+  .mobile-menu a { font-size: 2rem; padding: 0.6rem 1rem; min-height: 44px; display: flex; align-items: center; }
+  /* Hero: stack text above, show image below as a short band */
+  #home { min-height: auto; padding-bottom: 0; display: flex; flex-direction: column; }
+  .hero-left { padding: 6.5rem 1.2rem 2rem; order: 1; }
+  .hero-right { order: 2; min-height: 52vw; max-height: 64vw; width: 100%; }
+  .hero-name { font-size: clamp(2.8rem, 12vw, 3.8rem); margin-bottom: 1.2rem; }
   .hero-name-line2 { padding-left: 0.8rem; }
   .hero-desc { font-size: 1rem; margin-bottom: 2rem; padding-left: 1rem; }
   .hero-btns { gap: 0.75rem; margin-bottom: 2.5rem; }
-  .btn-primary, .btn-outline { padding: 0.85rem 1.6rem; font-size: 0.68rem; }
-  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-  .h-stat-n { font-size: 1.7rem; }
-  .hero-right { min-height: 55vw; }
-  .section { padding: 4.5rem 1.2rem; }
-  .ach-inner, .journey-inner { padding: 4.5rem 1.2rem; }
-  .sec-heading { font-size: clamp(1.7rem, 7vw, 2.4rem); margin-bottom: 2.5rem; }
-  .about-visuals { grid-template-columns: 1fr; }
-  .img-frame.tall { grid-column: 1; grid-row: auto; aspect-ratio: 4/3; }
-  .img-frame.sq { aspect-ratio: 4/3; }
-  .ach-year { font-size: 3.5rem; }
-  .ach-item { padding: 1.4rem 1.1rem; gap: 1rem; }
-  .ach-icon { width: 42px; height: 42px; flex-shrink: 0; }
-  .ach-name { font-size: 0.95rem; }
+  /* Larger touch targets */
+  .btn-primary, .btn-outline { padding: 0.95rem 1.6rem; font-size: 0.68rem; min-height: 44px; }
+  .hero-stats { gap: 1.2rem; flex-wrap: wrap; }
+  .h-stat-n { font-size: 1.6rem; }
+  .section { padding: 4rem 1.2rem; }
+  .ach-inner, .journey-inner { padding: 4rem 1.2rem; }
+  .contact-inner { padding: 4rem 1.2rem; gap: 3rem; }
+  .sec-heading { font-size: clamp(1.6rem, 6.5vw, 2.2rem); margin-bottom: 2rem; }
+  /* About images: simple stacked single column */
+  .about-visuals { grid-template-columns: 1fr; gap: 0.6rem; }
+  .img-frame.tall { grid-column: 1; grid-row: auto; aspect-ratio: 16/9; }
+  .img-frame.sq { aspect-ratio: 16/9; }
+  /* Achievements */
+  .ach-year { font-size: 3rem; }
+  .ach-grid, .ach-grid[style] { grid-template-columns: 1fr !important; }
+  .ach-item { padding: 1.2rem 1rem; gap: 0.8rem; }
+  .ach-icon { width: 40px; height: 40px; flex-shrink: 0; }
+  .ach-badge { font-size: 0.58rem; }
+  .ach-name { font-size: 0.92rem; }
+  .ach-desc { font-size: 0.85rem; }
+  /* Projects */
   .proj-grid { grid-template-columns: 1fr; }
-  .proj-card { padding: 1.8rem 1.2rem; }
-  .proj-num { font-size: 2.8rem; margin-bottom: 0.6rem; }
-  .j-step { padding: 2rem 1.2rem; }
-  .j-num { font-size: 3.5rem; margin-bottom: 1rem; }
-  .poetry-quote { font-size: clamp(1.2rem, 5.5vw, 1.7rem); }
+  .proj-card { padding: 1.6rem 1.1rem; }
+  .proj-num { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  /* Journey */
+  .j-step { padding: 1.8rem 1.1rem; }
+  .j-num { font-size: 3rem; margin-bottom: 0.8rem; }
+  /* Touch targets for links */
+  .j-link, .proj-link, .soc-link { min-height: 44px; }
+  .soc-link { padding: 0.85rem 1rem; }
+  /* Poetry */
+  .poetry-quote { font-size: clamp(1.1rem, 5vw, 1.6rem); }
   #poetry { padding-left: 1.2rem; padding-right: 1.2rem; }
-  .contact-inner { padding: 4.5rem 1.2rem; gap: 3rem; }
-  .soc-link { padding: 0.9rem 1rem; }
-  .c-submit { width: 100%; text-align: center; align-self: stretch; cursor: pointer; }
+  /* Form */
+  .c-input, .c-textarea { font-size: 1rem; /* prevents iOS zoom */ }
+  .c-submit { width: 100%; text-align: center; align-self: stretch; cursor: pointer; min-height: 48px; }
   footer { padding: 1.8rem 1.2rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+  /* Skill tags: larger tap area */
+  .skill-tag { padding: 0.55rem 1rem; }
 }
 </style>
 </head>
@@ -761,7 +790,6 @@ footer {
 <section id="home">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
-
   <div class="hero-left">
     <div class="hero-tag">
       <span class="hero-tag-dot"></span>
@@ -795,24 +823,15 @@ footer {
         <div class="h-stat-l">Patent Filed</div>
       </div>
       <div class="h-stat">
-        <div class="h-stat-n">20+</div>
+        <div class="h-stat-n">25+</div>
         <div class="h-stat-l">Milestones</div>
       </div>
     </div>
   </div>
-
   <div class="hero-right">
     <div class="hero-float-label">Portfolio 2025</div>
     <div class="hero-img-wrap">
-      <!-- FIX: fetchpriority=high + eager loading for the LCP hero image -->
-      <img
-        src="https://anushagarg.com/assets/ANUSHA.png"
-        alt="Anusha Garg"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        onerror="this.style.display='none'"
-      >
+      <img src="https://anushagarg.com/assets/ANUSHA.png" alt="Anusha Garg" loading="eager" fetchpriority="high" decoding="async" width="600" height="800" onerror="this.style.display='none'">
     </div>
   </div>
 </section>
@@ -826,6 +845,7 @@ footer {
     <span class="marquee-item">Patent Filed</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">Best Paper Award</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">BIS Ambassador</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Top 500 India · School Youth Ideathon</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">CBSE Outstanding Performance</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">Poet · Developer · Leader</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">UN Geneva</span><span class="marquee-sep">✦</span>
@@ -834,6 +854,7 @@ footer {
     <span class="marquee-item">Patent Filed</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">Best Paper Award</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">BIS Ambassador</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Top 500 India · School Youth Ideathon</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">CBSE Outstanding Performance</span><span class="marquee-sep">✦</span>
     <span class="marquee-item">Poet · Developer · Leader</span><span class="marquee-sep">✦</span>
   </div>
@@ -857,6 +878,7 @@ footer {
           <span class="skill-tag">Front-End Dev</span>
           <span class="skill-tag">HTML / CSS / JS</span>
           <span class="skill-tag">React</span>
+          <span class="skill-tag">Python</span>
           <span class="skill-tag">UI & Design</span>
           <span class="skill-tag">Research</span>
           <span class="skill-tag">Leadership</span>
@@ -867,35 +889,16 @@ footer {
     </div>
     <div>
       <div class="about-visuals reveal">
-        <!-- FIX: lazy-load below-fold images, async decode, explicit dimensions -->
         <div class="img-frame tall">
-          <img
-            src="https://anushagarg.com/assets/un geneva.png"
-            alt="UN Geneva"
-            loading="lazy"
-            decoding="async"
-            width="400" height="533"
-          >
+          <img src="https://anushagarg.com/assets/un geneva.png" alt="UN Geneva" loading="lazy" decoding="async" width="400" height="533">
           <div class="img-frame-label">UN Geneva 2025</div>
         </div>
         <div class="img-frame sq">
-          <img
-            src="https://anushagarg.com/assets/annadatri.png"
-            alt="Annadatri"
-            loading="lazy"
-            decoding="async"
-            width="300" height="300"
-          >
+          <img src="https://anushagarg.com/assets/annadatri.png" alt="Annadatri" loading="lazy" decoding="async" width="300" height="300">
           <div class="img-frame-label">Annadatri</div>
         </div>
         <div class="img-frame sq">
-          <img
-            src="https://anushagarg.com/assets/poetry.png"
-            alt="Poetry"
-            loading="lazy"
-            decoding="async"
-            width="300" height="300"
-          >
+          <img src="https://anushagarg.com/assets/poetry.png" alt="Poetry" loading="lazy" decoding="async" width="300" height="300">
           <div class="img-frame-label">Poetry</div>
         </div>
       </div>
@@ -909,78 +912,222 @@ footer {
     <div class="sec-eyebrow reveal" style="color:var(--gold);">Recognition</div>
     <h2 class="sec-heading reveal">Milestones &amp;<br><em>achievements</em></h2>
 
-    <div class="ach-year">2025</div>
+    <!-- ── 2025–26 ── -->
+    <div class="ach-year">2025–26</div>
     <div class="ach-grid">
+
       <div class="ach-item reveal">
-        <!-- FIX: lazy-load all achievement icons, explicit square dimensions -->
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/cwc.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/cwc.png" alt="" loading="eager" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">7 Nov 2025 · UN Geneva · Global</div>
           <div class="ach-name">Top 50 Changemaker — 1M1B World Cup at UN Headquarters</div>
-          <div class="ach-desc">Named among the world's top 50 changemakers at the 9th Impact Summit at the United Nations, Geneva.</div>
+          <div class="ach-desc">Named among the world's top 50 changemakers at the 9th Impact Summit at the United Nations, Geneva — selected from thousands after completing nine rigorous missions demonstrating leadership, creativity, and advocacy.</div>
         </div>
       </div>
+
       <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/sft.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/un summit.png" alt="" loading="eager" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">7 Nov 2025 · 1M1B Impact Summit · UN Geneva</div>
+          <div class="ach-name">Youth Climate Diplomacy Delegate — 1.5 Matters</div>
+          <div class="ach-desc">Represented Mayoor School, Noida as a delegate at the 1.5 Matters Youth Climate Diplomacy programme, presenting research and recommendations on climate-related SDGs at the 9th 1M1B Impact Summit, United Nations Geneva.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d2">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/sft.png" alt="" loading="eager" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">Aug 2025 · Samsung · IIT Delhi</div>
-          <div class="ach-name">Top 40 — Samsung Solve for Tomorrow</div>
-          <div class="ach-desc">Selected nationally. Awarded ₹20,000 and a Samsung Galaxy Book 5 360.</div>
+          <div class="ach-name">Top 40 Semi-Finalist — Samsung Solve for Tomorrow 2025</div>
+          <div class="ach-desc">Selected nationally for Annadatri Ahaavritti. Awarded ₹20,000 and a Samsung Galaxy Book 5 360. Certificate of Recognition issued by Samsung Southwest Asia &amp; IIT Delhi (FITT).</div>
         </div>
       </div>
-      <div class="ach-item reveal d2">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/patent.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">Nov 2025 · Indian Patent Office</div>
-          <div class="ach-name">Patent Filed — Food Donor-Recipient Platform (No. 202511083538)</div>
-          <div class="ach-desc">Digital platform connecting food donors with recipients — submitted and under publication.</div>
-        </div>
-      </div>
-      <div class="ach-item reveal d3">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/research honour.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">29 Nov 2025 · I3CET 2025</div>
-          <div class="ach-name">Best Paper Award — Food Quality Monitoring System</div>
-          <div class="ach-desc">Two papers accepted in Scopus-indexed proceedings: AI Flashcard Generators and Food Quality Monitoring.</div>
-        </div>
-      </div>
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/bis.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">Oct 2025 · Bureau of Indian Standards</div>
-          <div class="ach-name">BIS Ambassador of Quality</div>
-          <div class="ach-desc">Appointed for quality awareness initiatives across institutions.</div>
-        </div>
-      </div>
-      <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/a2.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">Oct 2025 · Language</div>
-          <div class="ach-name">German A2 Certificate — 82/100</div>
-          <div class="ach-desc">Achieved A2 level German certification with strong grades.</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="ach-year" style="margin-top:3.5rem;">2024</div>
-    <div class="ach-grid" style="grid-template-columns:1fr 1fr;">
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/cbse.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+      <div class="ach-item reveal d3">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/patent.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
-          <div class="ach-badge">2024 · CBSE</div>
-          <div class="ach-name">CBSE Outstanding Performance — Budding Author</div>
-          <div class="ach-desc">Recognized for excellence in creative writing and literature.</div>
+          <div class="ach-badge">Sep 2025 · Indian Patent Office</div>
+          <div class="ach-name">Patent Filed — Food Donor-Recipient Platform (No. 202511083538)</div>
+          <div class="ach-desc">Filed 02/09/2025 — "Method of Connecting Food Donors with Recipients Through Digital Platform." Field: Computer Science. Published 12/12/2025. Status: Awaiting Request for Examination.</div>
         </div>
       </div>
+
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/research award.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">28–29 Nov 2025 · I3CSET-2025 · Galgotias College</div>
+          <div class="ach-name">2nd Outstanding Presentation Award — Food Quality Monitoring System</div>
+          <div class="ach-desc">Won Second Outstanding Presentation Award for the paper "Food Quality Monitoring System for Remote Monitoring" at the International Conference on Computing, Communication and Sustainable Energy Technologies — Scopus-indexed, Taylor &amp; Francis, UK.</div>
+        </div>
+      </div>
+
       <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/bal bharti mun.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/i3cset.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">28–29 Nov 2025 · I3CSET-2025 · Scopus Indexed</div>
+          <div class="ach-name">Research Paper — Lightweight Flashcard Generator for STEM Education</div>
+          <div class="ach-desc">Second paper accepted and presented at I3CSET-2025: "Design and Implementation of a Lightweight Flashcard Generator for STEM Education." Both papers published in Scopus-indexed proceedings sponsored by Taylor &amp; Francis, UK.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d2">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/bis.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">27 Oct 2025 · Bureau of Indian Standards</div>
+          <div class="ach-name">BIS Ambassador of Quality</div>
+          <div class="ach-desc">Formally appreciated by the Bureau of Indian Standards, Noida Branch for exemplary contribution as Ambassador of Quality — promoting quality, standards, and consumer awareness through the Standards Club. Ref: NOBO/LOA/25-26.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d3">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/a2.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">15 Oct 2025 · Goethe-Institut · New Delhi</div>
+          <div class="ach-name">Goethe-Zertifikat A2 — 82/100 (Gut)</div>
+          <div class="ach-desc">Achieved German A2 certification with "gut" (good) grade. Reading 22.5/25 · Listening 20/25 · Writing 17.5/25 · Speaking 22/25. Certificate No. 1490-AA2J-0002551967.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/top500.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">18 Jan 2026 · IIT Delhi · National</div>
+          <div class="ach-name">Top 500 India — School Youth Ideathon 2025</div>
+          <div class="ach-desc">Selected among India's Top 500 teams at the School Youth Ideathon — India's largest school-level competition of ideas, organised by Tanla, Think Startup Foundation, MEPSC, and CBSE. Awarded at IIT Delhi.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d1">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/tinker tutor.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">26 Jul 2025 · TinkerTutor Ideathon</div>
+          <div class="ach-name">3rd Position — TinkerTutor Ideathon (School)</div>
+          <div class="ach-desc">Secured third place in recognition of exceptional innovation, technical expertise, and dedication at the TinkerTutor Ideathon for schools.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d2">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/bot.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">30 Jul 2025 · Mayoor School</div>
+          <div class="ach-name">3rd Position — Battle of Titans: Techtalk 2030</div>
+          <div class="ach-desc">Secured third position in the Battle of Titans inter-school technology competition (Techtalk 2030 event) at Mayoor School, Noida — session 2025–26.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d3">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/battle of logics.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">29 Apr 2025 · Mayoor School</div>
+          <div class="ach-name">3rd Position — Code Craft: Battle of Logics</div>
+          <div class="ach-desc">Secured third position in Code Craft: Battle of Logics at Mayoor School, Noida — Class X-H, session 2025–26.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/prototype.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">Jul 2025 · Project Zubaan</div>
+          <div class="ach-name">Content Writing Head &amp; Website Designer — Project Zubaan</div>
+          <div class="ach-desc">Selected as Content Writing Head and Website Designer (effective 12 Jul 2025) — responsible for blog posts, website design in collaboration with the Graphic Design Team, and leading the Content Writing Interns team.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d1">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/Elsevier.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">25 Jul 2025 · Elsevier Researcher Academy</div>
+          <div class="ach-name">Elsevier Researcher Academy — Data Publishing Practices</div>
+          <div class="ach-desc">Completed the module "Make Your Data Findable — It's Not FAIR! Improving Data Publishing Practices in Research" via Elsevier's Researcher Academy, presented by Katarzyna Biernacka &amp; Nina Kaun.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d2">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/mayoor.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">10–14 Jul 2025 · NIELIT Calicut · Online</div>
+          <div class="ach-name">Python for Beginners — NIELIT Certificate (No. OLC 37735)</div>
+          <div class="ach-desc">Completed the 5-day / 10-hour "Python for Beginners" course organised by the National Institute of Electronics and Information Technology (NIELIT) Calicut under the Chips to Startup Programme, Ministry of Electronics &amp; IT.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d3">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/poetry.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">9 May 2025 · Veyora</div>
+          <div class="ach-name">Participant — "Inked in Echoes" (Veyora)</div>
+          <div class="ach-desc">Participated in "Inked in Echoes," an arts and storytelling event organised by Veyora, celebrating the voice of art, rhythm, and poetry.</div>
+        </div>
+      </div>
+
+    </div><!-- end 2025-26 ach-grid -->
+
+    <!-- ── 2024 ── -->
+    <div class="ach-year" style="margin-top:3.5rem;">2024</div>
+    <div class="ach-grid">
+
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/cbse.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">2024–25 · CBSE · National</div>
+          <div class="ach-name">CBSE Outstanding Performance — Budding Authors Programme (English, Classes 9–10)</div>
+          <div class="ach-desc">Certificate of Merit from the Central Board of Secondary Education for outstanding performance in the CBSE Budding Authors Programme 2024–25 (English). Serial No. Acad/BAP/2024-25/0000533.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d1">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/24-25.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">8 Mar 2025 · Mayoor School</div>
+          <div class="ach-name">Certificate of Merit — Excellence in Academics (2024–25)</div>
+          <div class="ach-desc">Awarded by Mayoor School (in collaboration with Mayo College General Council, Ajmer) for excellence in academics — Class IX-H, session 2024–25.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d2">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/sci comp ix.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">25 Oct 2024 · Mayoor School</div>
+          <div class="ach-name">3rd Position — Inter-House Science Competition "Inquisitive Innovators"</div>
+          <div class="ach-desc">Secured third position in the Inter-House Science Competition "Inquisitive Innovators" at Mayoor School, Noida — Class IX-H, session 2024–25.</div>
+        </div>
+      </div>
+
+      <div class="ach-item reveal d3">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/bal bharti mun.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">May 2024 · Diplomatic</div>
           <div class="ach-name">Model United Nations</div>
           <div class="ach-desc">Demonstrated diplomatic skills and global policy engagement at MUN.</div>
         </div>
       </div>
-    </div>
+
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/ac memorial.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">2024 · Cambridge School, Srinivaspuri</div>
+          <div class="ach-name">Participant — 32nd A.C. Deb Memorial Interschool Oration Contest</div>
+          <div class="ach-desc">Represented Mayoor School, Noida (Class IX) at the 32nd A.C. Deb Memorial Interschool Oration Contest held at Cambridge School, Srinivaspuri.</div>
+        </div>
+      </div>
+
+    </div><!-- end 2024 ach-grid -->
+
+    <!-- ── 2023 ── -->
+    <div class="ach-year" style="margin-top:3.5rem;">2023</div>
+    <div class="ach-grid" style="grid-template-columns:1fr 1fr;">
+
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/a2.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">16 Oct 2023 · Goethe-Institut · New Delhi</div>
+          <div class="ach-name">Goethe-Zertifikat A1: Fit in Deutsch 1 — 53/60 (Sehr Gut)</div>
+          <div class="ach-desc">Achieved German A1 certification with "sehr gut" (very good) grade. Listening 16.5/18 · Reading 9/12 · Writing 10/12 · Speaking 17/18. Certificate No. 1490-AFA1-0001590059.</div>
+        </div>
+      </div>
+
+    </div><!-- end 2023 ach-grid -->
+
   </div>
 </div>
 
@@ -1117,13 +1264,12 @@ footer {
 
 <footer>
   <span class="foot-brand">Anusha <span>Garg</span></span>
-  <span class="foot-copy">© 2025 · Poet & Developer · Noida, India</span>
+  <span class="foot-copy">© 2026 · Poet & Developer · Noida, India</span>
   <span class="foot-copy">Made with words & code</span>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
-// Custom cursor
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
@@ -1134,28 +1280,28 @@ document.querySelectorAll('a, button, .skill-tag, .proj-card, .ach-item').forEac
   el.addEventListener('mouseenter', () => { cursor.style.width = '16px'; cursor.style.height = '16px'; ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(184,134,46,0.5)'; });
   el.addEventListener('mouseleave', () => { cursor.style.width = '9px'; cursor.style.height = '9px'; ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(192,67,42,0.35)'; });
 });
-
-// Nav scroll
 window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30); });
-
-// Mobile menu
 const hbg = document.getElementById('hbg');
 const mm = document.getElementById('mmenu');
 hbg.addEventListener('click', () => { hbg.classList.toggle('open'); mm.classList.toggle('open'); });
 function closeMm() { hbg.classList.remove('open'); mm.classList.remove('open'); }
-
-// Reveal on scroll
 const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
 }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+function doSubmit(e) { e.preventDefault(); document.getElementById('form-ok').style.display = 'block'; e.target.reset(); }
 
-// Form submit
-function doSubmit(e) {
-  e.preventDefault();
-  document.getElementById('form-ok').style.display = 'block';
-  e.target.reset();
-}
+// Stop shimmer animation once images are loaded
+document.querySelectorAll('.img-frame img, .ach-icon img').forEach(img => {
+  const stop = () => {
+    const p = img.parentElement;
+    p.style.animation = 'none';
+    p.style.backgroundImage = 'none';
+    p.style.background = 'var(--surface)';
+  };
+  if (img.complete && img.naturalWidth) stop();
+  else img.addEventListener('load', stop);
+});
 </script>
 </body>
 </html>
