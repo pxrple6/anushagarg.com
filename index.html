@@ -276,11 +276,16 @@ nav.scrolled {
   background: linear-gradient(transparent, var(--bg));
   z-index: 1;
 }
+/* FIX: eager-load the hero image (above fold), GPU-composited, no layout shift */
 .hero-img-wrap img {
   width: 70%; height: 90%;
   object-fit: contain; object-position: center bottom;
   display: block; position: relative; align-self: flex-end;
   filter: contrast(1.02) saturate(0.92);
+  /* GPU layer prevents filter recalc on scroll */
+  will-change: transform;
+  /* Explicit intrinsic size prevents reflow */
+  aspect-ratio: auto;
 }
 
 .hero-float-label {
@@ -368,12 +373,22 @@ nav.scrolled {
 }
 .img-frame.tall { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 3/4; }
 .img-frame.sq { aspect-ratio: 1; }
+/* FIX: GPU-composited zoom — no filter changes on hover, only transform */
 .img-frame img {
   width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.7s ease, filter 0.4s;
+  display: block;
+  /* GPU layer for zero-jank zoom */
+  will-change: transform;
+  transform: translateZ(0);
+  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Stable desaturate without per-frame recalc */
   filter: grayscale(15%);
 }
-.img-frame:hover img { transform: scale(1.06); filter: grayscale(0%); }
+.img-frame:hover img {
+  transform: scale(1.06) translateZ(0);
+  /* Only re-filter on hover-enter, not per frame */
+  filter: grayscale(0%);
+}
 .img-frame-label {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 1.5rem 1rem 0.8rem;
@@ -413,12 +428,20 @@ nav.scrolled {
 .ach-item:hover { background: var(--bg); }
 .ach-item:hover::before { transform: scaleY(1); }
 
+/* FIX: achievement icons — fixed size, lazy load, no layout shift */
 .ach-icon {
   flex-shrink: 0; width: 52px; height: 52px;
   overflow: hidden; border-radius: 2px;
   background: var(--bg); border: 1px solid var(--border);
+  /* Reserve space so surrounding text doesn't jump when image loads */
+  contain: strict;
 }
-.ach-icon img { width: 100%; height: 100%; object-fit: cover; }
+.ach-icon img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+  /* Decode off main thread */
+  decoding: async;
+}
 
 .ach-badge {
   font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
@@ -662,25 +685,15 @@ footer {
 }
 
 @media (max-width: 600px) {
-  /* Base */
   html { font-size: 16px; }
   body { cursor: auto; }
   .cursor, .cursor-ring { display: none; }
-
-  /* Nav */
   nav { padding: 1rem 1.2rem; }
   nav.scrolled { padding: 0.75rem 1.2rem; }
-
-  /* Mobile menu — bigger tap targets */
   .mobile-menu { gap: 2rem; padding: 2rem; }
   .mobile-menu a { font-size: 2rem; padding: 0.5rem 1rem; }
-
-  /* Hero */
   #home { min-height: auto; padding-bottom: 0; }
-  .hero-left {
-    padding: 7rem 1.2rem 2.5rem;
-    align-items: flex-start;
-  }
+  .hero-left { padding: 7rem 1.2rem 2.5rem; align-items: flex-start; }
   .hero-name { font-size: clamp(3rem, 13vw, 4rem); margin-bottom: 1.2rem; }
   .hero-name-line2 { padding-left: 0.8rem; }
   .hero-desc { font-size: 1rem; margin-bottom: 2rem; padding-left: 1rem; }
@@ -689,44 +702,26 @@ footer {
   .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
   .h-stat-n { font-size: 1.7rem; }
   .hero-right { min-height: 55vw; }
-
-  /* Sections */
   .section { padding: 4.5rem 1.2rem; }
   .ach-inner, .journey-inner { padding: 4.5rem 1.2rem; }
-
-  /* Section headings */
   .sec-heading { font-size: clamp(1.7rem, 7vw, 2.4rem); margin-bottom: 2.5rem; }
-
-  /* About visuals — single column on tiny screens */
   .about-visuals { grid-template-columns: 1fr; }
   .img-frame.tall { grid-column: 1; grid-row: auto; aspect-ratio: 4/3; }
   .img-frame.sq { aspect-ratio: 4/3; }
-
-  /* Achievements */
   .ach-year { font-size: 3.5rem; }
   .ach-item { padding: 1.4rem 1.1rem; gap: 1rem; }
   .ach-icon { width: 42px; height: 42px; flex-shrink: 0; }
   .ach-name { font-size: 0.95rem; }
-
-  /* Projects */
   .proj-grid { grid-template-columns: 1fr; }
   .proj-card { padding: 1.8rem 1.2rem; }
   .proj-num { font-size: 2.8rem; margin-bottom: 0.6rem; }
-
-  /* Journey */
   .j-step { padding: 2rem 1.2rem; }
   .j-num { font-size: 3.5rem; margin-bottom: 1rem; }
-
-  /* Poetry */
   .poetry-quote { font-size: clamp(1.2rem, 5.5vw, 1.7rem); }
   #poetry { padding-left: 1.2rem; padding-right: 1.2rem; }
-
-  /* Contact */
   .contact-inner { padding: 4.5rem 1.2rem; gap: 3rem; }
   .soc-link { padding: 0.9rem 1rem; }
   .c-submit { width: 100%; text-align: center; align-self: stretch; cursor: pointer; }
-
-  /* Footer */
   footer { padding: 1.8rem 1.2rem; flex-direction: column; gap: 0.4rem; text-align: center; }
 }
 </style>
@@ -809,7 +804,15 @@ footer {
   <div class="hero-right">
     <div class="hero-float-label">Portfolio 2025</div>
     <div class="hero-img-wrap">
-      <img src="https://anushagarg.com/assets/ANUSHA.png" alt="Anusha Garg" onerror="this.style.display='none'">
+      <!-- FIX: fetchpriority=high + eager loading for the LCP hero image -->
+      <img
+        src="https://anushagarg.com/assets/ANUSHA.png"
+        alt="Anusha Garg"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        onerror="this.style.display='none'"
+      >
     </div>
   </div>
 </section>
@@ -864,16 +867,35 @@ footer {
     </div>
     <div>
       <div class="about-visuals reveal">
+        <!-- FIX: lazy-load below-fold images, async decode, explicit dimensions -->
         <div class="img-frame tall">
-          <img src="https://anushagarg.com/assets/un geneva.png" alt="UN Geneva">
+          <img
+            src="https://anushagarg.com/assets/un geneva.png"
+            alt="UN Geneva"
+            loading="lazy"
+            decoding="async"
+            width="400" height="533"
+          >
           <div class="img-frame-label">UN Geneva 2025</div>
         </div>
         <div class="img-frame sq">
-          <img src="https://anushagarg.com/assets/annadatri.png" alt="Annadatri">
+          <img
+            src="https://anushagarg.com/assets/annadatri.png"
+            alt="Annadatri"
+            loading="lazy"
+            decoding="async"
+            width="300" height="300"
+          >
           <div class="img-frame-label">Annadatri</div>
         </div>
         <div class="img-frame sq">
-          <img src="https://anushagarg.com/assets/poetry.png" alt="Poetry">
+          <img
+            src="https://anushagarg.com/assets/poetry.png"
+            alt="Poetry"
+            loading="lazy"
+            decoding="async"
+            width="300" height="300"
+          >
           <div class="img-frame-label">Poetry</div>
         </div>
       </div>
@@ -890,7 +912,8 @@ footer {
     <div class="ach-year">2025</div>
     <div class="ach-grid">
       <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/cwc.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <!-- FIX: lazy-load all achievement icons, explicit square dimensions -->
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/cwc.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">7 Nov 2025 · UN Geneva · Global</div>
           <div class="ach-name">Top 50 Changemaker — 1M1B World Cup at UN Headquarters</div>
@@ -898,7 +921,7 @@ footer {
         </div>
       </div>
       <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/sft.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/sft.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">Aug 2025 · Samsung · IIT Delhi</div>
           <div class="ach-name">Top 40 — Samsung Solve for Tomorrow</div>
@@ -906,7 +929,7 @@ footer {
         </div>
       </div>
       <div class="ach-item reveal d2">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/patent.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/patent.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">Nov 2025 · Indian Patent Office</div>
           <div class="ach-name">Patent Filed — Food Donor-Recipient Platform (No. 202511083538)</div>
@@ -914,7 +937,7 @@ footer {
         </div>
       </div>
       <div class="ach-item reveal d3">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/research honour.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/research honour.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">29 Nov 2025 · I3CET 2025</div>
           <div class="ach-name">Best Paper Award — Food Quality Monitoring System</div>
@@ -922,7 +945,7 @@ footer {
         </div>
       </div>
       <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/bis.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/bis.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">Oct 2025 · Bureau of Indian Standards</div>
           <div class="ach-name">BIS Ambassador of Quality</div>
@@ -930,7 +953,7 @@ footer {
         </div>
       </div>
       <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/a2.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/a2.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">Oct 2025 · Language</div>
           <div class="ach-name">German A2 Certificate — 82/100</div>
@@ -942,7 +965,7 @@ footer {
     <div class="ach-year" style="margin-top:3.5rem;">2024</div>
     <div class="ach-grid" style="grid-template-columns:1fr 1fr;">
       <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/cbse.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/cbse.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">2024 · CBSE</div>
           <div class="ach-name">CBSE Outstanding Performance — Budding Author</div>
@@ -950,7 +973,7 @@ footer {
         </div>
       </div>
       <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://anushagarg.com/assets/bal bharti mun.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/bal bharti mun.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
         <div>
           <div class="ach-badge">May 2024 · Diplomatic</div>
           <div class="ach-name">Model United Nations</div>
