@@ -660,12 +660,74 @@ footer {
   .contact-inner { grid-template-columns: 1fr; gap: 4rem; }
   footer { padding: 2rem 1.8rem; flex-direction: column; gap: 0.5rem; text-align: center; }
 }
+
 @media (max-width: 600px) {
-  .hero-name { font-size: 3.5rem; }
-  .hero-stats { gap: 2rem; }
-  .proj-grid { grid-template-columns: 1fr; }
+  /* Base */
+  html { font-size: 16px; }
   body { cursor: auto; }
   .cursor, .cursor-ring { display: none; }
+
+  /* Nav */
+  nav { padding: 1rem 1.2rem; }
+  nav.scrolled { padding: 0.75rem 1.2rem; }
+
+  /* Mobile menu — bigger tap targets */
+  .mobile-menu { gap: 2rem; padding: 2rem; }
+  .mobile-menu a { font-size: 2rem; padding: 0.5rem 1rem; }
+
+  /* Hero */
+  #home { min-height: auto; padding-bottom: 0; }
+  .hero-left {
+    padding: 7rem 1.2rem 2.5rem;
+    align-items: flex-start;
+  }
+  .hero-name { font-size: clamp(3rem, 13vw, 4rem); margin-bottom: 1.2rem; }
+  .hero-name-line2 { padding-left: 0.8rem; }
+  .hero-desc { font-size: 1rem; margin-bottom: 2rem; padding-left: 1rem; }
+  .hero-btns { gap: 0.75rem; margin-bottom: 2.5rem; }
+  .btn-primary, .btn-outline { padding: 0.85rem 1.6rem; font-size: 0.68rem; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .h-stat-n { font-size: 1.7rem; }
+  .hero-right { min-height: 55vw; }
+
+  /* Sections */
+  .section { padding: 4.5rem 1.2rem; }
+  .ach-inner, .journey-inner { padding: 4.5rem 1.2rem; }
+
+  /* Section headings */
+  .sec-heading { font-size: clamp(1.7rem, 7vw, 2.4rem); margin-bottom: 2.5rem; }
+
+  /* About visuals — single column on tiny screens */
+  .about-visuals { grid-template-columns: 1fr; }
+  .img-frame.tall { grid-column: 1; grid-row: auto; aspect-ratio: 4/3; }
+  .img-frame.sq { aspect-ratio: 4/3; }
+
+  /* Achievements */
+  .ach-year { font-size: 3.5rem; }
+  .ach-item { padding: 1.4rem 1.1rem; gap: 1rem; }
+  .ach-icon { width: 42px; height: 42px; flex-shrink: 0; }
+  .ach-name { font-size: 0.95rem; }
+
+  /* Projects */
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-card { padding: 1.8rem 1.2rem; }
+  .proj-num { font-size: 2.8rem; margin-bottom: 0.6rem; }
+
+  /* Journey */
+  .j-step { padding: 2rem 1.2rem; }
+  .j-num { font-size: 3.5rem; margin-bottom: 1rem; }
+
+  /* Poetry */
+  .poetry-quote { font-size: clamp(1.2rem, 5.5vw, 1.7rem); }
+  #poetry { padding-left: 1.2rem; padding-right: 1.2rem; }
+
+  /* Contact */
+  .contact-inner { padding: 4.5rem 1.2rem; gap: 3rem; }
+  .soc-link { padding: 0.9rem 1rem; }
+  .c-submit { width: 100%; text-align: center; align-self: stretch; cursor: pointer; }
+
+  /* Footer */
+  footer { padding: 1.8rem 1.2rem; flex-direction: column; gap: 0.4rem; text-align: center; }
 }
 </style>
 </head>
@@ -1004,7 +1066,7 @@ footer {
           <span class="soc-key">LinkedIn</span>Anusha Garg
         </a>
         <a href="/cdn-cgi/l/email-protection#0b6a657e78636a6c6a796c256864657f6a687f4b6c666a626725686466" class="soc-link reveal d1">
-          <span class="soc-key">Email</span><span class="__cf_email__" data-cfemail="pxrple6@gmail.com">[email&#160;protected]</span>
+          <span class="soc-key">Email</span><span class="__cf_email__" data-cfemail="1e7f706b6d767f797f6c79307d71706a7f7d6a5e79737f7772307d7173">[email&#160;protected]</span>
         </a>
         <a href="https://github.com/pxrple6" class="soc-link reveal d2" target="_blank">
           <span class="soc-key">GitHub</span>@pxrple6
