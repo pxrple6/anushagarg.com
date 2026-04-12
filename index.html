@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anusha Garg — Poet & Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f4;
+  --surface: #f4f1eb;
+  --surface-2: #ede9e0;
+  --ink: #1c1814;
+  --ink-dim: rgba(28,24,20,0.52);
+  --ink-ghost: rgba(28,24,20,0.08);
+  --rust: #c0432a;
+  --rust-light: rgba(192,67,42,0.1);
+  --rust-glow: rgba(192,67,42,0.12);
+  --gold: #b8862e;
+  --gold-dim: rgba(184,134,46,0.15);
+  --border: rgba(28,24,20,0.08);
+  --border-warm: rgba(192,67,42,0.2);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Syne', sans-serif;
+  --body: 'Crimson Pro', Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+.cursor {
+  position: fixed;
+  width: 9px; height: 9px;
+  background: var(--rust);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s, width 0.25s, height 0.25s, background 0.25s;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(192,67,42,0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+/* ── PAPER TEXTURE ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9000; opacity: 0.5; mix-blend-mode: multiply;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--rust); border-radius: 2px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 500;
+  padding: 1.6rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s, padding 0.3s;
+}
+nav.scrolled {
+  background: rgba(250,248,244,0.92);
+  backdrop-filter: blur(20px);
+  padding: 1.1rem 4rem;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 24px rgba(28,24,20,0.05);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.nav-logo span { color: var(--rust); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-dim);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px; background: var(--rust);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.25s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  color: #fff; background: var(--rust);
+  padding: 0.6rem 1.5rem; text-decoration: none;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: background 0.2s, transform 0.2s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.nav-cta:hover { background: var(--gold); transform: translateY(-1px); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg); z-index: 490;
+  flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--serif); font-size: 2.5rem; font-style: italic;
+  color: var(--ink); text-decoration: none; transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--rust); }
+
+/* ── HERO ── */
+#home {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 80% at 70% 20%, rgba(192,67,42,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 10% 80%, rgba(184,134,46,0.05) 0%, transparent 55%);
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(28,24,20,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28,24,20,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridDrift 20s linear infinite;
+}
+@keyframes gridDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
+
+.hero-left {
+  position: relative; z-index: 2;
+  padding: 12rem 4rem 6rem 6rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  background: var(--gold); border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 6.5vw, 7rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 1.8rem;
+}
+.hero-name-line2 {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--rust);
+  padding-left: 1.5rem;
+}
+
+.hero-desc {
+  font-family: var(--body);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--ink-dim);
+  line-height: 1.75;
+  max-width: 420px;
+  margin-bottom: 3rem;
+  border-left: 2px solid var(--rust);
+  padding-left: 1.4rem;
+}
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+
+.btn-primary {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  color: #fff; background: var(--rust);
+  padding: 1rem 2.2rem; text-decoration: none;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: background 0.2s, transform 0.2s;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+
+.btn-outline {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
+  color: var(--ink); background: transparent;
+  padding: 1rem 2.2rem; text-decoration: none;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid var(--border-warm);
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-stats { display: flex; gap: 3rem; }
+.h-stat-n {
+  font-family: var(--serif); font-size: 2.2rem; font-weight: 700;
+  color: var(--gold); line-height: 1;
+}
+.h-stat-l {
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
+  color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+.hero-right {
+  position: relative; z-index: 2;
+  display: flex; align-items: stretch; justify-content: center;
+  overflow: hidden; min-height: 100vh;
+}
+.hero-img-wrap {
+  position: relative; width: 100%; height: 100%;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.hero-img-wrap::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 20%;
+  background: linear-gradient(transparent, var(--bg));
+  z-index: 1;
+}
+.hero-img-wrap img {
+  width: 70%; height: 90%;
+  object-fit: contain; object-position: center bottom;
+  display: block; position: relative; align-self: flex-end;
+  filter: contrast(1.02) saturate(0.92);
+}
+
+.hero-float-label {
+  position: absolute; top: 8rem; right: 2.5rem;
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
+  color: var(--ink-dim); letter-spacing: 0.12em; text-transform: uppercase;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  border-right: 1px solid var(--border);
+  padding-right: 0.8rem;
+}
+
+/* ── MARQUEE ── */
+.marquee-strip {
+  background: var(--rust);
+  overflow: hidden; white-space: nowrap;
+  padding: 0.85rem 0;
+  position: relative; z-index: 3;
+}
+.marquee-track {
+  display: inline-block;
+  animation: marquee 28s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.marquee-item {
+  display: inline-block;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  color: #fff; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0 2.5rem;
+}
+.marquee-sep {
+  display: inline-block; color: rgba(255,255,255,0.45); padding: 0 0.5rem;
+  vertical-align: middle; font-size: 1rem;
+}
+
+/* ── SECTION BASE ── */
+.section { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; }
+
+.sec-eyebrow {
+  font-family: var(--sans); font-size: 0.68rem; font-weight: 700;
+  color: var(--rust); letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 0.9rem;
+}
+.sec-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--rust); }
+
+.sec-heading {
+  font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.025em;
+  color: var(--ink); margin-bottom: 3.5rem;
+}
+.sec-heading em { font-style: italic; color: var(--rust); font-weight: 400; }
+
+/* ── ABOUT ── */
+#about { border-top: 1px solid var(--border); }
+.about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
+
+.about-text p {
+  font-family: var(--body); font-size: 1.12rem;
+  color: var(--ink-dim); line-height: 2;
+  margin-bottom: 1.5rem;
+}
+.about-text strong { color: var(--ink); font-weight: 500; }
+
+.skills-section { margin-top: 3rem; }
+.skills-label {
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.16em; text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.skills-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.skill-tag {
+  font-family: var(--sans); font-size: 0.68rem; font-weight: 600;
+  color: var(--ink-dim); background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 0.45rem 1rem; letter-spacing: 0.07em;
+  transition: all 0.2s; cursor: none;
+}
+.skill-tag:hover { border-color: var(--rust); color: var(--rust); background: rgba(192,67,42,0.05); }
+
+.about-visuals { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.img-frame {
+  overflow: hidden; background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative;
+}
+.img-frame.tall { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 3/4; }
+.img-frame.sq { aspect-ratio: 1; }
+.img-frame img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s ease, filter 0.4s;
+  filter: grayscale(15%);
+}
+.img-frame:hover img { transform: scale(1.06); filter: grayscale(0%); }
+.img-frame-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem 1rem 0.8rem;
+  background: linear-gradient(transparent, rgba(250,248,244,0.88));
+  font-family: var(--sans); font-size: 0.6rem; font-weight: 600;
+  color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase;
+  transform: translateY(4px); opacity: 0; transition: all 0.3s;
+}
+.img-frame:hover .img-frame-label { opacity: 1; transform: none; }
+
+/* ── ACHIEVEMENTS ── */
+.ach-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.ach-inner { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; }
+
+.ach-year {
+  font-family: var(--serif); font-size: 6rem; font-weight: 900;
+  color: rgba(28,24,20,0.05); line-height: 1;
+  margin-bottom: 2rem; letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 1px; }
+.ach-item {
+  background: var(--surface);
+  padding: 2rem 2.2rem;
+  display: flex; gap: 1.4rem; align-items: flex-start;
+  transition: background 0.25s;
+  position: relative; overflow: hidden;
+}
+.ach-item::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--rust);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.35s;
+}
+.ach-item:hover { background: var(--bg); }
+.ach-item:hover::before { transform: scaleY(1); }
+
+.ach-icon {
+  flex-shrink: 0; width: 52px; height: 52px;
+  overflow: hidden; border-radius: 2px;
+  background: var(--bg); border: 1px solid var(--border);
+}
+.ach-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+.ach-badge {
+  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.ach-name {
+  font-family: var(--serif); font-size: 1.05rem; font-weight: 500;
+  color: var(--ink); line-height: 1.4; margin-bottom: 0.4rem;
+}
+.ach-desc {
+  font-family: var(--body); font-size: 0.9rem;
+  color: var(--ink-dim); line-height: 1.65;
+}
+
+/* ── PROJECTS ── */
+#projects { border-top: 1px solid var(--border); }
+
+.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.proj-card {
+  background: var(--bg);
+  padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+  display: flex; flex-direction: column;
+}
+.proj-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, var(--rust-glow), transparent 70%);
+  opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+.proj-card:hover { background: var(--surface); }
+.proj-card:hover::after { opacity: 1; }
+
+.proj-num {
+  font-family: var(--serif); font-size: 4rem; font-weight: 900;
+  color: rgba(28,24,20,0.05); line-height: 1;
+  margin-bottom: 1rem; letter-spacing: -0.04em;
+  user-select: none;
+}
+.proj-name {
+  font-family: var(--serif); font-size: 1.3rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 0.7rem; line-height: 1.25;
+  transition: color 0.2s;
+}
+.proj-card:hover .proj-name { color: var(--rust); }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+.proj-tag {
+  font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
+  color: var(--rust); background: rgba(192,67,42,0.08);
+  padding: 0.2rem 0.65rem; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.proj-desc {
+  font-family: var(--body); font-size: 0.92rem; font-style: italic;
+  color: var(--ink-dim); line-height: 1.75;
+  flex: 1; margin-bottom: 1.6rem;
+}
+.proj-links { display: flex; gap: 1.2rem; margin-top: auto; }
+.proj-link {
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
+  color: var(--ink-dim); text-decoration: none;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: color 0.2s;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.proj-link::after { content: '→'; }
+.proj-link:hover { color: var(--gold); }
+
+/* ── JOURNEY ── */
+.journey-section { background: var(--surface); border-top: 1px solid var(--border); }
+.journey-inner { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; }
+.journey-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 4rem; border: 1px solid var(--border); }
+.j-step {
+  padding: 3rem 2.5rem;
+  border-right: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.j-step:last-child { border-right: none; }
+.j-step:hover { background: rgba(192,67,42,0.03); }
+.j-step::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px; background: var(--rust);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.j-step:hover::after { transform: scaleX(1); }
+.j-num {
+  font-family: var(--serif); font-size: 5rem; font-weight: 900; font-style: italic;
+  color: rgba(28,24,20,0.05); line-height: 1; margin-bottom: 1.5rem;
+  user-select: none;
+}
+.j-title {
+  font-family: var(--serif); font-size: 1.25rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 0.8rem;
+}
+.j-desc {
+  font-family: var(--body); font-size: 0.95rem;
+  color: var(--ink-dim); line-height: 1.8;
+}
+.j-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-top: 1.2rem;
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
+  color: var(--rust); text-decoration: none; letter-spacing: 0.08em;
+  text-transform: uppercase; transition: color 0.2s;
+}
+.j-link:hover { color: var(--gold); }
+
+/* ── POETRY ── */
+#poetry { border-top: 1px solid var(--border); text-align: center; position: relative; overflow: hidden; }
+#poetry::before {
+  content: '"';
+  position: absolute; top: -2rem; left: 50%; transform: translateX(-50%);
+  font-family: var(--serif); font-size: 30rem; font-weight: 900;
+  color: rgba(28,24,20,0.025); line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.poetry-quote {
+  font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-style: italic; font-weight: 400;
+  color: var(--ink); line-height: 1.55;
+  max-width: 700px; margin: 0 auto 1.5rem;
+  position: relative; z-index: 1;
+}
+.poetry-byline {
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
+  color: var(--rust); letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 2rem; position: relative; z-index: 1;
+}
+.poetry-body {
+  font-family: var(--body); font-size: 1.05rem;
+  color: var(--ink-dim); max-width: 480px;
+  margin: 0 auto 2.5rem; line-height: 1.85;
+  position: relative; z-index: 1;
+}
+
+/* ── CONTACT ── */
+.contact-section { background: var(--surface); border-top: 1px solid var(--border); }
+.contact-inner { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
+
+.c-intro {
+  font-family: var(--body); font-size: 1.05rem;
+  color: var(--ink-dim); line-height: 1.9; margin-bottom: 2.5rem;
+}
+
+.soc-links { display: flex; flex-direction: column; gap: 0.6rem; }
+.soc-link {
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: 1rem 1.4rem;
+  border: 1px solid var(--border);
+  color: var(--ink-dim); text-decoration: none;
+  font-family: var(--body); font-size: 1rem; transition: all 0.25s;
+  position: relative; overflow: hidden;
+}
+.soc-link::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--rust);
+  transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s;
+}
+.soc-link:hover { border-color: var(--border-warm); color: var(--ink); background: rgba(192,67,42,0.04); }
+.soc-link:hover::before { transform: scaleY(1); }
+.soc-key {
+  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase;
+  min-width: 75px;
+}
+
+.c-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.c-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.c-lbl {
+  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
+  color: rgba(28,24,20,0.35); letter-spacing: 0.12em; text-transform: uppercase;
+}
+.c-input, .c-textarea {
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--ink); padding: 0.9rem 1.1rem;
+  font-family: var(--body); font-size: 1rem; outline: none;
+  transition: border-color 0.2s; border-radius: 0;
+}
+.c-input::placeholder, .c-textarea::placeholder { color: rgba(28,24,20,0.22); }
+.c-input:focus, .c-textarea:focus { border-color: var(--rust); }
+.c-textarea { resize: vertical; min-height: 130px; }
+.c-submit {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  color: #fff; background: var(--rust);
+  padding: 1rem 2.2rem; border: none;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: none; transition: background 0.2s, transform 0.2s;
+  align-self: flex-start;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+.c-submit:hover { background: var(--gold); transform: translateY(-2px); }
+#form-ok {
+  display: none; font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.08em;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 6rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  background: var(--bg);
+}
+.foot-brand { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--ink); }
+.foot-brand span { color: var(--rust); }
+.foot-copy { font-family: var(--sans); font-size: 0.62rem; font-weight: 600; color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.12s; }
+.d2 { transition-delay: 0.24s; }
+.d3 { transition-delay: 0.36s; }
+.d4 { transition-delay: 0.48s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { padding: 1.2rem 1.8rem; }
+  nav.scrolled { padding: 0.9rem 1.8rem; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  #home { grid-template-columns: 1fr; }
+  .hero-left { padding: 9rem 1.8rem 4rem; }
+  .hero-right { min-height: 60vw; }
+  .hero-float-label { display: none; }
+  .section { padding: 6rem 1.8rem; }
+  .about-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+  .ach-inner, .journey-inner, .contact-inner { padding: 6rem 1.8rem; }
+  .ach-grid { grid-template-columns: 1fr; }
+  .proj-grid { grid-template-columns: 1fr 1fr; }
+  .journey-steps { grid-template-columns: 1fr; }
+  .j-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .j-step:last-child { border-bottom: none; }
+  .contact-inner { grid-template-columns: 1fr; gap: 4rem; }
+  footer { padding: 2rem 1.8rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+@media (max-width: 600px) {
+  .hero-name { font-size: 3.5rem; }
+  .hero-stats { gap: 2rem; }
+  .proj-grid { grid-template-columns: 1fr; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="#home" class="nav-logo">Anusha <span>Garg</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#journey">Impact</a></li>
+    <li><a href="#poetry">Poetry</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+  <button class="hamburger" id="hbg" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mmenu">
+  <a href="#about" onclick="closeMm()">About</a>
+  <a href="#achievements" onclick="closeMm()">Achievements</a>
+  <a href="#projects" onclick="closeMm()">Projects</a>
+  <a href="#journey" onclick="closeMm()">Impact</a>
+  <a href="#poetry" onclick="closeMm()">Poetry</a>
+  <a href="#contact" onclick="closeMm()">Contact</a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Poet · Developer · Changemaker
+    </div>
+    <h1 class="hero-name">
+      Anusha
+      <span class="hero-name-line2">Garg</span>
+    </h1>
+    <p class="hero-desc">
+      "Between the falling leaves of thought<br>
+      and the bare branches of code,<br>
+      I find the poem the world forgot<br>
+      and the interface it's always owed."
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <div class="h-stat-n">Top 50</div>
+        <div class="h-stat-l">UN Changemakers</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-n">2</div>
+        <div class="h-stat-l">Research Papers</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-n">1</div>
+        <div class="h-stat-l">Patent Filed</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-n">20+</div>
+        <div class="h-stat-l">Milestones</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-float-label">Portfolio 2025</div>
+    <div class="hero-img-wrap">
+      <img src="https://anushagarg.com/assets/ANUSHA.png" alt="Anusha Garg" onerror="this.style.display='none'">
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">UN Geneva</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Top 50 Changemaker</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Samsung Solve for Tomorrow</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Patent Filed</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Best Paper Award</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">BIS Ambassador</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">CBSE Outstanding Performance</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Poet · Developer · Leader</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">UN Geneva</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Top 50 Changemaker</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Samsung Solve for Tomorrow</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Patent Filed</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Best Paper Award</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">BIS Ambassador</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">CBSE Outstanding Performance</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Poet · Developer · Leader</span><span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="about-layout">
+    <div>
+      <div class="sec-eyebrow reveal">About Me</div>
+      <h2 class="sec-heading reveal">The chapters<br>of <em>my story</em></h2>
+      <div class="about-text">
+        <p class="reveal">I am Anusha — a <strong>poet, researcher, and front-end developer</strong>. I work at the intersection of narrative and interface, combining creative writing with human-centered design to build meaningful digital experiences.</p>
+        <p class="reveal d1">My practice blends qualitative research, iterative prototyping, and thoughtful visual design. I founded <strong>Annadatri</strong>, a student-led initiative addressing food waste and malnutrition, and contribute to research programs emphasizing measurable social impact.</p>
+        <p class="reveal d2">I approach every project with curiosity, empathy, and a focus on accessibility — balancing poetic expression with practical engineering.</p>
+      </div>
+      <div class="skills-section reveal d3">
+        <div class="skills-label">Skills & Tools</div>
+        <div class="skills-list">
+          <span class="skill-tag">Creative Writing</span>
+          <span class="skill-tag">Front-End Dev</span>
+          <span class="skill-tag">HTML / CSS / JS</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">UI & Design</span>
+          <span class="skill-tag">Research</span>
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Public Speaking</span>
+          <span class="skill-tag">German A2</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="about-visuals reveal">
+        <div class="img-frame tall">
+          <img src="https://anushagarg.com/assets/un geneva.png" alt="UN Geneva">
+          <div class="img-frame-label">UN Geneva 2025</div>
+        </div>
+        <div class="img-frame sq">
+          <img src="https://anushagarg.com/assets/annadatri.png" alt="Annadatri">
+          <div class="img-frame-label">Annadatri</div>
+        </div>
+        <div class="img-frame sq">
+          <img src="https://anushagarg.com/assets/poetry.png" alt="Poetry">
+          <div class="img-frame-label">Poetry</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<div class="ach-section" id="achievements">
+  <div class="ach-inner">
+    <div class="sec-eyebrow reveal" style="color:var(--gold);">Recognition</div>
+    <h2 class="sec-heading reveal">Milestones &amp;<br><em>achievements</em></h2>
+
+    <div class="ach-year">2025</div>
+    <div class="ach-grid">
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/cwc.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">7 Nov 2025 · UN Geneva · Global</div>
+          <div class="ach-name">Top 50 Changemaker — 1M1B World Cup at UN Headquarters</div>
+          <div class="ach-desc">Named among the world's top 50 changemakers at the 9th Impact Summit at the United Nations, Geneva.</div>
+        </div>
+      </div>
+      <div class="ach-item reveal d1">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/sft.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">Aug 2025 · Samsung · IIT Delhi</div>
+          <div class="ach-name">Top 40 — Samsung Solve for Tomorrow</div>
+          <div class="ach-desc">Selected nationally. Awarded ₹20,000 and a Samsung Galaxy Book 5 360.</div>
+        </div>
+      </div>
+      <div class="ach-item reveal d2">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/patent.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">Nov 2025 · Indian Patent Office</div>
+          <div class="ach-name">Patent Filed — Food Donor-Recipient Platform (No. 202511083538)</div>
+          <div class="ach-desc">Digital platform connecting food donors with recipients — submitted and under publication.</div>
+        </div>
+      </div>
+      <div class="ach-item reveal d3">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/research honour.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">29 Nov 2025 · I3CET 2025</div>
+          <div class="ach-name">Best Paper Award — Food Quality Monitoring System</div>
+          <div class="ach-desc">Two papers accepted in Scopus-indexed proceedings: AI Flashcard Generators and Food Quality Monitoring.</div>
+        </div>
+      </div>
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/bis.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">Oct 2025 · Bureau of Indian Standards</div>
+          <div class="ach-name">BIS Ambassador of Quality</div>
+          <div class="ach-desc">Appointed for quality awareness initiatives across institutions.</div>
+        </div>
+      </div>
+      <div class="ach-item reveal d1">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/a2.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">Oct 2025 · Language</div>
+          <div class="ach-name">German A2 Certificate — 82/100</div>
+          <div class="ach-desc">Achieved A2 level German certification with strong grades.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ach-year" style="margin-top:3.5rem;">2024</div>
+    <div class="ach-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="ach-item reveal">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/cbse.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">2024 · CBSE</div>
+          <div class="ach-name">CBSE Outstanding Performance — Budding Author</div>
+          <div class="ach-desc">Recognized for excellence in creative writing and literature.</div>
+        </div>
+      </div>
+      <div class="ach-item reveal d1">
+        <div class="ach-icon"><img src="https://anushagarg.com/assets/bal bharti mun.png" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div>
+          <div class="ach-badge">May 2024 · Diplomatic</div>
+          <div class="ach-name">Model United Nations</div>
+          <div class="ach-desc">Demonstrated diplomatic skills and global policy engagement at MUN.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="sec-eyebrow reveal">Work</div>
+  <h2 class="sec-heading reveal">Projects &amp;<br><em>experiments</em></h2>
+  <div class="proj-grid reveal">
+    <div class="proj-card">
+      <div class="proj-num">01</div>
+      <div class="proj-name">Annadatri Initiative</div>
+      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">Firebase</span><span class="proj-tag">Styled Components</span></div>
+      <p class="proj-desc">Official website for my student-led initiative bridging food waste and malnutrition — spreading awareness and gathering support for a zero-hunger community.</p>
+      <div class="proj-links">
+        <a href="https://www.annadatri.in/" class="proj-link" target="_blank">Live Site</a>
+        <a href="https://github.com/pxrple6/ProjectA" class="proj-link" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">02</div>
+      <div class="proj-name">AI Flashcards &amp; Mind Maps</div>
+      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">OpenAI API</span><span class="proj-tag">jsPDF</span></div>
+      <p class="proj-desc">Generates AI-powered flashcards and mind maps from text. Exports in PDF, TXT, and CSV formats for easy studying and retention.</p>
+      <div class="proj-links">
+        <a href="https://github.com/pxrple6/ai-flash-cards" class="proj-link" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">03</div>
+      <div class="proj-name">Invisible Air Guitar</div>
+      <div class="proj-tags"><span class="proj-tag">MediaPipe</span><span class="proj-tag">Web Audio API</span><span class="proj-tag">JS</span></div>
+      <p class="proj-desc">Browser-based app using MediaPipe Hands for real-time hand tracking and the Web Audio API to synthesize guitar sounds mid-air.</p>
+      <div class="proj-links">
+        <a href="https://pxrple6.github.io/Invisible-Guitar-/" class="proj-link" target="_blank">Live Demo</a>
+        <a href="https://github.com/pxrple6/Invisible-Guitar-" class="proj-link" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">04</div>
+      <div class="proj-name">Constellations</div>
+      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">D3</span><span class="proj-tag">Astronomy API</span></div>
+      <p class="proj-desc">Identifies constellations in the night sky using an astronomy API, displayed in interactive graphs by longitude, latitude, and date.</p>
+      <div class="proj-links"><span class="proj-link" style="opacity:0.3;pointer-events:none;cursor:default">In development</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">05</div>
+      <div class="proj-name">Personal Portfolio</div>
+      <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span></div>
+      <p class="proj-desc">This very site — a digital scrapbook merging poetic sensibility with clean frontend engineering and attention to craft.</p>
+      <div class="proj-links">
+        <a href="https://github.com/pxrple6/anushagarg.com" class="proj-link" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<div class="journey-section" id="journey">
+  <div class="journey-inner">
+    <div class="sec-eyebrow reveal">Impact</div>
+    <h2 class="sec-heading reveal">From classroom<br>to <em>the United Nations</em></h2>
+    <div class="journey-steps">
+      <div class="j-step reveal">
+        <div class="j-num">01</div>
+        <div class="j-title">Founding Annadatri</div>
+        <p class="j-desc">Launched in 2024 — a student-led initiative to bridge food waste and malnutrition. The seed of a mission to build a zero-hunger community.</p>
+        <a href="http://www.annadatri.in" class="j-link" target="_blank">Visit Annadatri</a>
+      </div>
+      <div class="j-step reveal d1">
+        <div class="j-num">02</div>
+        <div class="j-title">Ahaarvritti — The Tech Solution</div>
+        <p class="j-desc">Built a web app connecting food donors directly with NGOs in real-time. Recognized in the Top 40 of Samsung Solve for Tomorrow at IIT Delhi.</p>
+      </div>
+      <div class="j-step reveal d2">
+        <div class="j-num">03</div>
+        <div class="j-title">UN Geneva — Global Stage</div>
+        <p class="j-desc">Recognized as one of the World's Top 50 Changemakers at the 9th 1M1B Impact Summit at the United Nations Headquarters, Geneva, Switzerland.</p>
+        <a href="https://timesofindia.indiatimes.com/education/campus-talks/noida-school-shines-at-un-summit-only-up-school-among-global-top-8/articleshow/125972380.cms" class="j-link" target="_blank">Times of India Feature</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POETRY -->
+<section id="poetry" class="section poetry-sec">
+  <div class="sec-eyebrow reveal" style="justify-content:center;">Poetry & Writing</div>
+  <blockquote class="poetry-quote reveal">
+    "I write where leaves fall — in the space between seasons, between a line of code and a line of verse."
+  </blockquote>
+  <div class="poetry-byline reveal d1">— Anusha Garg</div>
+  <p class="poetry-body reveal d2">I write regularly, workshopping with peers and exploring forms that connect personal reflection to broader social themes. Poetry, for me, is another kind of interface design.</p>
+  <div style="display:flex;justify-content:center;" class="reveal d3">
+    <a href="https://anushagarg.com/poems.html" class="btn-primary">Read All Poems</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="sec-eyebrow reveal" style="color:var(--gold);">Contact</div>
+      <h2 class="sec-heading reveal">Let's create<br><em>something beautiful</em></h2>
+      <p class="c-intro reveal">Open to collaborations, research partnerships, speaking engagements, and conversations about poetry, technology, or social impact.</p>
+      <div class="soc-links">
+        <a href="https://www.linkedin.com/in/anushagarg6/" class="soc-link reveal" target="_blank">
+          <span class="soc-key">LinkedIn</span>Anusha Garg
+        </a>
+        <a href="/cdn-cgi/l/email-protection#0b6a657e78636a6c6a796c256864657f6a687f4b6c666a626725686466" class="soc-link reveal d1">
+          <span class="soc-key">Email</span><span class="__cf_email__" data-cfemail="1e7f706b6d767f797f6c79307d71706a7f7d6a5e79737f7772307d7173">[email&#160;protected]</span>
+        </a>
+        <a href="https://github.com/pxrple6" class="soc-link reveal d2" target="_blank">
+          <span class="soc-key">GitHub</span>@pxrple6
+        </a>
+        <a href="https://www.instagram.com/garganusha_/" class="soc-link reveal d3" target="_blank">
+          <span class="soc-key">Instagram</span>@garganusha_
+        </a>
+      </div>
+    </div>
+    <div>
+      <form class="c-form" onsubmit="doSubmit(event)">
+        <div class="c-group reveal"><label class="c-lbl">Your name</label><input type="text" class="c-input" placeholder="Jane Smith" required></div>
+        <div class="c-group reveal d1"><label class="c-lbl">Email address</label><input type="email" class="c-input" placeholder="jane@example.com" required></div>
+        <div class="c-group reveal d2"><label class="c-lbl">Message</label><textarea class="c-textarea" placeholder="Tell me about your idea or collaboration..." required></textarea></div>
+        <div style="display:flex;gap:1rem;align-items:center;" class="reveal d3">
+          <button type="submit" class="c-submit">Send Message</button>
+          <div id="form-ok">Message sent! I'll be in touch soon.</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <span class="foot-brand">Anusha <span>Garg</span></span>
+  <span class="foot-copy">© 2025 · Poet & Developer · Noida, India</span>
+  <span class="foot-copy">Made with words & code</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+function animateRing() { rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
+animateRing();
+document.querySelectorAll('a, button, .skill-tag, .proj-card, .ach-item').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width = '16px'; cursor.style.height = '16px'; ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(184,134,46,0.5)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width = '9px'; cursor.style.height = '9px'; ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(192,67,42,0.35)'; });
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30); });
+
+// Mobile menu
+const hbg = document.getElementById('hbg');
+const mm = document.getElementById('mmenu');
+hbg.addEventListener('click', () => { hbg.classList.toggle('open'); mm.classList.toggle('open'); });
+function closeMm() { hbg.classList.remove('open'); mm.classList.remove('open'); }
+
+// Reveal on scroll
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Form submit
+function doSubmit(e) {
+  e.preventDefault();
+  document.getElementById('form-ok').style.display = 'block';
+  e.target.reset();
+}
+</script>
+</body>
+</html>
