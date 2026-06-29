@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects · Anusha Garg</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Anusha Garg</a>
+  <ul>
+    <li><a href="about.html">About</a></li>
+    <li><a href="achievements.html">Achievements</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="book.html">Book</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">Dark</button>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About</a>
+  <a href="achievements.html">Achievements</a>
+  <a href="projects.html">Projects</a>
+  <a href="book.html">Book</a>
+  <a href="poetry.html">Poetry</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="page-hero reveal">
+  <div class="eyebrow">Projects</div>
+  <h1>Things I've built.</h1>
+  <p>From a patent-filed platform to browser-based air guitars.</p>
+</div>
+
+<div class="inner">
+  <div class="projects-page">
+
+    <!-- Flagship -->
+    <div class="label reveal">Flagship Initiative</div>
+    <div class="flagship reveal">
+      <div>
+        <div class="flagship-label">Founded 2024 · Ongoing</div>
+        <h2>Annadatri &amp; Ahaavritti</h2>
+        <p>
+          <strong>Annadatri</strong> is a student-led initiative bridging food waste and malnutrition in India.
+          The mission: a zero-hunger community by connecting surplus food with those who need it most.
+        </p>
+        <p>
+          <strong>Ahaavritti</strong> is the technology platform — a full-stack web app connecting food donors
+          with NGOs in real-time. It became the subject of a filed Indian patent (No. 202511083538)
+          and two Scopus-indexed research papers.
+        </p>
+        <p>
+          Recognised Top 40 nationally at Samsung Solve for Tomorrow (IIT Delhi) and presented at
+          the United Nations in Geneva, where I was named a Top 50 Global Changemaker.
+        </p>
+        <div class="flagship-links">
+          <a href="https://www.annadatri.in/" target="_blank" class="btn btn-dark">Visit Annadatri.in ↗</a>
+          <a href="https://github.com/pxrple6/ProjectA" target="_blank" class="btn btn-outline">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="flagship-highlights">
+        <div class="hl-item">
+          <div class="hl-dot"></div>
+          <div>
+            <div class="hl-title">Overview</div>
+            <div class="hl-desc">Real-time food donor-to-NGO matching platform</div>
+          </div>
+        </div>
+        <div class="hl-item">
+          <div class="hl-dot"></div>
+          <div>
+            <div class="hl-title">Technologies</div>
+            <div class="hl-desc">React · Firebase · Styled Components</div>
+          </div>
+        </div>
+        <div class="hl-item">
+          <div class="hl-dot"></div>
+          <div>
+            <div class="hl-title">Patent</div>
+            <div class="hl-desc">Indian Patent Office · No. 202511083538 · Dec 2025</div>
+          </div>
+        </div>
+        <div class="hl-item">
+          <div class="hl-dot"></div>
+          <div>
+            <div class="hl-title">Research</div>
+            <div class="hl-desc">2 Scopus-indexed papers · I3CSET-2025 · Taylor & Francis · Best Paper Award</div>
+          </div>
+        </div>
+        <div class="hl-item">
+          <div class="hl-dot"></div>
+          <div>
+            <div class="hl-title">Impact</div>
+            <div class="hl-desc">Top 40 Samsung · ₹3,08,559 raised · Top 50 UN Changemakers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other Projects -->
+    <div class="label reveal" style="margin-top:1rem;">All Projects</div>
+    <div class="all-projects-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-num">02</div>
+        <div class="proj-card-title">AI Flashcards & Mind Maps</div>
+        <div class="proj-tags">
+          <span class="tag">React</span><span class="tag">OpenAI API</span><span class="tag">jsPDF</span>
+        </div>
+        <p class="proj-card-desc">Generates AI-powered flashcards and mind maps from any input text. Exports in PDF, TXT, and CSV. The seed project for a Scopus-indexed paper on STEM education at I3CSET-2025.</p>
+        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.75rem;"><strong style="color:var(--ink);">Impact:</strong> Featured in academic research publication</div>
+        <div class="proj-links"><a href="https://github.com/pxrple6/ai-flash-cards" target="_blank" class="proj-link">GitHub ↗</a></div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-num">03</div>
+        <div class="proj-card-title">Invisible Air Guitar</div>
+        <div class="proj-tags">
+          <span class="tag">MediaPipe</span><span class="tag">Web Audio API</span><span class="tag">JavaScript</span>
+        </div>
+        <p class="proj-card-desc">Browser-based app using MediaPipe Hands for real-time hand tracking and Web Audio API to synthesize guitar sounds mid-air. No instruments, no latency — just hands and code.</p>
+        <div class="proj-links">
+          <a href="https://pxrple6.github.io/Invisible-Guitar-/" target="_blank" class="proj-link">Live Demo ↗</a>
+          <a href="https://github.com/pxrple6/Invisible-Guitar-" target="_blank" class="proj-link">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-num">04</div>
+        <div class="proj-card-title">Constellations</div>
+        <div class="proj-tags">
+          <span class="tag">React</span><span class="tag">D3</span><span class="tag">Astronomy API</span>
+        </div>
+        <p class="proj-card-desc">Identifies constellations in the night sky using an astronomy API, displayed as interactive graphs by longitude, latitude, and date.</p>
+        <div class="proj-links"><span style="font-size:0.72rem;color:var(--muted);">In Development</span></div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-num">05</div>
+        <div class="proj-card-title">Personal Portfolio</div>
+        <div class="proj-tags">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        </div>
+        <p class="proj-card-desc">This site — a digital portfolio merging clean frontend engineering with careful attention to typography and craft. Built from scratch, without frameworks.</p>
+        <div class="proj-links"><a href="https://github.com/pxrple6/anushagarg.com" target="_blank" class="proj-link">GitHub ↗</a></div>
+      </div>
+
+    </div>
+
+    <!-- Leadership Role -->
+    <div style="margin-top:3rem;" class="reveal">
+      <div class="label">Leadership</div>
+      <div class="proj-card" style="max-width:580px;">
+        <div class="proj-num">06</div>
+        <div class="proj-card-title">Content Writing Head & Website Designer — Project Zubaan</div>
+        <div class="proj-tags">
+          <span class="tag">Content Strategy</span><span class="tag">Web Design</span><span class="tag">Team Leadership</span>
+        </div>
+        <p class="proj-card-desc">Selected as Content Writing Head and Website Designer (from 12 Jul 2025) — responsible for editorial strategy, blog posts, and website design in collaboration with the Graphic Design Team. Led a team of Content Writing Interns.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="inner footer-inner">
+    <div class="footer-name">Anusha Garg</div>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="projects.html">Projects</a>
+      <a href="book.html">Book</a>
+      <a href="poetry.html">Poetry</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/anushagarg6/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/pxrple6" target="_blank">GitHub</a>
+      <a href="https://www.instagram.com/garganusha_/" target="_blank">Instagram</a>
+    </div>
+    <div class="footer-copy">© 2026 Anusha Garg</div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

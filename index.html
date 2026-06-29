@@ -1,1307 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#faf8f4">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Anusha Garg — Poet & Developer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"></noscript>
-<style>
-:root {
-  --bg: #faf8f4;
-  --surface: #f4f1eb;
-  --surface-2: #ede9e0;
-  --ink: #1c1814;
-  --ink-dim: rgba(28,24,20,0.52);
-  --ink-ghost: rgba(28,24,20,0.08);
-  --rust: #c0432a;
-  --rust-light: rgba(192,67,42,0.1);
-  --rust-glow: rgba(192,67,42,0.12);
-  --gold: #b8862e;
-  --gold-dim: rgba(184,134,46,0.15);
-  --border: rgba(28,24,20,0.08);
-  --border-warm: rgba(192,67,42,0.2);
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'Syne', sans-serif;
-  --body: 'Crimson Pro', Georgia, serif;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; font-size: 17px; }
-
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--body);
-  font-weight: 300;
-  line-height: 1.75;
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* ── CURSOR ── */
-.cursor {
-  position: fixed;
-  width: 9px; height: 9px;
-  background: var(--rust);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.08s, width 0.25s, height 0.25s, background 0.25s;
-}
-.cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1px solid rgba(192,67,42,0.35);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.18s ease, width 0.3s, height 0.3s, border-color 0.3s;
-}
-
-/* ── PAPER TEXTURE ── */
-body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 9000; opacity: 0.5; mix-blend-mode: multiply;
-}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--rust); border-radius: 2px; }
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 500;
-  padding: 1.6rem 4rem;
-  display: flex; align-items: center; justify-content: space-between;
-  transition: background 0.4s, padding 0.3s;
-}
-nav.scrolled {
-  background: rgba(250,248,244,0.92);
-  backdrop-filter: blur(20px);
-  padding: 1.1rem 4rem;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 24px rgba(28,24,20,0.05);
-}
-.nav-logo {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-style: italic;
-  color: var(--ink);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-}
-.nav-logo span { color: var(--rust); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
-.nav-links a {
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--ink-dim);
-  text-decoration: none;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-  position: relative;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute; bottom: -3px; left: 0; right: 0;
-  height: 1px; background: var(--rust);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.25s;
-}
-.nav-links a:hover { color: var(--ink); }
-.nav-links a:hover::after { transform: scaleX(1); }
-.nav-cta {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
-  color: #fff; background: var(--rust);
-  padding: 0.6rem 1.5rem; text-decoration: none;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  transition: background 0.2s, transform 0.2s;
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-}
-.nav-cta:hover { background: var(--gold); transform: translateY(-1px); }
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; padding: 4px; }
-.hamburger span { display: block; width: 22px; height: 1px; background: var(--ink); transition: all 0.3s; }
-.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-.mobile-menu {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--bg); z-index: 490;
-  flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: var(--serif); font-size: 2.5rem; font-style: italic;
-  color: var(--ink); text-decoration: none; transition: color 0.2s;
-}
-.mobile-menu a:hover { color: var(--rust); }
-
-/* ── HERO ── */
-#home {
-  min-height: 100vh;
-  display: grid; grid-template-columns: 1fr 1fr;
-  position: relative; overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 80% 80% at 70% 20%, rgba(192,67,42,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 10% 80%, rgba(184,134,46,0.05) 0%, transparent 55%);
-}
-
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(28,24,20,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(28,24,20,0.04) 1px, transparent 1px);
-  background-size: 80px 80px;
-  animation: gridDrift 20s linear infinite;
-}
-@keyframes gridDrift {
-  0% { background-position: 0 0; }
-  100% { background-position: 80px 80px; }
-}
-
-.hero-left {
-  position: relative; z-index: 2;
-  padding: 12rem 4rem 6rem 6rem;
-  display: flex; flex-direction: column; justify-content: center;
-}
-
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 0.7rem;
-  font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
-  color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase;
-  margin-bottom: 2.5rem;
-}
-.hero-tag-dot {
-  width: 6px; height: 6px;
-  background: var(--gold); border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
-}
-
-.hero-name {
-  font-family: var(--serif);
-  font-size: clamp(4rem, 6.5vw, 7rem);
-  font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-  margin-bottom: 1.8rem;
-}
-.hero-name-line2 {
-  display: block;
-  font-style: italic;
-  font-weight: 400;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--rust);
-  padding-left: 1.5rem;
-}
-
-.hero-desc {
-  font-family: var(--body);
-  font-size: 1.2rem;
-  font-style: italic;
-  color: var(--ink-dim);
-  line-height: 1.75;
-  max-width: 420px;
-  margin-bottom: 3rem;
-  border-left: 2px solid var(--rust);
-  padding-left: 1.4rem;
-}
-
-.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
-
-.btn-primary {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
-  color: #fff; background: var(--rust);
-  padding: 1rem 2.2rem; text-decoration: none;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  transition: background 0.2s, transform 0.2s;
-  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-  display: inline-block;
-}
-.btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
-
-.btn-outline {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
-  color: var(--ink); background: transparent;
-  padding: 1rem 2.2rem; text-decoration: none;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  border: 1px solid var(--border-warm);
-  transition: border-color 0.2s, color 0.2s;
-  display: inline-block;
-}
-.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-.hero-stats { display: flex; gap: 3rem; }
-.h-stat-n {
-  font-family: var(--serif); font-size: 2.2rem; font-weight: 700;
-  color: var(--gold); line-height: 1;
-}
-.h-stat-l {
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
-  color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase;
-  margin-top: 0.3rem;
-}
-
-.hero-right {
-  position: relative; z-index: 2;
-  display: flex; align-items: stretch; justify-content: center;
-  overflow: hidden; min-height: 100vh;
-}
-.hero-img-wrap {
-  position: relative; width: 100%; height: 100%;
-  display: flex; align-items: flex-end; justify-content: center;
-}
-.hero-img-wrap::before {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0; height: 20%;
-  background: linear-gradient(transparent, var(--bg));
-  z-index: 1;
-}
-.hero-img-wrap img {
-  width: 70%; height: 90%;
-  object-fit: contain; object-position: center bottom;
-  display: block; position: relative; align-self: flex-end;
-  filter: contrast(1.02) saturate(0.92);
-  will-change: transform;
-  aspect-ratio: 3/4;
-  /* Reserve space while loading to prevent layout shift */
-  background: var(--surface);
-}
-
-.hero-float-label {
-  position: absolute; top: 8rem; right: 2.5rem;
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
-  color: var(--ink-dim); letter-spacing: 0.12em; text-transform: uppercase;
-  writing-mode: vertical-rl; text-orientation: mixed;
-  border-right: 1px solid var(--border);
-  padding-right: 0.8rem;
-}
-
-/* ── MARQUEE ── */
-.marquee-strip {
-  background: var(--rust);
-  overflow: hidden; white-space: nowrap;
-  padding: 0.85rem 0;
-  position: relative; z-index: 3;
-}
-.marquee-track {
-  display: inline-block;
-  animation: marquee 28s linear infinite;
-}
-.marquee-track:hover { animation-play-state: paused; }
-@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.marquee-item {
-  display: inline-block;
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
-  color: #fff; letter-spacing: 0.16em; text-transform: uppercase;
-  padding: 0 2.5rem;
-}
-.marquee-sep {
-  display: inline-block; color: rgba(255,255,255,0.45); padding: 0 0.5rem;
-  vertical-align: middle; font-size: 1rem;
-}
-
-/* ── SECTION BASE ── */
-.section { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; }
-
-.sec-eyebrow {
-  font-family: var(--sans); font-size: 0.68rem; font-weight: 700;
-  color: var(--rust); letter-spacing: 0.2em; text-transform: uppercase;
-  margin-bottom: 1rem; display: flex; align-items: center; gap: 0.9rem;
-}
-.sec-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--rust); }
-
-.sec-heading {
-  font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem);
-  font-weight: 700; line-height: 1.05; letter-spacing: -0.025em;
-  color: var(--ink); margin-bottom: 3.5rem;
-}
-.sec-heading em { font-style: italic; color: var(--rust); font-weight: 400; }
-
-/* ── ABOUT ── */
-#about { border-top: 1px solid var(--border); }
-.about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
-
-.about-text p {
-  font-family: var(--body); font-size: 1.12rem;
-  color: var(--ink-dim); line-height: 2;
-  margin-bottom: 1.5rem;
-}
-.about-text strong { color: var(--ink); font-weight: 500; }
-
-.skills-section { margin-top: 3rem; }
-.skills-label {
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
-  color: var(--gold); letter-spacing: 0.16em; text-transform: uppercase;
-  margin-bottom: 1.2rem;
-}
-.skills-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-.skill-tag {
-  font-family: var(--sans); font-size: 0.68rem; font-weight: 600;
-  color: var(--ink-dim); background: var(--surface-2);
-  border: 1px solid var(--border);
-  padding: 0.45rem 1rem; letter-spacing: 0.07em;
-  transition: all 0.2s; cursor: none;
-}
-.skill-tag:hover { border-color: var(--rust); color: var(--rust); background: rgba(192,67,42,0.05); }
-
-.about-visuals { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-.img-frame {
-  overflow: hidden; background: var(--surface);
-  border: 1px solid var(--border);
-  position: relative;
-}
-.img-frame.tall { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 3/4; }
-.img-frame.sq { aspect-ratio: 1; }
-.img-frame img {
-  width: 100%; height: 100%; object-fit: cover;
-  display: block;
-  will-change: transform;
-  transform: translateZ(0);
-  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  filter: grayscale(15%);
-}
-.img-frame:hover img { transform: scale(1.06) translateZ(0); filter: grayscale(0%); }
-.img-frame-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 1.5rem 1rem 0.8rem;
-  background: linear-gradient(transparent, rgba(250,248,244,0.88));
-  font-family: var(--sans); font-size: 0.6rem; font-weight: 600;
-  color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase;
-  transform: translateY(4px); opacity: 0; transition: all 0.3s;
-}
-.img-frame:hover .img-frame-label { opacity: 1; transform: none; }
-
-/* ── ACHIEVEMENTS ── */
-.ach-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.ach-inner { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; }
-
-.ach-year {
-  font-family: var(--serif); font-size: 6rem; font-weight: 900;
-  color: rgba(28,24,20,0.05); line-height: 1;
-  margin-bottom: 2rem; letter-spacing: -0.04em;
-  user-select: none;
-}
-
-.ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 1px; }
-.ach-item {
-  background: var(--surface);
-  padding: 2rem 2.2rem;
-  display: flex; gap: 1.4rem; align-items: flex-start;
-  transition: background 0.25s;
-  position: relative; overflow: hidden;
-}
-.ach-item::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 2px; background: var(--rust);
-  transform: scaleY(0); transform-origin: bottom;
-  transition: transform 0.35s;
-}
-.ach-item:hover { background: var(--bg); }
-.ach-item:hover::before { transform: scaleY(1); }
-
-.ach-icon {
-  flex-shrink: 0; width: 52px; height: 52px;
-  overflow: hidden; border-radius: 2px;
-  border: 1px solid var(--border);
-  /* Shimmer placeholder while image loads */
-  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
-  background-size: 200px 100%;
-  animation: shimmer 1.4s infinite;
-}
-.ach-icon img {
-  width: 100%; height: 100%; object-fit: cover;
-  display: block;
-  decoding: async;
-}
-
-.ach-badge {
-  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
-  color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-.ach-name {
-  font-family: var(--serif); font-size: 1.05rem; font-weight: 500;
-  color: var(--ink); line-height: 1.4; margin-bottom: 0.4rem;
-}
-.ach-desc {
-  font-family: var(--body); font-size: 0.9rem;
-  color: var(--ink-dim); line-height: 1.65;
-}
-
-/* ── PROJECTS ── */
-#projects { border-top: 1px solid var(--border); }
-
-.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-.proj-card {
-  background: var(--bg);
-  padding: 2.5rem 2rem;
-  position: relative; overflow: hidden;
-  transition: background 0.3s;
-  display: flex; flex-direction: column;
-}
-.proj-card::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 100%, var(--rust-glow), transparent 70%);
-  opacity: 0; transition: opacity 0.4s;
-  pointer-events: none;
-}
-.proj-card:hover { background: var(--surface); }
-.proj-card:hover::after { opacity: 1; }
-
-.proj-num {
-  font-family: var(--serif); font-size: 4rem; font-weight: 900;
-  color: rgba(28,24,20,0.05); line-height: 1;
-  margin-bottom: 1rem; letter-spacing: -0.04em;
-  user-select: none;
-}
-.proj-name {
-  font-family: var(--serif); font-size: 1.3rem; font-weight: 700;
-  color: var(--ink); margin-bottom: 0.7rem; line-height: 1.25;
-  transition: color 0.2s;
-}
-.proj-card:hover .proj-name { color: var(--rust); }
-.proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
-.proj-tag {
-  font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
-  color: var(--rust); background: rgba(192,67,42,0.08);
-  padding: 0.2rem 0.65rem; letter-spacing: 0.06em; text-transform: uppercase;
-}
-.proj-desc {
-  font-family: var(--body); font-size: 0.92rem; font-style: italic;
-  color: var(--ink-dim); line-height: 1.75;
-  flex: 1; margin-bottom: 1.6rem;
-}
-.proj-links { display: flex; gap: 1.2rem; margin-top: auto; }
-.proj-link {
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
-  color: var(--ink-dim); text-decoration: none;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  transition: color 0.2s;
-  display: flex; align-items: center; gap: 0.3rem;
-}
-.proj-link::after { content: '→'; }
-.proj-link:hover { color: var(--gold); }
-
-/* ── JOURNEY ── */
-.journey-section { background: var(--surface); border-top: 1px solid var(--border); }
-.journey-inner { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; }
-.journey-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 4rem; border: 1px solid var(--border); }
-.j-step {
-  padding: 3rem 2.5rem;
-  border-right: 1px solid var(--border);
-  position: relative; overflow: hidden;
-  transition: background 0.3s;
-}
-.j-step:last-child { border-right: none; }
-.j-step:hover { background: rgba(192,67,42,0.03); }
-.j-step::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 1px; background: var(--rust);
-  transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
-}
-.j-step:hover::after { transform: scaleX(1); }
-.j-num {
-  font-family: var(--serif); font-size: 5rem; font-weight: 900; font-style: italic;
-  color: rgba(28,24,20,0.05); line-height: 1; margin-bottom: 1.5rem;
-  user-select: none;
-}
-.j-title {
-  font-family: var(--serif); font-size: 1.25rem; font-weight: 700;
-  color: var(--ink); margin-bottom: 0.8rem;
-}
-.j-desc {
-  font-family: var(--body); font-size: 0.95rem;
-  color: var(--ink-dim); line-height: 1.8;
-}
-.j-link {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  margin-top: 1.2rem;
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
-  color: var(--rust); text-decoration: none; letter-spacing: 0.08em;
-  text-transform: uppercase; transition: color 0.2s;
-}
-.j-link:hover { color: var(--gold); }
-
-/* ── POETRY ── */
-#poetry { border-top: 1px solid var(--border); text-align: center; position: relative; overflow: hidden; }
-#poetry::before {
-  content: '"';
-  position: absolute; top: -2rem; left: 50%; transform: translateX(-50%);
-  font-family: var(--serif); font-size: 30rem; font-weight: 900;
-  color: rgba(28,24,20,0.025); line-height: 1;
-  pointer-events: none; user-select: none;
-}
-.poetry-quote {
-  font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.6rem);
-  font-style: italic; font-weight: 400;
-  color: var(--ink); line-height: 1.55;
-  max-width: 700px; margin: 0 auto 1.5rem;
-  position: relative; z-index: 1;
-}
-.poetry-byline {
-  font-family: var(--sans); font-size: 0.65rem; font-weight: 700;
-  color: var(--rust); letter-spacing: 0.15em; text-transform: uppercase;
-  margin-bottom: 2rem; position: relative; z-index: 1;
-}
-.poetry-body {
-  font-family: var(--body); font-size: 1.05rem;
-  color: var(--ink-dim); max-width: 480px;
-  margin: 0 auto 2.5rem; line-height: 1.85;
-  position: relative; z-index: 1;
-}
-
-/* ── CONTACT ── */
-.contact-section { background: var(--surface); border-top: 1px solid var(--border); }
-.contact-inner { max-width: 1280px; margin: 0 auto; padding: 9rem 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
-
-.c-intro {
-  font-family: var(--body); font-size: 1.05rem;
-  color: var(--ink-dim); line-height: 1.9; margin-bottom: 2.5rem;
-}
-
-.soc-links { display: flex; flex-direction: column; gap: 0.6rem; }
-.soc-link {
-  display: flex; align-items: center; gap: 1.2rem;
-  padding: 1rem 1.4rem;
-  border: 1px solid var(--border);
-  color: var(--ink-dim); text-decoration: none;
-  font-family: var(--body); font-size: 1rem; transition: all 0.25s;
-  position: relative; overflow: hidden;
-}
-.soc-link::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 2px; background: var(--rust);
-  transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s;
-}
-.soc-link:hover { border-color: var(--border-warm); color: var(--ink); background: rgba(192,67,42,0.04); }
-.soc-link:hover::before { transform: scaleY(1); }
-.soc-key {
-  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
-  color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase;
-  min-width: 75px;
-}
-
-.c-form { display: flex; flex-direction: column; gap: 1.2rem; }
-.c-group { display: flex; flex-direction: column; gap: 0.4rem; }
-.c-lbl {
-  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
-  color: rgba(28,24,20,0.35); letter-spacing: 0.12em; text-transform: uppercase;
-}
-.c-input, .c-textarea {
-  background: var(--bg); border: 1px solid var(--border);
-  color: var(--ink); padding: 0.9rem 1.1rem;
-  font-family: var(--body); font-size: 1rem; outline: none;
-  transition: border-color 0.2s; border-radius: 0;
-}
-.c-input::placeholder, .c-textarea::placeholder { color: rgba(28,24,20,0.22); }
-.c-input:focus, .c-textarea:focus { border-color: var(--rust); }
-.c-textarea { resize: vertical; min-height: 130px; }
-.c-submit {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
-  color: #fff; background: var(--rust);
-  padding: 1rem 2.2rem; border: none;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  cursor: none; transition: background 0.2s, transform 0.2s;
-  align-self: flex-start;
-  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-}
-.c-submit:hover { background: var(--gold); transform: translateY(-2px); }
-#form-ok {
-  display: none; font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
-  color: var(--gold); letter-spacing: 0.08em;
-}
-
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 2.5rem 6rem;
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-  background: var(--bg);
-}
-.foot-brand { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--ink); }
-.foot-brand span { color: var(--rust); }
-.foot-copy { font-family: var(--sans); font-size: 0.62rem; font-weight: 600; color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase; }
-
-/* ── IMAGE LOADING SHIMMER ── */
-@keyframes shimmer {
-  0% { background-position: -400px 0; }
-  100% { background-position: 400px 0; }
-}
-.img-frame {
-  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
-  background-size: 800px 100%;
-  animation: shimmer 1.4s infinite;
-}
-
-/* ── PERFORMANCE: defer paint for off-screen sections ── */
-#achievements, #projects, .journey-section, #poetry, .contact-section {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
-}
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.in { opacity: 1; transform: none; }
-.d1 { transition-delay: 0.12s; }
-.d2 { transition-delay: 0.24s; }
-.d3 { transition-delay: 0.36s; }
-.d4 { transition-delay: 0.48s; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  nav { padding: 1.2rem 1.8rem; }
-  nav.scrolled { padding: 0.9rem 1.8rem; }
-  .nav-links, .nav-cta { display: none; }
-  .hamburger { display: flex; }
-  #home { grid-template-columns: 1fr; }
-  .hero-left { padding: 9rem 1.8rem 4rem; }
-  .hero-right { min-height: 50vw; max-height: 60vw; }
-  .hero-float-label { display: none; }
-  .section { padding: 6rem 1.8rem; }
-  .about-layout { grid-template-columns: 1fr; gap: 3.5rem; }
-  .ach-inner, .journey-inner, .contact-inner { padding: 6rem 1.8rem; }
-  /* Force all ach-grids to single column on tablet — overrides any inline style */
-  .ach-grid, .ach-grid[style] { grid-template-columns: 1fr !important; }
-  .proj-grid { grid-template-columns: 1fr 1fr; }
-  .journey-steps { grid-template-columns: 1fr; }
-  .j-step { border-right: none; border-bottom: 1px solid var(--border); }
-  .j-step:last-child { border-bottom: none; }
-  .contact-inner { grid-template-columns: 1fr; gap: 4rem; }
-  footer { padding: 2rem 1.8rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-}
-
-@media (max-width: 600px) {
-  html { font-size: 16px; }
-  body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
-  nav { padding: 1rem 1.2rem; }
-  nav.scrolled { padding: 0.75rem 1.2rem; }
-  .mobile-menu { gap: 2rem; padding: 2rem; }
-  .mobile-menu a { font-size: 2rem; padding: 0.6rem 1rem; min-height: 44px; display: flex; align-items: center; }
-  /* Hero: stack text above, show image below as a short band */
-  #home { min-height: auto; padding-bottom: 0; display: flex; flex-direction: column; }
-  .hero-left { padding: 6.5rem 1.2rem 2rem; order: 1; }
-  .hero-right { order: 2; min-height: 52vw; max-height: 64vw; width: 100%; }
-  .hero-name { font-size: clamp(2.8rem, 12vw, 3.8rem); margin-bottom: 1.2rem; }
-  .hero-name-line2 { padding-left: 0.8rem; }
-  .hero-desc { font-size: 1rem; margin-bottom: 2rem; padding-left: 1rem; }
-  .hero-btns { gap: 0.75rem; margin-bottom: 2.5rem; }
-  /* Larger touch targets */
-  .btn-primary, .btn-outline { padding: 0.95rem 1.6rem; font-size: 0.68rem; min-height: 44px; }
-  .hero-stats { gap: 1.2rem; flex-wrap: wrap; }
-  .h-stat-n { font-size: 1.6rem; }
-  .section { padding: 4rem 1.2rem; }
-  .ach-inner, .journey-inner { padding: 4rem 1.2rem; }
-  .contact-inner { padding: 4rem 1.2rem; gap: 3rem; }
-  .sec-heading { font-size: clamp(1.6rem, 6.5vw, 2.2rem); margin-bottom: 2rem; }
-  /* About images: simple stacked single column */
-  .about-visuals { grid-template-columns: 1fr; gap: 0.6rem; }
-  .img-frame.tall { grid-column: 1; grid-row: auto; aspect-ratio: 16/9; }
-  .img-frame.sq { aspect-ratio: 16/9; }
-  /* Achievements */
-  .ach-year { font-size: 3rem; }
-  .ach-grid, .ach-grid[style] { grid-template-columns: 1fr !important; }
-  .ach-item { padding: 1.2rem 1rem; gap: 0.8rem; }
-  .ach-icon { width: 40px; height: 40px; flex-shrink: 0; }
-  .ach-badge { font-size: 0.58rem; }
-  .ach-name { font-size: 0.92rem; }
-  .ach-desc { font-size: 0.85rem; }
-  /* Projects */
-  .proj-grid { grid-template-columns: 1fr; }
-  .proj-card { padding: 1.6rem 1.1rem; }
-  .proj-num { font-size: 2.5rem; margin-bottom: 0.5rem; }
-  /* Journey */
-  .j-step { padding: 1.8rem 1.1rem; }
-  .j-num { font-size: 3rem; margin-bottom: 0.8rem; }
-  /* Touch targets for links */
-  .j-link, .proj-link, .soc-link { min-height: 44px; }
-  .soc-link { padding: 0.85rem 1rem; }
-  /* Poetry */
-  .poetry-quote { font-size: clamp(1.1rem, 5vw, 1.6rem); }
-  #poetry { padding-left: 1.2rem; padding-right: 1.2rem; }
-  /* Form */
-  .c-input, .c-textarea { font-size: 1rem; /* prevents iOS zoom */ }
-  .c-submit { width: 100%; text-align: center; align-self: stretch; cursor: pointer; min-height: 48px; }
-  footer { padding: 1.8rem 1.2rem; flex-direction: column; gap: 0.4rem; text-align: center; }
-  /* Skill tags: larger tap area */
-  .skill-tag { padding: 0.55rem 1rem; }
-}
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anusha Garg — Developer, Researcher, Writer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<nav id="nav">
-  <a href="#home" class="nav-logo">Anusha <span>Garg</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#achievements">Achievements</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#journey">Impact</a></li>
-    <li><a href="#poetry">Poetry</a></li>
+<nav>
+  <a href="index.html" class="nav-logo">Anusha Garg</a>
+  <ul>
+    <li><a href="about.html">About</a></li>
+    <li><a href="achievements.html">Achievements</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="book.html">Book</a></li>
+    <li><a href="poetry.html">Poetry</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get in touch</a>
-  <button class="hamburger" id="hbg" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">Dark</button>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
 </nav>
-
-<div class="mobile-menu" id="mmenu">
-  <a href="#about" onclick="closeMm()">About</a>
-  <a href="#achievements" onclick="closeMm()">Achievements</a>
-  <a href="#projects" onclick="closeMm()">Projects</a>
-  <a href="#journey" onclick="closeMm()">Impact</a>
-  <a href="#poetry" onclick="closeMm()">Poetry</a>
-  <a href="#contact" onclick="closeMm()">Contact</a>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About</a>
+  <a href="achievements.html">Achievements</a>
+  <a href="projects.html">Projects</a>
+  <a href="book.html">Book</a>
+  <a href="contact.html">Contact</a>
 </div>
-
-<main>
 
 <!-- HERO -->
-<section id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-left">
-    <div class="hero-tag">
-      <span class="hero-tag-dot"></span>
-      Poet · Developer · Changemaker
-    </div>
-    <h1 class="hero-name">
-      Anusha
-      <span class="hero-name-line2">Garg</span>
-    </h1>
-    <p class="hero-desc">
-      "Between the falling leaves of thought<br>
-      and the bare branches of code,<br>
-      I find the poem the world forgot<br>
-      and the interface it's always owed."
-    </p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn-primary">View My Work</a>
-      <a href="#contact" class="btn-outline">Get in Touch</a>
-    </div>
-    <div class="hero-stats">
-      <div class="h-stat">
-        <div class="h-stat-n">Top 50</div>
-        <div class="h-stat-l">UN Changemakers</div>
-      </div>
-      <div class="h-stat">
-        <div class="h-stat-n">2</div>
-        <div class="h-stat-l">Research Papers</div>
-      </div>
-      <div class="h-stat">
-        <div class="h-stat-n">1</div>
-        <div class="h-stat-l">Patent Filed</div>
-      </div>
-      <div class="h-stat">
-        <div class="h-stat-n">25+</div>
-        <div class="h-stat-l">Milestones</div>
-      </div>
-    </div>
+<div class="home-hero reveal">
+  <div class="home-hero-kicker">Based in Noida, India · IBDP Year 1</div>
+  <h1>Anusha<br/>Garg</h1>
+  <p class="home-hero-sub">
+    Student, developer, researcher, and writer building technology for social impact.
+    Currently exploring human-computer interaction.
+  </p>
+  <div class="home-hero-roles">
+    <span class="tag tag-accent">Front-End Developer</span>
+    <span class="tag">Researcher</span>
+    <span class="tag">Published Author</span>
+    <span class="tag">UN Top 50 Changemaker</span>
   </div>
-  <div class="hero-right">
-    <div class="hero-float-label">Portfolio 2025</div>
-    <div class="hero-img-wrap">
-      <img src="https://anushagarg.com/assets/ANUSHA.png" alt="Anusha Garg" loading="eager" fetchpriority="high" decoding="async" width="600" height="800" onerror="this.style.display='none'">
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-strip" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item">UN Geneva</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Top 50 Changemaker</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Samsung Solve for Tomorrow</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Patent Filed</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Best Paper Award</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">BIS Ambassador</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Top 500 India · School Youth Ideathon</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">CBSE Outstanding Performance</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Poet · Developer · Leader</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">UN Geneva</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Top 50 Changemaker</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Samsung Solve for Tomorrow</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Patent Filed</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Best Paper Award</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">BIS Ambassador</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Top 500 India · School Youth Ideathon</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">CBSE Outstanding Performance</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Poet · Developer · Leader</span><span class="marquee-sep">✦</span>
+  <div class="home-hero-cta">
+    <a href="projects.html" class="btn btn-dark">View Projects →</a>
+    <a href="about.html" class="btn btn-outline">About Me</a>
   </div>
 </div>
 
-<!-- ABOUT -->
-<section id="about" class="section">
-  <div class="about-layout">
-    <div>
-      <div class="sec-eyebrow reveal">About Me</div>
-      <h2 class="sec-heading reveal">The chapters<br>of <em>my story</em></h2>
-      <div class="about-text">
-        <p class="reveal">I am Anusha — a <strong>poet, researcher, and front-end developer</strong>. I work at the intersection of narrative and interface, combining creative writing with human-centered design to build meaningful digital experiences.</p>
-        <p class="reveal d1">My practice blends qualitative research, iterative prototyping, and thoughtful visual design. I founded <strong>Annadatri</strong>, a student-led initiative addressing food waste and malnutrition, and contribute to research programs emphasizing measurable social impact.</p>
-        <p class="reveal d2">I approach every project with curiosity, empathy, and a focus on accessibility — balancing poetic expression with practical engineering.</p>
-      </div>
-      <div class="skills-section reveal d3">
-        <div class="skills-label">Skills & Tools</div>
-        <div class="skills-list">
-          <span class="skill-tag">Creative Writing</span>
-          <span class="skill-tag">Front-End Dev</span>
-          <span class="skill-tag">HTML / CSS / JS</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">UI & Design</span>
-          <span class="skill-tag">Research</span>
-          <span class="skill-tag">Leadership</span>
-          <span class="skill-tag">Public Speaking</span>
-          <span class="skill-tag">German A2</span>
-        </div>
-      </div>
+<!-- STATS -->
+<div class="home-stats">
+  <div class="home-stats-inner">
+    <div class="reveal">
+      <div class="stat-num">Top 50</div>
+      <div class="stat-label">UN Changemakers — Geneva, 2025</div>
     </div>
-    <div>
-      <div class="about-visuals reveal">
-        <div class="img-frame tall">
-          <img src="https://anushagarg.com/assets/un geneva.png" alt="UN Geneva" loading="lazy" decoding="async" width="400" height="533">
-          <div class="img-frame-label">UN Geneva 2025</div>
-        </div>
-        <div class="img-frame sq">
-          <img src="https://anushagarg.com/assets/annadatri.png" alt="Annadatri" loading="lazy" decoding="async" width="300" height="300">
-          <div class="img-frame-label">Annadatri</div>
-        </div>
-        <div class="img-frame sq">
-          <img src="https://anushagarg.com/assets/poetry.png" alt="Poetry" loading="lazy" decoding="async" width="300" height="300">
-          <div class="img-frame-label">Poetry</div>
-        </div>
-      </div>
+    <div class="reveal">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Scopus-Indexed Research Papers</div>
     </div>
-  </div>
-</section>
-
-<!-- ACHIEVEMENTS -->
-<div class="ach-section" id="achievements">
-  <div class="ach-inner">
-    <div class="sec-eyebrow reveal" style="color:var(--gold);">Recognition</div>
-    <h2 class="sec-heading reveal">Milestones &amp;<br><em>achievements</em></h2>
-
-    <!-- ── 2025–26 ── -->
-    <div class="ach-year">2025–26</div>
-    <div class="ach-grid">
-
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/cwc.png" alt="" loading="eager" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">7 Nov 2025 · UN Geneva · Global</div>
-          <div class="ach-name">Top 50 Changemaker — 1M1B World Cup at UN Headquarters</div>
-          <div class="ach-desc">Named among the world's top 50 changemakers at the 9th Impact Summit at the United Nations, Geneva — selected from thousands after completing nine rigorous missions demonstrating leadership, creativity, and advocacy.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/un summit.png" alt="" loading="eager" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">7 Nov 2025 · 1M1B Impact Summit · UN Geneva</div>
-          <div class="ach-name">Youth Climate Diplomacy Delegate — 1.5 Matters</div>
-          <div class="ach-desc">Represented Mayoor School, Noida as a delegate at the 1.5 Matters Youth Climate Diplomacy programme, presenting research and recommendations on climate-related SDGs at the 9th 1M1B Impact Summit, United Nations Geneva.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d2">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/sft.png" alt="" loading="eager" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">Aug 2025 · Samsung · IIT Delhi</div>
-          <div class="ach-name">Top 40 Semi-Finalist — Samsung Solve for Tomorrow 2025</div>
-          <div class="ach-desc">Selected nationally for Annadatri Ahaavritti. Awarded ₹20,000 and a Samsung Galaxy Book 5 360. Certificate of Recognition issued by Samsung Southwest Asia &amp; IIT Delhi (FITT).</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d3">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/patent.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">Sep 2025 · Indian Patent Office</div>
-          <div class="ach-name">Patent Filed — Food Donor-Recipient Platform (No. 202511083538)</div>
-          <div class="ach-desc">Filed 02/09/2025 — "Method of Connecting Food Donors with Recipients Through Digital Platform." Field: Computer Science. Published 12/12/2025. Status: Awaiting Request for Examination.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/research award.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">28–29 Nov 2025 · I3CSET-2025 · Galgotias College</div>
-          <div class="ach-name">2nd Outstanding Presentation Award — Food Quality Monitoring System</div>
-          <div class="ach-desc">Won Second Outstanding Presentation Award for the paper "Food Quality Monitoring System for Remote Monitoring" at the International Conference on Computing, Communication and Sustainable Energy Technologies — Scopus-indexed, Taylor &amp; Francis, UK.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/i3cset.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">28–29 Nov 2025 · I3CSET-2025 · Scopus Indexed</div>
-          <div class="ach-name">Research Paper — Lightweight Flashcard Generator for STEM Education</div>
-          <div class="ach-desc">Second paper accepted and presented at I3CSET-2025: "Design and Implementation of a Lightweight Flashcard Generator for STEM Education." Both papers published in Scopus-indexed proceedings sponsored by Taylor &amp; Francis, UK.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d2">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/bis.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">27 Oct 2025 · Bureau of Indian Standards</div>
-          <div class="ach-name">BIS Ambassador of Quality</div>
-          <div class="ach-desc">Formally appreciated by the Bureau of Indian Standards, Noida Branch for exemplary contribution as Ambassador of Quality — promoting quality, standards, and consumer awareness through the Standards Club. Ref: NOBO/LOA/25-26.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d3">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/a2.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">15 Oct 2025 · Goethe-Institut · New Delhi</div>
-          <div class="ach-name">Goethe-Zertifikat A2 — 82/100 (Gut)</div>
-          <div class="ach-desc">Achieved German A2 certification with "gut" (good) grade. Reading 22.5/25 · Listening 20/25 · Writing 17.5/25 · Speaking 22/25. Certificate No. 1490-AA2J-0002551967.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/top500.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">18 Jan 2026 · IIT Delhi · National</div>
-          <div class="ach-name">Top 500 India — School Youth Ideathon 2025</div>
-          <div class="ach-desc">Selected among India's Top 500 teams at the School Youth Ideathon — India's largest school-level competition of ideas, organised by Tanla, Think Startup Foundation, MEPSC, and CBSE. Awarded at IIT Delhi.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/tinker tutor.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">26 Jul 2025 · TinkerTutor Ideathon</div>
-          <div class="ach-name">3rd Position — TinkerTutor Ideathon (School)</div>
-          <div class="ach-desc">Secured third place in recognition of exceptional innovation, technical expertise, and dedication at the TinkerTutor Ideathon for schools.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d2">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/bot.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">30 Jul 2025 · Mayoor School</div>
-          <div class="ach-name">3rd Position — Battle of Titans: Techtalk 2030</div>
-          <div class="ach-desc">Secured third position in the Battle of Titans inter-school technology competition (Techtalk 2030 event) at Mayoor School, Noida — session 2025–26.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d3">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/battle of logics.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">29 Apr 2025 · Mayoor School</div>
-          <div class="ach-name">3rd Position — Code Craft: Battle of Logics</div>
-          <div class="ach-desc">Secured third position in Code Craft: Battle of Logics at Mayoor School, Noida — Class X-H, session 2025–26.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/prototype.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">Jul 2025 · Project Zubaan</div>
-          <div class="ach-name">Content Writing Head &amp; Website Designer — Project Zubaan</div>
-          <div class="ach-desc">Selected as Content Writing Head and Website Designer (effective 12 Jul 2025) — responsible for blog posts, website design in collaboration with the Graphic Design Team, and leading the Content Writing Interns team.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/Elsevier.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">25 Jul 2025 · Elsevier Researcher Academy</div>
-          <div class="ach-name">Elsevier Researcher Academy — Data Publishing Practices</div>
-          <div class="ach-desc">Completed the module "Make Your Data Findable — It's Not FAIR! Improving Data Publishing Practices in Research" via Elsevier's Researcher Academy, presented by Katarzyna Biernacka &amp; Nina Kaun.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d2">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/mayoor.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">10–14 Jul 2025 · NIELIT Calicut · Online</div>
-          <div class="ach-name">Python for Beginners — NIELIT Certificate (No. OLC 37735)</div>
-          <div class="ach-desc">Completed the 5-day / 10-hour "Python for Beginners" course organised by the National Institute of Electronics and Information Technology (NIELIT) Calicut under the Chips to Startup Programme, Ministry of Electronics &amp; IT.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d3">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/poetry.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">9 May 2025 · Veyora</div>
-          <div class="ach-name">Participant — "Inked in Echoes" (Veyora)</div>
-          <div class="ach-desc">Participated in "Inked in Echoes," an arts and storytelling event organised by Veyora, celebrating the voice of art, rhythm, and poetry.</div>
-        </div>
-      </div>
-
-    </div><!-- end 2025-26 ach-grid -->
-
-    <!-- ── 2024 ── -->
-    <div class="ach-year" style="margin-top:3.5rem;">2024</div>
-    <div class="ach-grid">
-
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/cbse.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">2024–25 · CBSE · National</div>
-          <div class="ach-name">CBSE Outstanding Performance — Budding Authors Programme (English, Classes 9–10)</div>
-          <div class="ach-desc">Certificate of Merit from the Central Board of Secondary Education for outstanding performance in the CBSE Budding Authors Programme 2024–25 (English). Serial No. Acad/BAP/2024-25/0000533.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d1">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/24-25.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">8 Mar 2025 · Mayoor School</div>
-          <div class="ach-name">Certificate of Merit — Excellence in Academics (2024–25)</div>
-          <div class="ach-desc">Awarded by Mayoor School (in collaboration with Mayo College General Council, Ajmer) for excellence in academics — Class IX-H, session 2024–25.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d2">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/sci comp ix.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">25 Oct 2024 · Mayoor School</div>
-          <div class="ach-name">3rd Position — Inter-House Science Competition "Inquisitive Innovators"</div>
-          <div class="ach-desc">Secured third position in the Inter-House Science Competition "Inquisitive Innovators" at Mayoor School, Noida — Class IX-H, session 2024–25.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal d3">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/bal bharti mun.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">May 2024 · Diplomatic</div>
-          <div class="ach-name">Model United Nations</div>
-          <div class="ach-desc">Demonstrated diplomatic skills and global policy engagement at MUN.</div>
-        </div>
-      </div>
-
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/ac memorial.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">2024 · Cambridge School, Srinivaspuri</div>
-          <div class="ach-name">Participant — 32nd A.C. Deb Memorial Interschool Oration Contest</div>
-          <div class="ach-desc">Represented Mayoor School, Noida (Class IX) at the 32nd A.C. Deb Memorial Interschool Oration Contest held at Cambridge School, Srinivaspuri.</div>
-        </div>
-      </div>
-
-    </div><!-- end 2024 ach-grid -->
-
-    <!-- ── 2023 ── -->
-    <div class="ach-year" style="margin-top:3.5rem;">2023</div>
-    <div class="ach-grid" style="grid-template-columns:1fr 1fr;">
-
-      <div class="ach-item reveal">
-        <div class="ach-icon"><img src="https://raw.githubusercontent.com/pxrple6/anushagarg.com/main/assets/a2.png" alt="" loading="lazy" decoding="async" width="52" height="52" onerror="this.parentElement.style.display='none'"></div>
-        <div>
-          <div class="ach-badge">16 Oct 2023 · Goethe-Institut · New Delhi</div>
-          <div class="ach-name">Goethe-Zertifikat A1: Fit in Deutsch 1 — 53/60 (Sehr Gut)</div>
-          <div class="ach-desc">Achieved German A1 certification with "sehr gut" (very good) grade. Listening 16.5/18 · Reading 9/12 · Writing 10/12 · Speaking 17/18. Certificate No. 1490-AFA1-0001590059.</div>
-        </div>
-      </div>
-
-    </div><!-- end 2023 ach-grid -->
-
+    <div class="reveal">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Filed Patent — Indian Patent Office</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-num">Top 40</div>
+      <div class="stat-label">Samsung Solve for Tomorrow — IIT Delhi</div>
+    </div>
   </div>
 </div>
 
-<!-- PROJECTS -->
-<section id="projects" class="section">
-  <div class="sec-eyebrow reveal">Work</div>
-  <h2 class="sec-heading reveal">Projects &amp;<br><em>experiments</em></h2>
-  <div class="proj-grid reveal">
-    <div class="proj-card">
-      <div class="proj-num">01</div>
-      <div class="proj-name">Annadatri Initiative</div>
-      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">Firebase</span><span class="proj-tag">Styled Components</span></div>
-      <p class="proj-desc">Official website for my student-led initiative bridging food waste and malnutrition — spreading awareness and gathering support for a zero-hunger community.</p>
-      <div class="proj-links">
-        <a href="https://www.annadatri.in/" class="proj-link" target="_blank">Live Site</a>
-        <a href="https://github.com/pxrple6/ProjectA" class="proj-link" target="_blank">GitHub</a>
+<!-- FEATURED PROJECT -->
+<div class="home-section">
+  <div class="home-section-header reveal">
+    <div>
+      <div class="label">Flagship Initiative</div>
+      <h2>Annadatri & Ahaavritti</h2>
+    </div>
+    <a href="projects.html" class="btn btn-outline" style="flex-shrink:0;">All Projects →</a>
+  </div>
+
+  <div class="flagship reveal">
+    <div>
+      <div class="flagship-label">Founded 2024 · Ongoing</div>
+      <h2>Bridging food waste and malnutrition — from a classroom to the UN.</h2>
+      <p>
+        Annadatri is a student-led initiative I founded to connect surplus food with
+        NGOs in real-time. The technology platform, Ahaavritti, is built with React and
+        Firebase, and became the subject of a filed patent and two Scopus-indexed papers.
+      </p>
+      <p>
+        Recognised in the Top 40 of Samsung Solve for Tomorrow at IIT Delhi and presented
+        at the United Nations in Geneva, where I was named a Top 50 Global Changemaker.
+      </p>
+      <div class="flagship-links">
+        <a href="https://www.annadatri.in/" target="_blank" class="btn btn-dark">Visit Annadatri.in ↗</a>
+        <a href="https://github.com/pxrple6/ProjectA" target="_blank" class="btn btn-outline">GitHub ↗</a>
       </div>
     </div>
-    <div class="proj-card">
+    <div class="flagship-highlights">
+      <div class="hl-item">
+        <div class="hl-dot"></div>
+        <div>
+          <div class="hl-title">Patent Filed</div>
+          <div class="hl-desc">Indian Patent Office · No. 202511083538 · Dec 2025</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-dot"></div>
+        <div>
+          <div class="hl-title">2 Scopus-Indexed Papers</div>
+          <div class="hl-desc">I3CSET-2025 · Taylor & Francis, UK · Best Paper Award</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-dot"></div>
+        <div>
+          <div class="hl-title">Samsung Solve for Tomorrow</div>
+          <div class="hl-desc">Top 40 of 20,000+ · ₹3,08,559 in prizes · IIT Delhi</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-dot"></div>
+        <div>
+          <div class="hl-title">United Nations · Geneva</div>
+          <div class="hl-desc">Top 50 Changemakers Globally · 9th 1M1B Impact Summit</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-dot"></div>
+        <div>
+          <div class="hl-title">Stack</div>
+          <div class="hl-desc">React · Firebase · Styled Components</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OTHER PROJECTS -->
+<div class="home-section" style="padding-top:0;">
+  <div class="home-section-header reveal">
+    <div>
+      <div class="label">Other Projects</div>
+      <h2>Things I've built</h2>
+    </div>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card reveal">
       <div class="proj-num">02</div>
-      <div class="proj-name">AI Flashcards &amp; Mind Maps</div>
-      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">OpenAI API</span><span class="proj-tag">jsPDF</span></div>
-      <p class="proj-desc">Generates AI-powered flashcards and mind maps from text. Exports in PDF, TXT, and CSV formats for easy studying and retention.</p>
-      <div class="proj-links">
-        <a href="https://github.com/pxrple6/ai-flash-cards" class="proj-link" target="_blank">GitHub</a>
+      <div class="proj-card-title">AI Flashcards & Mind Maps</div>
+      <div class="proj-tags">
+        <span class="tag">React</span><span class="tag">OpenAI API</span><span class="tag">jsPDF</span>
       </div>
+      <p class="proj-card-desc">Generates AI-powered flashcards and mind maps from any input text. Exports in PDF, TXT, and CSV. Featured in a Scopus-indexed STEM education paper.</p>
+      <div class="proj-links"><a href="https://github.com/pxrple6/ai-flash-cards" target="_blank" class="proj-link">GitHub ↗</a></div>
     </div>
-    <div class="proj-card">
+    <div class="proj-card reveal">
       <div class="proj-num">03</div>
-      <div class="proj-name">Invisible Air Guitar</div>
-      <div class="proj-tags"><span class="proj-tag">MediaPipe</span><span class="proj-tag">Web Audio API</span><span class="proj-tag">JS</span></div>
-      <p class="proj-desc">Browser-based app using MediaPipe Hands for real-time hand tracking and the Web Audio API to synthesize guitar sounds mid-air.</p>
+      <div class="proj-card-title">Invisible Air Guitar</div>
+      <div class="proj-tags">
+        <span class="tag">MediaPipe</span><span class="tag">Web Audio API</span><span class="tag">JavaScript</span>
+      </div>
+      <p class="proj-card-desc">Real-time hand tracking via MediaPipe to synthesize guitar sounds mid-air in the browser. No instruments, no latency — just hands and code.</p>
       <div class="proj-links">
-        <a href="https://pxrple6.github.io/Invisible-Guitar-/" class="proj-link" target="_blank">Live Demo</a>
-        <a href="https://github.com/pxrple6/Invisible-Guitar-" class="proj-link" target="_blank">GitHub</a>
-      </div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-num">04</div>
-      <div class="proj-name">Constellations</div>
-      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">D3</span><span class="proj-tag">Astronomy API</span></div>
-      <p class="proj-desc">Identifies constellations in the night sky using an astronomy API, displayed in interactive graphs by longitude, latitude, and date.</p>
-      <div class="proj-links"><span class="proj-link" style="opacity:0.3;pointer-events:none;cursor:default">In development</span></div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-num">05</div>
-      <div class="proj-name">Personal Portfolio</div>
-      <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span></div>
-      <p class="proj-desc">This very site — a digital scrapbook merging poetic sensibility with clean frontend engineering and attention to craft.</p>
-      <div class="proj-links">
-        <a href="https://github.com/pxrple6/anushagarg.com" class="proj-link" target="_blank">GitHub</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- JOURNEY -->
-<div class="journey-section" id="journey">
-  <div class="journey-inner">
-    <div class="sec-eyebrow reveal">Impact</div>
-    <h2 class="sec-heading reveal">From classroom<br>to <em>the United Nations</em></h2>
-    <div class="journey-steps">
-      <div class="j-step reveal">
-        <div class="j-num">01</div>
-        <div class="j-title">Founding Annadatri</div>
-        <p class="j-desc">Launched in 2024 — a student-led initiative to bridge food waste and malnutrition. The seed of a mission to build a zero-hunger community.</p>
-        <a href="http://www.annadatri.in" class="j-link" target="_blank">Visit Annadatri</a>
-      </div>
-      <div class="j-step reveal d1">
-        <div class="j-num">02</div>
-        <div class="j-title">Ahaarvritti — The Tech Solution</div>
-        <p class="j-desc">Built a web app connecting food donors directly with NGOs in real-time. Recognized in the Top 40 of Samsung Solve for Tomorrow at IIT Delhi.</p>
-      </div>
-      <div class="j-step reveal d2">
-        <div class="j-num">03</div>
-        <div class="j-title">UN Geneva — Global Stage</div>
-        <p class="j-desc">Recognized as one of the World's Top 50 Changemakers at the 9th 1M1B Impact Summit at the United Nations Headquarters, Geneva, Switzerland.</p>
-        <a href="https://timesofindia.indiatimes.com/education/campus-talks/noida-school-shines-at-un-summit-only-up-school-among-global-top-8/articleshow/125972380.cms" class="j-link" target="_blank">Times of India Feature</a>
+        <a href="https://pxrple6.github.io/Invisible-Guitar-/" target="_blank" class="proj-link">Live Demo ↗</a>
+        <a href="https://github.com/pxrple6/Invisible-Guitar-" target="_blank" class="proj-link">GitHub ↗</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- POETRY -->
-<section id="poetry" class="section poetry-sec">
-  <div class="sec-eyebrow reveal" style="justify-content:center;">Poetry & Writing</div>
-  <blockquote class="poetry-quote reveal">
-    "I write where leaves fall — in the space between seasons, between a line of code and a line of verse."
-  </blockquote>
-  <div class="poetry-byline reveal d1">— Anusha Garg</div>
-  <p class="poetry-body reveal d2">I write regularly, workshopping with peers and exploring forms that connect personal reflection to broader social themes. Poetry, for me, is another kind of interface design.</p>
-  <div style="display:flex;justify-content:center;" class="reveal d3">
-    <a href="https://anushagarg.com/poems.html" class="btn-primary">Read All Poems</a>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<div class="contact-section" id="contact">
-  <div class="contact-inner">
+<!-- WRITING TEASER -->
+<div class="home-section" style="padding-top:0;">
+  <div class="home-section-header reveal">
     <div>
-      <div class="sec-eyebrow reveal" style="color:var(--gold);">Contact</div>
-      <h2 class="sec-heading reveal">Let's create<br><em>something beautiful</em></h2>
-      <p class="c-intro reveal">Open to collaborations, research partnerships, speaking engagements, and conversations about poetry, technology, or social impact.</p>
-      <div class="soc-links">
-        <a href="https://www.linkedin.com/in/anushagarg6/" class="soc-link reveal" target="_blank">
-          <span class="soc-key">LinkedIn</span>Anusha Garg
-        </a>
-        <a href="/cdn-cgi/l/email-protection#0b6a657e78636a6c6a796c256864657f6a687f4b6c666a626725686466" class="soc-link reveal d1">
-          <span class="soc-key">Email</span><span class="__cf_email__" data-cfemail="1e7f706b6d767f797f6c79307d71706a7f7d6a5e79737f7772307d7173">[email&#160;protected]</span>
-        </a>
-        <a href="https://github.com/pxrple6" class="soc-link reveal d2" target="_blank">
-          <span class="soc-key">GitHub</span>@pxrple6
-        </a>
-        <a href="https://www.instagram.com/garganusha_/" class="soc-link reveal d3" target="_blank">
-          <span class="soc-key">Instagram</span>@garganusha_
-        </a>
-      </div>
+      <div class="label">Writing</div>
+      <h2>The Slice I Never Shared</h2>
     </div>
-    <div>
-      <form class="c-form" onsubmit="doSubmit(event)">
-        <div class="c-group reveal"><label class="c-lbl">Your name</label><input type="text" class="c-input" placeholder="Jane Smith" required></div>
-        <div class="c-group reveal d1"><label class="c-lbl">Email address</label><input type="email" class="c-input" placeholder="jane@example.com" required></div>
-        <div class="c-group reveal d2"><label class="c-lbl">Message</label><textarea class="c-textarea" placeholder="Tell me about your idea or collaboration..." required></textarea></div>
-        <div style="display:flex;gap:1rem;align-items:center;" class="reveal d3">
-          <button type="submit" class="c-submit">Send Message</button>
-          <div id="form-ok">Message sent! I'll be in touch soon.</div>
-        </div>
-      </form>
+    <a href="book.html" class="btn btn-outline" style="flex-shrink:0;">About the Book →</a>
+  </div>
+  <div class="card reveal" style="max-width:640px;">
+    <p style="font-size:0.88rem;line-height:1.8;color:var(--body);margin-bottom:1.25rem;">
+      My debut collection, published in 2025. Raw, personal, and lyrical — the kind of writing
+      that makes you feel less alone. Available on Amazon India.
+    </p>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <a href="https://www.amazon.in/-/hi/Anusha/dp/9349168014/" target="_blank" class="btn btn-dark">Order on Amazon ↗</a>
+      <a href="poetry.html" class="btn btn-outline">Read Poems</a>
     </div>
   </div>
 </div>
-
-</main>
 
 <footer>
-  <span class="foot-brand">Anusha <span>Garg</span></span>
-  <span class="foot-copy">© 2026 · Poet & Developer · Noida, India</span>
-  <span class="foot-copy">Made with words & code</span>
+  <div class="inner footer-inner">
+    <div>
+      <div class="footer-name">Anusha Garg</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:0.25rem;">Developer · Researcher · Writer · Noida, India</div>
+    </div>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="projects.html">Projects</a>
+      <a href="book.html">Book</a>
+      <a href="poetry.html">Poetry</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/anushagarg6/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/pxrple6" target="_blank">GitHub</a>
+      <a href="https://www.instagram.com/garganusha_/" target="_blank">Instagram</a>
+    </div>
+    <div class="footer-copy">© 2026 Anusha Garg</div>
+  </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script>
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
-function animateRing() { rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
-animateRing();
-document.querySelectorAll('a, button, .skill-tag, .proj-card, .ach-item').forEach(el => {
-  el.addEventListener('mouseenter', () => { cursor.style.width = '16px'; cursor.style.height = '16px'; ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(184,134,46,0.5)'; });
-  el.addEventListener('mouseleave', () => { cursor.style.width = '9px'; cursor.style.height = '9px'; ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(192,67,42,0.35)'; });
-});
-window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30); });
-const hbg = document.getElementById('hbg');
-const mm = document.getElementById('mmenu');
-hbg.addEventListener('click', () => { hbg.classList.toggle('open'); mm.classList.toggle('open'); });
-function closeMm() { hbg.classList.remove('open'); mm.classList.remove('open'); }
-const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
-}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-function doSubmit(e) { e.preventDefault(); document.getElementById('form-ok').style.display = 'block'; e.target.reset(); }
-
-// Stop shimmer animation once images are loaded
-document.querySelectorAll('.img-frame img, .ach-icon img').forEach(img => {
-  const stop = () => {
-    const p = img.parentElement;
-    p.style.animation = 'none';
-    p.style.backgroundImage = 'none';
-    p.style.background = 'var(--surface)';
-  };
-  if (img.complete && img.naturalWidth) stop();
-  else img.addEventListener('load', stop);
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>
