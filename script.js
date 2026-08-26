@@ -42,11 +42,11 @@ function updateThemeIcon() {
 
   const NORMAL_FAVICON = drawFavicon((ctx) => {
     ctx.fillStyle = '#c53e7f';
-    ctx.beginPath();
-    ctx.roundRect(4, 4, 56, 56, 14);
-    ctx.fill();
+    ctx.fillRect(4, 4, 56, 56);
+    ctx.fillStyle = '#181425';
+    ctx.fillRect(4, 4, 56, 6);
     ctx.fillStyle = '#ffffff';
-    ctx.font = '700 32px Manrope, Inter, sans-serif';
+    ctx.font = '700 28px monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('A', 32, 35);
@@ -54,9 +54,7 @@ function updateThemeIcon() {
 
   const AWAY_FAVICON = drawFavicon((ctx) => {
     ctx.fillStyle = '#1a1a1a';
-    ctx.beginPath();
-    ctx.roundRect(4, 4, 56, 56, 14);
-    ctx.fill();
+    ctx.fillRect(4, 4, 56, 56);
     ctx.font = '34px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -172,19 +170,6 @@ if (!reducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').ma
     btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
   });
 
-  document.querySelectorAll('.proj-card, .poem-card, .card').forEach(card => {
-    const onMove = rafThrottle((e) => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width;
-      const py = (e.clientY - r.top) / r.height;
-      const rx = (0.5 - py) * 6;
-      const ry = (px - 0.5) * 6;
-      card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
-    });
-    card.addEventListener('mousemove', onMove);
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-  });
-
   document.querySelectorAll('.home-hero, .page-hero, .flagship').forEach(el => {
     el.classList.add('spotlight');
     const onMove = rafThrottle((e) => {
@@ -197,15 +182,39 @@ if (!reducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').ma
 }
 
 function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
+  const menu = document.getElementById('mobileMenu');
+  const button = document.querySelector('.hamburger');
+  const open = menu.classList.toggle('open');
+  if (button) {
+    button.setAttribute('aria-expanded', String(open));
+    button.textContent = open ? '×' : '☰';
+  }
 }
 
 document.querySelectorAll('nav ul a, .mobile-menu a').forEach(link => {
   if (link.href === window.location.href) link.classList.add('active');
 });
 
+// External links open safely without giving the new tab access to this page.
+document.querySelectorAll('a[target="_blank"]').forEach(link => {
+  link.rel = 'noopener noreferrer';
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   updateThemeIcon();
+
+  const menu = document.getElementById('mobileMenu');
+  const hamburger = document.querySelector('.hamburger');
+  if (menu) menu.setAttribute('aria-label', 'Mobile navigation');
+  if (hamburger && menu) {
+    if (!menu.id) menu.id = 'mobileMenu';
+    hamburger.setAttribute('aria-controls', menu.id);
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+  }
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu && menu.classList.contains('open')) toggleMenu();
+  });
 
   const form = document.getElementById('contactForm');
   if (form) {
