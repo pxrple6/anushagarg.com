@@ -1,0 +1,7 @@
+.home-hero { padding-right: clamp(310px, 31vw, 500px); }
+.hero-portrait { position: absolute; right: clamp(35px, 7vw, 110px); bottom: 11%; z-index: 2; width: clamp(220px, 23vw, 340px); margin: 0; }
+.hero-portrait::before { content: ""; position: absolute; inset: 16px -16px -16px 16px; border: 1px solid var(--rose); border-radius: 48% 48% 18px 18px; }
+.hero-portrait img { display: block; position: relative; width: 100%; max-height: 440px; object-fit: cover; object-position: center top; border-radius: 48% 48% 18px 18px; filter: grayscale(.15) sepia(.08); background: var(--paper2); }
+.hero-portrait figcaption { position: relative; margin-top: 18px; font: 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-align: center; }
+@media (max-width: 1100px) { .home-hero { padding-right: clamp(240px, 31vw, 340px); } .hero-portrait { right: 30px; width: 220px; } }
+@media (max-width: 720px) { .home-hero { padding-right: 24px; padding-bottom: 390px; align-items: flex-start; } .hero-portrait { left: 24px; right: auto; bottom: 70px; width: 210px; } .home-hero .network { bottom: 0; top: auto; } }
