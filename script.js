@@ -1,3 +1,4 @@
+// ── Theme toggle (dark/light, persistent) ──────────────────
 (function() {
   const saved = localStorage.getItem('theme');
   if (saved) {
@@ -23,64 +24,7 @@ function updateThemeIcon() {
   btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
 }
 
-/* ─── "COME BACK" TAB TITLE + FAVICON ────────────────────────
-   Swaps the tab title and favicon whenever someone tabs away,
-   and restores both the moment they return. */
-(function () {
-  const ORIGINAL_TITLE = document.title;
-  const AWAY_TITLE = ':( im still here';
-
-  function drawFavicon(paint) {
-    const canvas = document.createElement('canvas');
-    canvas.width = 64;
-    canvas.height = 64;
-    const ctx = canvas.getContext('2d');
-    if (!ctx || !ctx.roundRect) return null;
-    paint(ctx);
-    return canvas.toDataURL('image/png');
-  }
-
-  const NORMAL_FAVICON = drawFavicon((ctx) => {
-    ctx.fillStyle = '#c53e7f';
-    ctx.fillRect(4, 4, 56, 56);
-    ctx.fillStyle = '#181425';
-    ctx.fillRect(4, 4, 56, 6);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '700 28px monospace';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('A', 32, 35);
-  });
-
-  const AWAY_FAVICON = drawFavicon((ctx) => {
-    ctx.fillStyle = '#1a1a1a';
-    ctx.fillRect(4, 4, 56, 56);
-    ctx.font = '34px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('🥺', 32, 36);
-  });
-
-  let favicon = document.querySelector('link[rel="icon"]');
-  if (!favicon) {
-    favicon = document.createElement('link');
-    favicon.rel = 'icon';
-    document.head.appendChild(favicon);
-  }
-  if (NORMAL_FAVICON) favicon.href = NORMAL_FAVICON;
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      document.title = AWAY_TITLE;
-      if (AWAY_FAVICON) favicon.href = AWAY_FAVICON;
-    } else {
-      document.title = ORIGINAL_TITLE;
-      if (NORMAL_FAVICON) favicon.href = NORMAL_FAVICON;
-    }
-  });
-})();
-
-/* ─── SCROLL-TRIGGERED REVEALS ────────────────────────────── */
+// ── Scroll reveal ──────────────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -91,131 +35,21 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ─── READING PROGRESS BAR ────────────────────────────────── */
-const progressBar = document.createElement('div');
-progressBar.className = 'scroll-progress';
-document.body.prepend(progressBar);
-
-function updateScrollProgress() {
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
-  progressBar.style.width = pct + '%';
-}
-let progressTicking = false;
-window.addEventListener('scroll', () => {
-  if (!progressTicking) {
-    progressTicking = true;
-    requestAnimationFrame(() => { updateScrollProgress(); progressTicking = false; });
-  }
-}, { passive: true });
-updateScrollProgress();
-
-/* ─── SEAMLESS PAGE TRANSITIONS ───────────────────────────────
-   Fades the page out before internal navigation instead of the
-   usual instant white flash of a static multi-page site. Leaves
-   external links, downloads, mailto/tel, and anchors untouched. */
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function isTransitionableLink(link) {
-  const href = link.getAttribute('href');
-  if (!href) return false;
-  if (link.hasAttribute('download')) return false;
-  if (link.target && link.target !== '_self') return false;
-  if (/^([a-z]+:)?\/\//i.test(href)) return false;
-  if (/^(mailto:|tel:|#)/i.test(href)) return false;
-  if (/\.(pdf|png|jpe?g|zip|gif|svg)$/i.test(href)) return false;
-  return true;
-}
-
-if (!reducedMotion) {
-  document.querySelectorAll('a[href]').forEach(link => {
-    if (!isTransitionableLink(link)) return;
-    link.addEventListener('click', (e) => {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      const dest = link.getAttribute('href');
-      e.preventDefault();
-      document.body.classList.add('page-exit');
-      window.setTimeout(() => { window.location.href = dest; }, 260);
-    });
-  });
-}
-window.addEventListener('pageshow', () => {
-  document.body.classList.remove('page-exit');
-});
-
-/* ─── POINTER-ONLY MICRO-INTERACTIONS ─────────────────────────
-   Magnetic buttons, tilting cards, and an ambient cursor
-   spotlight in the hero/flagship panels. Skipped entirely on
-   touch devices and when reduced motion is requested. */
-function rafThrottle(fn) {
-  let ticking = false;
-  return function (...args) {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(() => { fn.apply(this, args); ticking = false; });
-    }
-  };
-}
-
-if (!reducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-
-  document.querySelectorAll('.btn').forEach(btn => {
-    const onMove = rafThrottle((e) => {
-      const r = btn.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width / 2) * 0.2;
-      const y = (e.clientY - r.top - r.height / 2) * 0.3;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
-    });
-    btn.addEventListener('mousemove', onMove);
-    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
-  });
-
-  document.querySelectorAll('.home-hero, .page-hero, .flagship').forEach(el => {
-    el.classList.add('spotlight');
-    const onMove = rafThrottle((e) => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty('--spot-x', ((e.clientX - r.left) / r.width) * 100 + '%');
-      el.style.setProperty('--spot-y', ((e.clientY - r.top) / r.height) * 100 + '%');
-    });
-    el.addEventListener('mousemove', onMove);
-  });
-}
-
+// ── Mobile menu ────────────────────────────────────────────
 function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const button = document.querySelector('.hamburger');
-  const open = menu.classList.toggle('open');
-  if (button) {
-    button.setAttribute('aria-expanded', String(open));
-    button.textContent = open ? '×' : '☰';
-  }
+  document.getElementById('mobileMenu').classList.toggle('open');
 }
 
+// ── Active nav link ────────────────────────────────────────
 document.querySelectorAll('nav ul a, .mobile-menu a').forEach(link => {
   if (link.href === window.location.href) link.classList.add('active');
 });
 
-// External links open safely without giving the new tab access to this page.
-document.querySelectorAll('a[target="_blank"]').forEach(link => {
-  link.rel = 'noopener noreferrer';
-});
-
+// ── Init on DOM ready ──────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   updateThemeIcon();
 
-  const menu = document.getElementById('mobileMenu');
-  const hamburger = document.querySelector('.hamburger');
-  if (menu) menu.setAttribute('aria-label', 'Mobile navigation');
-  if (hamburger && menu) {
-    if (!menu.id) menu.id = 'mobileMenu';
-    hamburger.setAttribute('aria-controls', menu.id);
-    hamburger.setAttribute('aria-expanded', 'false');
-    hamburger.setAttribute('aria-label', 'Toggle navigation menu');
-  }
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menu && menu.classList.contains('open')) toggleMenu();
-  });
-
+  // Contact form (static fallback)
   const form = document.getElementById('contactForm');
   if (form) {
     form.addEventListener('submit', e => {
@@ -225,3 +59,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ── Bookmark ribbon: grows as you read down the page ───────
+(function () {
+  const ribbon = document.createElement('div');
+  ribbon.className = 'bookmark';
+  ribbon.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(ribbon);
+  let ticking = false;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    ribbon.style.setProperty('--read', max > 0 ? Math.min(1, window.scrollY / max).toFixed(3) : 0);
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+
+// ── Hero book leans toward the cursor ──────────────────────
+(function () {
+  const hero = document.querySelector('.home-hero');
+  const book = document.querySelector('.hb');
+  if (!hero || !book || window.matchMedia('(hover: none)').matches) return;
+  hero.addEventListener('mousemove', e => {
+    const r = book.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+    const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+    book.style.setProperty('--ry', (-18 + dx * 30).toFixed(1) + 'deg');
+    book.style.setProperty('--rx', (-dy * 16).toFixed(1) + 'deg');
+  });
+  hero.addEventListener('mouseleave', () => {
+    book.style.removeProperty('--ry');
+    book.style.removeProperty('--rx');
+  });
+})();
+
+// ── Project shelf: pull a book to read about it ────────────
+(function () {
+  const tabs = [...document.querySelectorAll('.ps-row [role="tab"]')];
+  if (!tabs.length) return;
+  const select = tab => {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  };
+  tabs.forEach((tab, i) => {
+    tab.tabIndex = i === 0 ? 0 : -1;
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', e => {
+      const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      const next = tabs[(i + step + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+})();
