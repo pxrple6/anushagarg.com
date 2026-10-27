@@ -20,11 +20,11 @@
   const pick = arr => arr[Math.floor(rand() * arr.length)];
 
   const cloth = [
-    '#6E2620', '#2C4234', '#22304A', '#9C7434', '#8E5E52', '#CFC0A2',
-    '#335A5C', '#4E3142', '#7A4E32', '#454E57', '#5C5B33', '#86402C',
-    '#1D2722', '#9A917A', '#3F2D25', '#5B1E1B', '#283A2C'
+    '#8E1F4F', '#2C4234', '#22304A', '#C7708F', '#6B3A5B', '#F1CFDB',
+    '#335A5C', '#4E3142', '#A34A72', '#454E57', '#7D5A86', '#5E1F3E',
+    '#1D2722', '#D9A3B8', '#3A2236', '#6E2648', '#283A2C'
   ];
-  const lightCloth = ['#CFC0A2', '#9A917A', '#9C7434'];
+  const lightCloth = ['#F1CFDB', '#D9A3B8', '#C7708F'];
   const titles = [
     'Poems', 'Annadatri', 'Geneva', 'Field Notes', 'Deutsch A2', 'Code Craft',
     'Constellations', 'Letters', 'Air Guitar', 'Ahaar', 'Climate', 'Essays',
@@ -49,8 +49,8 @@
     el.style.setProperty('--c', color);
     if (rand() < 0.55) el.style.setProperty('--band', (3 + Math.floor(rand() * 5)) + 'px');
     if (lightCloth.includes(color)) {
-      el.style.setProperty('--t', 'rgba(40,28,20,0.75)');
-      el.style.setProperty('--foil', 'rgba(60,40,25,0.45)');
+      el.style.setProperty('--t', 'rgba(50,18,36,0.75)');
+      el.style.setProperty('--foil', 'rgba(70,25,50,0.45)');
     }
     if (variant !== false) {
       const r = rand();
@@ -110,7 +110,7 @@
         continue;
       }
       if (!placedTarget && frac >= cfg.target) {
-        target = makeSpine(Math.round(shelfH * 0.9), small ? 30 : 38, '#7C2A25', 'Anusha Garg', false);
+        target = makeSpine(Math.round(shelfH * 0.9), small ? 30 : 38, '#8E1F4F', 'Anusha Garg', false);
         target.style.setProperty('--band', '4px');
         target.classList.add('target');
         shelf.appendChild(target);
@@ -244,7 +244,7 @@
     // 5. the words fade, the page fills the screen, the site is underneath
     book.querySelector('.p-inner').style.opacity = '0';
     book.querySelector('.b-page').animate(
-      [{ backgroundColor: '#F4EFE6' }, { backgroundColor: siteBg }],
+      [{ backgroundColor: '#FBF1F4' }, { backgroundColor: siteBg }],
       { duration: 800, easing: 'ease-in', fill: 'forwards' });
     const Z = Math.max(vw / BW, vh / BH) * 1.2;
     await book.animate([
